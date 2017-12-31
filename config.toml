@@ -1,4 +1,4 @@
-baseurl = "/"
+baseurl = "https://michaelpaulschramm.com/"
 languageCode = "en-us"
 title = "Mike's Notebook"
 theme = "blogdown-tufte"
