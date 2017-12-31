@@ -1,0 +1,3 @@
+[submodule "themes/blogdown-tufte"]
+	path = themes/blogdown-tufte
+	url = https://github.com/mps9506/blogdown-tufte.git
