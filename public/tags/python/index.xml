@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Python on Mike&#39;s Notebook</title>
+    <link>/tags/python/</link>
+    <description>Recent content in Python on Mike&#39;s Notebook</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 01 Aug 2015 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Time-series decomposition and trend analysis in Python</title>
+      <link>/2015/08/01/simple-time-series-trend-analysis/</link>
+      <pubDate>Sat, 01 Aug 2015 00:00:00 +0000</pubDate>
+      
+      <guid>/2015/08/01/simple-time-series-trend-analysis/</guid>
+      <description>There are a number of methods to accomplish time-series decompositions in R, including the decompose and STL commands.
+I haven&amp;rsquo;t come across a seasonal decomposition method in Python comparable to R&amp;rsquo;s STL. However, statsmodels 0.6 added a naive seasonal decomposition method similar to R&amp;rsquo;s decompose that is not as powerful as the LOESS method used in STL. Let&amp;rsquo;s run through an example:
+import urllib2 import datetime as datetime import pandas as pd import statsmodels.</description>
+    </item>
+    
+  </channel>
+</rss>
