@@ -1,0 +1,190 @@
+---
+title: Retrieve EPA ECHO Data in R
+author: Michael Schramm
+date: '2018-01-03'
+slug: retrieve-epa-echo-data-in-r
+categories: []
+tags:
+  - r
+---
+
+
+
+<p>EPA’s <a href="https://echo.epa.gov/">ECHO website</a> is a useful tool for obtaining wastewater discharge data, in the form of Discharge Monitoring Reports (DMR). These DMRs provide the reported monitoring data from permitted dischargers in the form of effluent quantity and quality. These are useful data for water quality modeling, load allocations, and watershed characterization. However, downloading from the website is tedious at best, requiring clicking through multiple screens one permit at a time.</p>
+<p>EPA provides <a href="https://echo.epa.gov/tools/web-services">API access</a> to streamline accessing this data. I am extremely inexperienced with APIs and utilizing JSON data formats. Perfect time to learn. <label for="tufte-mn-" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-" class="margin-toggle"><span class="marginnote"><img src="https://media.giphy.com/media/elFj7gYCIxVxC/giphy.gif" alt="https://media.giphy.com/media/elFj7gYCIxVxC/giphy.gif" /></span> I will say that utilizing <code>httr</code> was painless. Figuring out the heavily nested JSON data used by EPA was (is?) somewhat frustrating since I couldn’t find any documentation on the file structure.</p>
+<p>There are <a href="https://echo.epa.gov/tools/web-services/effluent-charts#/Effluent_Charts">three service end points</a> for effluent data I am interested in. For detailed DMR data (monthly average discharge for example), use get_effluent_chart. The code block below shows an example:</p>
+<pre class="r"><code>library(httr)
+library(jsonlite)
+library(tibble)
+
+# Make a request
+request &lt;- GET(&quot;https://ofmpub.epa.gov/echo/eff_rest_services.get_effluent_chart?p_id=tx0119407&amp;parameter_code=50050&amp;start_date=01%2F01%2F2014&amp;end_date=12%2F30%2F2016&amp;output=JSON&quot;)
+
+# Get status codes
+http_status(request)</code></pre>
+<pre><code>## $category
+## [1] &quot;Success&quot;
+## 
+## $reason
+## [1] &quot;OK&quot;
+## 
+## $message
+## [1] &quot;Success: (200) OK&quot;</code></pre>
+<pre class="r"><code># Access the body of the request
+contentJSON &lt;- content(request, as = &quot;text&quot;)</code></pre>
+<pre><code>## No encoding supplied: defaulting to UTF-8.</code></pre>
+<pre class="r"><code># Make it easier to understand
+info &lt;- fromJSON(contentJSON, simplifyDataFrame = FALSE, flatten = TRUE)
+head(info$Results)</code></pre>
+<pre><code>## $Message
+## [1] &quot;Success&quot;
+## 
+## $SourceId
+## [1] &quot;TX0119407&quot;
+## 
+## $EPASystem
+## [1] &quot;ICP&quot;
+## 
+## $RegistryId
+## [1] &quot;110009771693&quot;
+## 
+## $Statute
+## [1] &quot;CWA&quot;
+## 
+## $CWPName
+## [1] &quot;SKIDMORE WSC WWTP&quot;</code></pre>
+<p>Succesfully downloaded the data! Somewhere…</p>
+<p>I had to poke around quite a bit to find the actual DMR in the download data. In short, nested within the Results is a list called PermFeatures of length i where i = number of discharge outfalls at the permitted facility. Within each outfall is another list of lenght n where n = nummber parameters. Finally, nested within this is a DMR associated with the parameter at the outfall for that facility.</p>
+<p>For the above plant, I know there is only one outfall and I queried a single parameter. The DMR can be obtained:</p>
+<pre class="r"><code>DMR &lt;- fromJSON(toJSON(info$Results$PermFeatures[[1]]$Parameters[[1]]$DischargeMonitoringReports),
+                simplifyDataFrame = TRUE,
+                flatten = TRUE)</code></pre>
+<p>This will return a data frame with 37 variables. I’ll knock it down to the info I am interested in:</p>
+<pre class="r"><code>output &lt;- data_frame(&quot;name&quot; = info$Results$CWPName,
+                     &quot;stat&quot; = as.character(DMR$StatisticalBaseDesc),
+                     &quot;endDate&quot; = lubridate::dmy(DMR$MonitoringPeriodEndDate),
+                     &quot;DMRValue&quot; = as.numeric(DMR$DMRValueNmbr),
+                     &quot;units&quot; = as.character(DMR$DMRUnitDesc))
+head(output)</code></pre>
+<pre><code>## # A tibble: 6 x 5
+##                name     stat    endDate DMRValue units
+##               &lt;chr&gt;    &lt;chr&gt;     &lt;date&gt;    &lt;dbl&gt; &lt;chr&gt;
+## 1 SKIDMORE WSC WWTP DAILY AV 2015-08-31   0.0492   MGD
+## 2 SKIDMORE WSC WWTP DAILY MX 2015-08-31   0.0534   MGD
+## 3 SKIDMORE WSC WWTP DAILY AV 2015-09-30   0.0512   MGD
+## 4 SKIDMORE WSC WWTP DAILY MX 2015-09-30   0.0710   MGD
+## 5 SKIDMORE WSC WWTP DAILY AV 2015-10-31   0.0480   MGD
+## 6 SKIDMORE WSC WWTP DAILY MX 2015-10-31   0.0613   MGD</code></pre>
+<p>Note that the DMR provides both daily average for the reporting period and daily max. Be sure to adjust to your needs.</p>
+<p>Let wrap all of this into a useable function:</p>
+<pre class="r"><code>library(httr)
+library(tibble)
+library(jsonlite)
+library(lubridate)</code></pre>
+<pre><code>## Warning: package &#39;lubridate&#39; was built under R version 3.4.3</code></pre>
+<pre><code>## 
+## Attaching package: &#39;lubridate&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:base&#39;:
+## 
+##     date</code></pre>
+<pre class="r"><code># Functions
+
+# quick and dirty function to add &quot;0&quot; in front of month and days eg. &quot;5&quot; -&gt; &quot;05&quot;
+# will be used in the function below
+makeDates &lt;- function(x, n) {
+  if(nchar(as.character(x)) &lt;n) {
+    paste0(c(&quot;0&quot;),as.character(x))
+  } else {
+    paste0(as.character(x))
+  }
+}
+
+
+
+# queries the EPA ECHO API and returns a tibble with DMR info for the wastewater plant
+echoGetEffluent &lt;- function(permit, parameter, start, end) {
+  
+  ## format the dates to paste as characters into the GET string
+  start &lt;- lubridate::ymd(start)
+  end &lt;- lubridate::ymd(end)
+  
+  ## use the make date function to format dates into appropriate strings
+  startMonth &lt;- makeDates(lubridate::month(start),2)
+  
+  startDay &lt;- makeDates(lubridate::day(start), 2)
+  
+  startYear &lt;- as.character(lubridate::year(start))
+  
+  endMonth &lt;- makeDates(lubridate::month(end), 2)
+  
+  endDay &lt;- makeDates(lubridate::day(end), 2)
+  
+  endYear &lt;- as.character(lubridate::year(end))
+  
+  ## request URL statement
+  request &lt;- GET(paste0(&#39;https://ofmpub.epa.gov/echo/eff_rest_services.get_effluent_chart?p_id=&#39;,
+                        permit,&#39;&amp;parameter_code=&#39;, parameter,&#39;&amp;start_date=&#39;,startMonth,
+                        &#39;%2F&#39;,startDay,&#39;%2F&#39;,startYear,&#39;&amp;end_date=&#39;,
+                        endMonth,&#39;%2F&#39;,endDay,&#39;%2F&#39;,endYear,
+                        &#39;&amp;output=json&#39;), accept_json())
+  print(paste(&quot;# Status message:&quot;, http_status(request)))
+  
+  contentJSON &lt;- content(request, as = &quot;text&quot;)
+  
+  info &lt;- fromJSON(contentJSON,simplifyDataFrame = FALSE)
+  
+  CWPName &lt;- info$Results$CWPName #Grabs the permitted name
+  nOutfalls &lt;- seq_along(info$Results$PermFeatures) #grab number of outfall features
+  
+  flat &lt;- fromJSON(toJSON(info),
+                       simplifyDataFrame = FALSE,
+                       flatten = TRUE)  
+  
+  output &lt;- data_frame()
+  
+  for (i in nOutfalls){
+    
+    DMR &lt;- fromJSON(toJSON(flat$Results$PermFeatures[[i]]$Parameters[[i]]$DischargeMonitoringReports),
+                    simplifyDataFrame = TRUE,
+                    flatten = TRUE)
+    outfallNumber &lt;- info$Results$PermFeatures[[i]]$PermFeatureNmbr
+    
+    buildOutput &lt;- data_frame(&quot;name&quot; = CWPName,
+                              &quot;outfall&quot; = outfallNumber,
+                              &quot;limit&quot; = as.character(DMR$LimitValueNmbr),
+                              &quot;stat&quot; = as.character(DMR$StatisticalBaseDesc),
+                              &quot;endDate&quot; = lubridate::dmy(DMR$MonitoringPeriodEndDate),
+                              &quot;DMRValue&quot; = as.numeric(DMR$DMRValueNmbr),
+                              &quot;units&quot; = as.character(DMR$DMRUnitDesc),
+                              &quot;id&quot; = permit,
+                              &quot;param&quot; = parameter)
+    output &lt;- add_row(buildOutput)
+  }
+
+  output
+}
+
+# Give is a try
+
+#set arguments
+wwtp &lt;- &quot;tx0119407&quot;
+parameter &lt;- &quot;50050&quot; #discharge
+start &lt;- &quot;2010-12-01&quot;
+end &lt;- &quot;2016-06-30&quot;
+
+df &lt;- echoGetEffluent(wwtp, parameter, start, end)</code></pre>
+<pre><code>## [1] &quot;# Status message: Success&quot;          
+## [2] &quot;# Status message: OK&quot;               
+## [3] &quot;# Status message: Success: (200) OK&quot;</code></pre>
+<pre><code>## No encoding supplied: defaulting to UTF-8.</code></pre>
+<pre class="r"><code>head(df)</code></pre>
+<pre><code>## # A tibble: 6 x 9
+##                name outfall  limit     stat    endDate DMRValue units
+##               &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;    &lt;chr&gt;     &lt;date&gt;    &lt;dbl&gt; &lt;chr&gt;
+## 1 SKIDMORE WSC WWTP     001   .131 DAILY AV 2015-08-31   0.0492   MGD
+## 2 SKIDMORE WSC WWTP     001 list() DAILY MX 2015-08-31   0.0534   MGD
+## 3 SKIDMORE WSC WWTP     001   .131 DAILY AV 2015-09-30   0.0512   MGD
+## 4 SKIDMORE WSC WWTP     001 list() DAILY MX 2015-09-30   0.0710   MGD
+## 5 SKIDMORE WSC WWTP     001   .131 DAILY AV 2015-10-31   0.0480   MGD
+## 6 SKIDMORE WSC WWTP     001 list() DAILY MX 2015-10-31   0.0613   MGD
+## # ... with 2 more variables: id &lt;chr&gt;, param &lt;chr&gt;</code></pre>
