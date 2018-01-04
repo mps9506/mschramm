@@ -6,10 +6,19 @@
     <description>Recent content on Mike&#39;s Notebook</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 30 Dec 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 03 Jan 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Retrieve EPA ECHO Data in R</title>
+      <link>/2018/01/03/retrieve-epa-echo-data-in-r/</link>
+      <pubDate>Wed, 03 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/2018/01/03/retrieve-epa-echo-data-in-r/</guid>
+      <description>EPA’s ECHO website is a useful tool for obtaining wastewater discharge data, in the form of Discharge Monitoring Reports (DMR). These DMRs provide the reported monitoring data from permitted dischargers in the form of effluent quantity and quality. These are useful data for water quality modeling, load allocations, and watershed characterization. However, downloading from the website is tedious at best, requiring clicking through multiple screens one permit at a time.</description>
+    </item>
     
     <item>
       <title>About</title>
