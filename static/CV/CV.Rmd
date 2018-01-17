@@ -14,7 +14,7 @@ github: mps9506
 linkcolor: blue
 fontawesome: yes
 phone: 910 232-3760
-address: 578 John Kimbrough Blvd Â· 2260 TAMU Â· College Station, TX 77843
+address: 578 John Kimbrough Blvd · 2260 TAMU · College Station, TX 77843
 updated: no
 urlcolor: blue
 ---
@@ -71,6 +71,15 @@ McManamay, R.A., Troia, M.J., DeRolph, C.R., Bevelhimer, M.S., **Schramm, M.P.**
 Kramer, C., Dsouza, C., **Schramm, M.P.**, Griffin, M., Teron, L. 2014. Brownfields: From Redevelopment to Revitalization. Technical Report, Center for Energy and Environmental Policy, Newark, DE. doi:10.13140/RG.2.1.5006.0565
 
 Caldwell, J., Cruz-Ortiz, C., Dsouza, C., Johnson, T., Schorse, M., **Schramm, M.P.**, and Zhang, X. 2012. Supporting Urban Green Infrastructure. Technical report, Center for Energy and Environmental Policy, Newark. doi:10.13140/RG.2.1.1204.9687
+
+## Datasets
+
+Bevelhimer, M.S., **Schramm, M.P** , DeRolph, C.R. 2015. Non-Federal Hydropower Mitigation Database, Oak Ridge National Laboratory, available at: http://nhaap.ornl.gov/environmental-mitigation
+
+Bevelhimer, M.S., **Schramm M.P.**, DeRolph, C.R. 2015. US Maps of Non-Federal Hydropower Mitigation Data, Oak Ridge National Laboratory, available at: http://nhaap.ornl.gov/environmental-mitigation
+
+Bevelhimer, M.S., **Schramm M.P.**, C.R. DeRolph 2015. US Maps of Non-Federal Hydropower Water Quality Requirements, Oak Ridge National Laboratory, available at: http://nhaap.ornl.gov/environmental-mitigation
+
 
 ## Forthcoming
 
