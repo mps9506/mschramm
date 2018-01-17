@@ -50,7 +50,7 @@ Environmental and Water Policy Analysis, GIS, `Python`, Qualitative and Quantita
 
 ## Journal Articles
 
-**Schramm, M.P.**, Bevelhimer, M.S., Scherelis, C. 2017. Effects of hydrokinetic turbine sound on the behavior of four species of fish within an experimental mesocosm. *Fisheries Research* 190:1-14.
+**Schramm, M.P.**, Bevelhimer, M.S., Scherelis, C. 2017. Effects of hydrokinetic turbine sound on the behavior of four species of fish within an experimental mesocosm. *Fisheries Research* 190:1-14. doi:10.1016/j.fishres.2017.01.012
 
 DeRolph, C.R., **Schramm, M.P.**, Bevelhimer, M.S. 2016. Predicting environmental mitigation requirements for hydropower projects through the integration of biophysical and socio-political geographies. *Science of The Total Environment* 566:888-918. doi:10.1016/j.scitotenv.2016.05.099
 
