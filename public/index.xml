@@ -6,10 +6,20 @@
     <description>Recent content on Mike&#39;s Notebook</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 03 Jan 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 21 Feb 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>txwater retweets</title>
+      <link>/2018/02/21/txwater-retweets/</link>
+      <pubDate>Wed, 21 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/2018/02/21/txwater-retweets/</guid>
+      <description>Let’s find out the retweet relationships for #txwater twitter users. I’m going to use the R recipes by Bob Rudis in 21 Recipes for Mining Twitter Data with rtweet.
+Extract the originlibrary(rtweet)library(tidyverse)txwater &amp;lt;- search_tweets(&amp;quot;#txwater&amp;quot;, n=1000)output &amp;lt;- filter(txwater, retweet_count &amp;gt; 0) %&amp;gt;% select(text, mentions_screen_name, retweet_count) %&amp;gt;% mutate(text = substr(text, 1, 30)) %&amp;gt;% unnest()as_tibble(output)## # A tibble: 290 x 3## text retweet_count mentions_screen_name## &amp;lt;chr&amp;gt; &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt; ## 1 RT @jeremybmazur: Corpus Chris 1 jeremybmazur ## 2 RT @twdb_kathleen: Mtg w/ City 1 twdb_kathleen ## 3 Mtg w/ City of Mason Mayor Bre 1 twdb ## 4 Corpus Christi, recognizing th 1 &amp;lt;NA&amp;gt; ## 5 Enjoyed mtg w/ @CityofLlano Ma 1 CityofLlano ## 6 Enjoyed mtg w/ @CityofLlano Ma 1 twdb ## 7 Dr.</description>
+    </item>
     
     <item>
       <title>Retrieve EPA ECHO Data in R</title>
