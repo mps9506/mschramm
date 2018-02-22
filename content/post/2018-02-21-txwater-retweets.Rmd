@@ -1,0 +1,90 @@
+---
+title: txwater retweets
+author: ''
+date: '2018-02-21'
+slug: txwater-retweets
+categories: []
+tags:
+  - r
+  - twitter
+excerpt: Let's find out the retweet relationships for txwater twitter users.
+---
+```{r message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
+library(rtweet)
+library(igraph)
+library(hrbrthemes)
+library(ggraph)
+library(tidyverse)
+
+readRenviron("~/.Renviron")
+extrafont::loadfonts()
+```
+
+Let's find out the retweet relationships for #txwater twitter users. I'm going to use the R recipes by Bob Rudis in [21 Recipes for Mining Twitter Data with rtweet](https://rud.is/books/21-recipes/).
+
+
+## Extract the origin
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+library(rtweet)
+library(tidyverse)
+
+txwater <- search_tweets("#txwater", n=1000)
+output <- filter(txwater, retweet_count > 0) %>% 
+  select(text, mentions_screen_name, retweet_count) %>% 
+  mutate(text = substr(text, 1, 30)) %>% 
+  unnest()
+as_tibble(output)
+```
+
+## Plot txwater retweet degree distribution
+```{r echo=TRUE, message=FALSE, warning=FALSE, paged.print=FALSE}
+library(igraph)
+library(hrbrthemes)
+
+rt_g <- filter(txwater, retweet_count > 0) %>% 
+  select(screen_name, mentions_screen_name) %>%
+  unnest(mentions_screen_name) %>% 
+  filter(!is.na(mentions_screen_name)) %>% 
+  graph_from_data_frame()
+
+ggplot(data_frame(y=degree_distribution(rt_g), x=1:length(y))) +
+  geom_segment(aes(x, y, xend=x, yend=0), color="slateblue") +
+  scale_y_continuous(expand=c(0,0), trans="sqrt") +
+  labs(x="Degree", y="Density (sqrt scale)", title="#txwater Retweet Degree Distribution") +
+  theme_ipsum_rc(grid="Y", axis="x")
+
+```
+
+## Plot retweet relationships
+```{r echo=TRUE, message=FALSE, warning=FALSE, dpi=200, fig.height=8, fig.width=8}
+library(ggraph)
+
+# Label nodes
+V(rt_g)$node_label <- unname(names(V(rt_g)))
+
+# Size of node
+V(rt_g)$node_size <- unname(ifelse(degree(rt_g)[V(rt_g)] > 1, degree(rt_g), 1)) 
+
+# Adjust angle of label based on position
+nIds <- length(V(rt_g))
+V(rt_g)$Id <- seq(1:nIds)
+V(rt_g)$label_angle <- 90 - 360 *  V(rt_g)$Id / nIds
+V(rt_g)$hjust <- ifelse(V(rt_g)$label_angle < -90, 1, 0)
+
+# Flip text depending on what side of the plot it is on
+V(rt_g)$angle <- ifelse(V(rt_g)$label_angle < -90, V(rt_g)$label_angle+180, V(rt_g)$label_angle)
+
+p <- ggraph(rt_g, layout = 'linear', circular = TRUE) + 
+  geom_edge_arc(aes(alpha=..index..)) +
+  geom_node_point(aes(x = x*1.07, y=y*1.07, size=node_size,  alpha=0.2)) +
+  geom_node_text(aes(x=x*1.15, y=y*1.15,label=node_label, angle=angle, hjust=hjust),
+                  color="dodgerblue", size=2.7, family=font_rc) +
+  coord_fixed() +
+  labs(title="#txwater Relationships", subtitle="Darkers edges == more retweets. Node size == larger degree") +
+  theme_graph(base_family=font_rc) +
+  theme(legend.position="none") +
+  expand_limits(x = c(-1.3, 1.3), y = c(-1.3, 1.3))
+p
+```
+
+The `rtweet` `search_tweets()` function returns approximately 8 days worth of retweets. Depending on when this script was run, the relationships might change. I was suprised to see only a handful of state agencies are well engaged in this hashtag. The next step is to take look at relationships between users and text sentiment analysis. But that is it for this post.

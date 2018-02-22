@@ -1,0 +1,92 @@
+---
+title: txwater retweets
+author: ''
+date: '2018-02-21'
+slug: txwater-retweets
+categories: []
+tags:
+  - r
+  - twitter
+excerpt: Let's find out the retweet relationships for txwater twitter users.
+---
+
+
+
+<p>Let’s find out the retweet relationships for #txwater twitter users. I’m going to use the R recipes by Bob Rudis in <a href="https://rud.is/books/21-recipes/">21 Recipes for Mining Twitter Data with rtweet</a>.</p>
+<div id="extract-the-origin" class="section level2">
+<h2>Extract the origin</h2>
+<pre class="r"><code>library(rtweet)
+library(tidyverse)
+
+txwater &lt;- search_tweets(&quot;#txwater&quot;, n=1000)
+output &lt;- filter(txwater, retweet_count &gt; 0) %&gt;% 
+  select(text, mentions_screen_name, retweet_count) %&gt;% 
+  mutate(text = substr(text, 1, 30)) %&gt;% 
+  unnest()
+as_tibble(output)</code></pre>
+<pre><code>## # A tibble: 290 x 3
+##    text                           retweet_count mentions_screen_name
+##    &lt;chr&gt;                                  &lt;int&gt; &lt;chr&gt;               
+##  1 RT @jeremybmazur: Corpus Chris             1 jeremybmazur        
+##  2 RT @twdb_kathleen: Mtg w/ City             1 twdb_kathleen       
+##  3 Mtg w/ City of Mason Mayor Bre             1 twdb                
+##  4 Corpus Christi, recognizing th             1 &lt;NA&gt;                
+##  5 Enjoyed mtg w/ @CityofLlano Ma             1 CityofLlano         
+##  6 Enjoyed mtg w/ @CityofLlano Ma             1 twdb                
+##  7 Dr. Fouad Jaber from @AgriLife             3 AgriLifeDallas      
+##  8 Dr. Fouad Jaber from @AgriLife             3 TxWRI               
+##  9 Dr. Fouad Jaber from @AgriLife             3 UTRWD               
+## 10 Dr. Fouad Jaber from @AgriLife             3 NTMWD               
+## # ... with 280 more rows</code></pre>
+</div>
+<div id="plot-txwater-retweet-degree-distribution" class="section level2">
+<h2>Plot txwater retweet degree distribution</h2>
+<pre class="r"><code>library(igraph)
+library(hrbrthemes)
+
+rt_g &lt;- filter(txwater, retweet_count &gt; 0) %&gt;% 
+  select(screen_name, mentions_screen_name) %&gt;%
+  unnest(mentions_screen_name) %&gt;% 
+  filter(!is.na(mentions_screen_name)) %&gt;% 
+  graph_from_data_frame()
+
+ggplot(data_frame(y=degree_distribution(rt_g), x=1:length(y))) +
+  geom_segment(aes(x, y, xend=x, yend=0), color=&quot;slateblue&quot;) +
+  scale_y_continuous(expand=c(0,0), trans=&quot;sqrt&quot;) +
+  labs(x=&quot;Degree&quot;, y=&quot;Density (sqrt scale)&quot;, title=&quot;#txwater Retweet Degree Distribution&quot;) +
+  theme_ipsum_rc(grid=&quot;Y&quot;, axis=&quot;x&quot;)</code></pre>
+<p><img src="/post/2018-02-21-txwater-retweets_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+</div>
+<div id="plot-retweet-relationships" class="section level2">
+<h2>Plot retweet relationships</h2>
+<pre class="r"><code>library(ggraph)
+
+# Label nodes
+V(rt_g)$node_label &lt;- unname(names(V(rt_g)))
+
+# Size of node
+V(rt_g)$node_size &lt;- unname(ifelse(degree(rt_g)[V(rt_g)] &gt; 1, degree(rt_g), 1)) 
+
+# Adjust angle of label based on position
+nIds &lt;- length(V(rt_g))
+V(rt_g)$Id &lt;- seq(1:nIds)
+V(rt_g)$label_angle &lt;- 90 - 360 *  V(rt_g)$Id / nIds
+V(rt_g)$hjust &lt;- ifelse(V(rt_g)$label_angle &lt; -90, 1, 0)
+
+# Flip text depending on what side of the plot it is on
+V(rt_g)$angle &lt;- ifelse(V(rt_g)$label_angle &lt; -90, V(rt_g)$label_angle+180, V(rt_g)$label_angle)
+
+p &lt;- ggraph(rt_g, layout = &#39;linear&#39;, circular = TRUE) + 
+  geom_edge_arc(aes(alpha=..index..)) +
+  geom_node_point(aes(x = x*1.07, y=y*1.07, size=node_size,  alpha=0.2)) +
+  geom_node_text(aes(x=x*1.15, y=y*1.15,label=node_label, angle=angle, hjust=hjust),
+                  color=&quot;dodgerblue&quot;, size=2.7, family=font_rc) +
+  coord_fixed() +
+  labs(title=&quot;#txwater Relationships&quot;, subtitle=&quot;Darkers edges == more retweets. Node size == larger degree&quot;) +
+  theme_graph(base_family=font_rc) +
+  theme(legend.position=&quot;none&quot;) +
+  expand_limits(x = c(-1.3, 1.3), y = c(-1.3, 1.3))
+p</code></pre>
+<p><img src="/post/2018-02-21-txwater-retweets_files/figure-html/unnamed-chunk-4-1.png" width="1600" /></p>
+<p>The <code>rtweet</code> <code>search_tweets()</code> function returns approximately 8 days worth of retweets. Depending on when this script was run, the relationships might change. I was suprised to see only a handful of state agencies are well engaged in this hashtag. The next step is to take look at relationships between users and text sentiment analysis. But that is it for this post.</p>
+</div>
