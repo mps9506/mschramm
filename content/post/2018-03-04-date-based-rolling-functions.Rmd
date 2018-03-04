@@ -1,0 +1,30 @@
+---
+title: Date-based rolling functions
+author: Michael Schramm
+date: '2018-03-04'
+slug: date-based-rolling-functions
+categories: []
+tags:
+  - r
+  - purrr
+  - water quality
+---
+
+States are responsible for water quality assessments that ensure waterbodies comply with designated uses under Section 305(b) of the Clean Water Act. Waterbodies that do not meet applicable standards are listed on the Section 303(d) list, which requires state establish a Total Maximum Daily Load (TMDL) for pollutants responsible for impairement.
+
+For conventional parameters, the current guidance from EPA requires that a waterbody be listed when greater than 10% of samples exceed the numeric criteria. For bacteria parameters, a waterbody is listed when the geometric mean of samples exceeds the criteria. `r tufte::margin_note("Plenty of reading from EPA regarding establishing and assessing [recreational water quality criteria](https://www.epa.gov/sites/production/files/2015-10/documents/rwqc2012.pdf) and guidaance [for assessing water quality data](https://www.epa.gov/waterdata/consolidated-assessment-and-listing-methodology-calm)")` In the state of Texas, the Texas Comission on Environmental Quality (TCEQ) publishes its assessment [guidance document](https://www.tceq.texas.gov/assets/public/waterquality/swqm/assess/14txir/2014_guidance.pdf) (pdf warning) regarding listing and delisting decisions made for waterbodies. TCEQ publishes the results of their assessment every two years in the [Texas Integrated Report of Surface Water Quality](https://www.tceq.texas.gov/waterquality/assessment/14twqi). Although published every two years, the data typically lags behind an additional two years. For example the 2014 report, which was released in late 2015, includes data collected through 2012. To provide an up to date snapshot, I am interested in providing a visualization of current water quality data and representation of the assessment.
+
+For bacteria parameters, this seems fairly easy. Plotting a 7-yr rolling geometric mean depicts when assessment exceedances occur. However, most packages in `R` `r tufte::margin_note("for examples using time window rolling functions see \x60zoo\x60, \x60tibbletime\x60, and \x60dplyr::rollsum\x60")`will calculate rolling averages or functions for regularly spaced data based on the number of observations. Water quality data is collected at random and unequal intervals. For any 7-yr period there might be 20 samples or 100 samples. All valid samples should be included in the function window.
+
+For other conventional parameters, we can determine compliance when a standards violation is unlikely to occur more than 10% of the time. Using EPA guidance, we have both a test statistic (proportion of exceedances) and rejection region (>10%).  We assume that each water quality sample is a sample from the population that represents the water body with unknown probability ($p$) of exceeding the criterion. Therefore, the null hyposthesis:
+
+$$H_0 : \pi \le p_0$$
+where $p_0$ is the acceptible exceedance rate and equals 0.1. By transforming measurements below the criterion to 0 (failure), and measurements above the criterion as 1 (success) we can apply a simple binomial test to samples collected during the assessment period to evaluate current compliance. This binomial approach is discussed in detail by [Smith et. al 2001](https://pubs.acs.org/doi/abs/10.1021/es001159e).
+
+## Rolling geometric mean for bacteria assessment
+
+Something
+
+## Rolling exceedance rates for dissolved oxygen assessment
+
+Something (would like to plot exceedances with 95% confidence intervals)
