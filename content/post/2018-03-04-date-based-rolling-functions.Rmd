@@ -112,8 +112,69 @@ I think this a relatively easy figure for stakeholders to understand. The red li
 
 Something (would like to plot exceedances with 95% confidence intervals)
 
-```{r}
+In the example below, I am importing grab dissolved oxygen at two stations on water body. Some events utilize two or more samples at varying depths, those samples are averaged to determine the event dissolved oxygen value.
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE}
 file <- url("https://gist.githubusercontent.com/mps9506/274e0debee7e7f1289dac3371ce05d1e/raw/284ff43565d03bd57c59c3151feaa739abd40f2e/1501_DO.txt")
 df <- read_delim(file, "|")
+
+df <- df %>%
+  #select(`RFA(Sample Set ID)/Tag_id`, Segment, `Parameter Code`, Value, `End Date`, `Monitoring Type`) %>%
+  mutate(`End Date` = as.Date(`End Date`, "%m/%d/%Y")) %>%
+  filter(`Monitoring Type` == "RT") %>%
+  arrange(`End Date`) %>%
+  group_by(`End Date`, `Station ID`) %>%
+  summarise(Value = mean(Value))
+
+ggplot(df) +
+  geom_point(aes(x = `End Date`, y = Value)) +
+  geom_hline(aes(yintercept = 4)) +
+  xlab("Sample Date") + ylab("DO (mg/L)")
+```
+
+
+In order to determine if the waterbody meets the water quality criterion I select the water quality values during the assessment period and use the `binom.test` function in R. The arguments for `binom.test` are
+```{eval=FALSE}
+binom.test(x, n, p = 0.5,
+           alternative = c("two.sided", "less", "greater"),
+           conf.level = 0.95)
+
+x    number of successes, or a vector of length 2 giving the numbers of successes and failures, respectively.
+n    number of trials; ignored if x has length 2.
+p    hypothesized probability of success.
+alternative    indicates the alternative hypothesis and must be one of "two.sided", "greater" or "less". You can specify just the initial letter.
+conf.level    confidence level for the returned confidence interval.
+
+```
+
+So we need to first count the total number of "successes," which in this case means water quality exceedances (DO value less than 4 mg/L). Note, that this is slightly different than worded above since we typically think of exceedance as above a water quality standard. We also need to count the total number of trials. Both of these are accomplished using dplyr and the `mutate`, `case_when`, and `summarise` functions.
+
+```{r}
+### figure out what the binomial test returns based, use 2014 assessment results
+
+df <- df %>%
+  filter(`End Date` > as.Date("2005-11-30") & `End Date` < as.Date("2012-12-01")) %>%
+  ungroup() %>%
+  mutate(
+    success = case_when(
+      Value < 4 ~ 1,
+      Value >= 4 ~ 0
+      ))
+
+binomial_df <- df %>%
+  summarise(n = n(), x = sum(success))
+binomial_df
+
+```
+So, now we have 15 exceedances for 67 trials. This matches the values indicated on the [TCEQ waterbody assessment report](https://www.tceq.texas.gov/assets/public/waterquality/swqm/assess/14txir/2014_basin15.pdf). (Another pdf warning!)
+
+
+The hypothesised rate of success is given to us by the water quality standard, 10%. Therefore the null and alternative hypothesis are:
+$$H_0 : \pi \le 0.10$$
+$$H_1 : \pi \gt 0.10$$
+```{r}
+
+binom.test(x = binomial_df$x, n = binomial_df$n, p = 0.1, alternative = "g")
+
 ```
 
