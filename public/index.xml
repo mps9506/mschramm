@@ -6,10 +6,29 @@
     <description>Recent content on Mike&#39;s Notebook</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 21 Feb 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 26 Mar 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Binomial Test for Water Quality Compliance</title>
+      <link>/2018/03/26/binomial-test-for-water-quality-compliance/</link>
+      <pubDate>Mon, 26 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/2018/03/26/binomial-test-for-water-quality-compliance/</guid>
+      <description>In the previous post, I used a geometric mean to assess water quality compliance. According to EPA guidance, this is appropriate for assessing bacteria levels in water bodies. For other conventional parameters, we can determine compliance when a standards violation is unlikely to occur more than 10% of the time. Using EPA guidance, we have both a test statistic (proportion of exceedances) and rejection region (&amp;gt;10%). We assume that each water quality sample is a sample from the population that represents the water body with unknown probability (\(p\)) of exceeding the criterion.</description>
+    </item>
+    
+    <item>
+      <title>Date-based rolling functions</title>
+      <link>/2018/03/04/date-based-rolling-functions/</link>
+      <pubDate>Sun, 04 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/2018/03/04/date-based-rolling-functions/</guid>
+      <description>States are responsible for water quality assessments that ensure waterbodies comply with designated uses under Section 305(b) of the Clean Water Act. Waterbodies that do not meet applicable standards are listed on the Section 303(d) list, which requires state establish a Total Maximum Daily Load (TMDL) for pollutants responsible for impairement.
+For conventional parameters, the current guidance from EPA requires that a waterbody be listed when greater than 10% of samples exceed the numeric criteria.</description>
+    </item>
     
     <item>
       <title>txwater retweets</title>

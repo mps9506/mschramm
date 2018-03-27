@@ -1,0 +1,98 @@
+---
+title: Date-based rolling functions
+author: Michael Schramm
+date: '2018-03-04'
+slug: date-based-rolling-functions
+categories: []
+tags:
+  - r
+  - purrr
+  - water quality
+excerpt: States are responsible for water quality assessments that ensure waterbodies comply with designated uses under Section 305(b) of the Clean Water Act. Waterbodies that do not meet applicable standards are listed on the Section 303(d) list, which requires state establish a Total Maximum Daily Load (TMDL) for pollutants responsible for impairement.
+---
+
+
+
+<p>States are responsible for water quality assessments that ensure waterbodies comply with designated uses under Section 305(b) of the Clean Water Act. Waterbodies that do not meet applicable standards are listed on the Section 303(d) list, which requires state establish a Total Maximum Daily Load (TMDL) for pollutants responsible for impairement.</p>
+<p>For conventional parameters, the current guidance from EPA requires that a waterbody be listed when greater than 10% of samples exceed the numeric criteria. For bacteria parameters, a waterbody is listed when the geometric mean of samples exceeds the criteria. <label for="tufte-mn-" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-" class="margin-toggle"><span class="marginnote">Plenty of reading from EPA regarding establishing and assessing <a href="https://www.epa.gov/sites/production/files/2015-10/documents/rwqc2012.pdf">recreational water quality criteria</a> and guidaance <a href="https://www.epa.gov/waterdata/consolidated-assessment-and-listing-methodology-calm">for assessing water quality data</a></span> In the state of Texas, the Texas Comission on Environmental Quality (TCEQ) publishes its assessment <a href="https://www.tceq.texas.gov/assets/public/waterquality/swqm/assess/14txir/2014_guidance.pdf">guidance document</a> (pdf warning) regarding listing and delisting decisions made for waterbodies. TCEQ publishes the results of their assessment every two years in the <a href="https://www.tceq.texas.gov/waterquality/assessment/14twqi">Texas Integrated Report of Surface Water Quality</a>. Although published every two years, the data typically lags behind an additional two years. For example the 2014 report, which was released in late 2015, includes data collected through 2012. To provide an up to date snapshot, I am interested in providing a visualization of current water quality data and representation of the assessment.</p>
+<p>For bacteria parameters, this seems fairly easy. Plotting a 7-yr rolling geometric mean depicts when assessment exceedances occur. However, most packages in <code>R</code> <label for="tufte-mn-" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-" class="margin-toggle"><span class="marginnote">for examples using time window rolling functions see <code>zoo</code>, <code>tibbletime</code>, and <code>dplyr::rollsum</code></span>will calculate rolling averages or functions for regularly spaced data based on the number of observations. Water quality data is collected at random and unequal intervals. For any 7-yr period there might be 20 samples or 100 samples. All valid samples should be included in the function window.</p>
+<div id="rolling-geometric-mean-for-bacteria-assessment" class="section level2">
+<h2>Rolling geometric mean for bacteria assessment</h2>
+<p>My sample dataset is pipe delimited text file obtained from <a href="https://www80.tceq.texas.gov/SwqmisWeb/public/crpweb.faces">TCEQ’s CRP data tool</a>. It includes Enterococcus bacteria concentrations measured in the Tres Palacios water body. Below is a code chunk I used to download, read, and filter the dataset to something usable. <label for="tufte-mn-" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-" class="margin-toggle"><span class="marginnote">Specifically, I changed the date variable from character to date. I also filter any Monitoring Type values that don’t equal RT, since only RT values are used in assessments (Indicating normal, routine random samples that are not flow or event biased</span></p>
+<pre class="r"><code>library(readr)
+library(dplyr)
+library(ggplot2)
+
+file &lt;- url(&quot;https://gist.githubusercontent.com/mps9506/004624b5aa9bdf101c36278835cb38df/raw/46267d403bb450da4f7a0c726bd77d4fff1c5be5/1501_Bacteria.txt&quot;)
+df &lt;- read_delim(file, &quot;|&quot;)
+
+df &lt;- df %&gt;%
+  select(`RFA(Sample Set ID)/Tag_id`, Segment, `Parameter Code`, Value, `End Date`, `Monitoring Type`) %&gt;%
+  mutate(`End Date` = as.Date(`End Date`, &quot;%m/%d/%Y&quot;)) %&gt;%
+  filter(`Monitoring Type` == &quot;RT&quot;)
+
+## Take a quick peek at the data
+ggplot(df) +
+  geom_point(aes(`End Date`, Value)) +
+  scale_y_log10() + ylab(&quot;MPN/100mL&quot;) + xlab(&quot;Sample Date&quot;)</code></pre>
+<p><img src="/post/2018-03-04-date-based-rolling-functions_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<p>First thing that I notice is the number of censored values at 10 MPN/100mL. As far as I am aware, these are left alone for assessemnt purposes. I will revisit this in another post.</p>
+<p>In order to calculate the geometric mean, we need to import a library or define a function since there is no geometric mean function defined in R.</p>
+<pre class="r"><code>gm_mean &lt;- function(x, na.rm=TRUE, zero.propagate = FALSE){
+  if(any(x &lt; 0, na.rm = TRUE)){
+    return(NaN)
+  }
+  if(zero.propagate){
+    if(any(x == 0, na.rm = TRUE)){
+      return(0)
+    }
+    exp(mean(log(x), na.rm = na.rm))
+  } else {
+    exp(sum(log(x[x &gt; 0]), na.rm=na.rm) / length(x))
+  }
+}</code></pre>
+<p>I want to utilize <code>purrr::map</code> to apply this function so that it calculates the geometric mean of the last seven years of data from each row. So we need a function that will subtract the dates, identify rows within 7 years of the current row, and return a geometric mean of those rows. We can do this with a loop, but as I am trying to use these map functions provided in the purrr package as they provide a nice functional programming way of addressing this problem.<label for="tufte-mn-" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-" class="margin-toggle"><span class="marginnote">I am still working on incorporating <code>purrr::map</code> variants into my workflow. Hopefully I have used it correctly here.</span></p>
+<p>So the first step is to create a function that identifies the values within 7 years of the current row and returns the geomean of those values. I also do not need a value calculated for measurements within the first 7 years.</p>
+<pre class="r"><code>library(lubridate) ## import lubridate for as.duration and dyears functions
+myfunc &lt;- function(dates, values, years, i){
+  mu &lt;- values[as.duration(dates[i] - dates)/dyears(1) &lt;= years &amp; as.duration(dates[i] - dates)/dyears(1) &gt;= 0]
+  if(as.duration(dates[i] - dates[1])/dyears(1) &lt; 7){
+    return(NA)
+  }
+  else(gm_mean(mu)
+  )
+}</code></pre>
+<p>Now apply this function using <code>map</code> in the dplyr chain:</p>
+<pre class="r"><code>library(purrr)
+df2 &lt;- df %&gt;%
+  arrange(`End Date`) %&gt;%
+  mutate(Rolled_gm = map_dbl(seq_along(.$`End Date`),
+                             ~myfunc(dates = `End Date`, values = `Value`, years = 7, i = .x)))
+head(df2)</code></pre>
+<pre><code>## # A tibble: 6 x 7
+##   `RFA(Sample Set ID)/Tag_id` Segment `Parameter Code` Value `End Date`
+##   &lt;chr&gt;                         &lt;int&gt;            &lt;int&gt; &lt;int&gt; &lt;date&gt;    
+## 1 R194284                        1501            31701    86 2001-03-14
+## 2 R195801                        1501            31701    85 2001-06-21
+## 3 L064180                        1501            31701   410 2001-09-05
+## 4 R198132                        1501            31701   132 2001-09-18
+## 5 L067079                        1501            31701   221 2001-11-26
+## 6 R200081                        1501            31701   428 2002-01-10
+## # ... with 2 more variables: `Monitoring Type` &lt;chr&gt;, Rolled_gm &lt;dbl&gt;</code></pre>
+<p>Visualize this with ggplot:</p>
+<pre class="r"><code>library(hrbrthemes)
+ggplot(df2) +
+  geom_point(aes(`End Date`, Value), alpha = 0.25) +
+  geom_line(aes(`End Date`, `Rolled_gm`, color = &quot;7-yr rolling geometric mean&quot;), size = .75) +
+  geom_hline(aes(yintercept = 35, color = &quot;35 MPN/100mL water quality standard&quot;), size = .75) +
+  scale_y_log10(labels = scales::comma) +
+  theme_ipsum_rc() + scale_color_brewer(name = &quot;&quot;, type = &quot;qual&quot;, palette = &quot;Set2&quot;) +
+  labs(
+    title = &quot;Enterococcus concentrations&quot;,
+    subtitle = &quot;Tres Palacios Tidal&quot;,
+    caption = &quot;Source: TCEQ CRP Data Tool&quot;,
+    x = &quot;Sample date&quot;, y = &quot;Concentration (MPN/100mL)&quot;
+  )</code></pre>
+<p><img src="/post/2018-03-04-date-based-rolling-functions_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p>I think this a relatively easy figure for stakeholders to understand. The red line depicts the rolling geometric mean used to assess compliance with water quality standards at any given sampling point.</p>
+</div>
