@@ -8,6 +8,7 @@ tags:
   - r
   - purrr
   - water quality
+excerpt: States are responsible for water quality assessments that ensure waterbodies comply with designated uses under Section 305(b) of the Clean Water Act. Waterbodies that do not meet applicable standards are listed on the Section 303(d) list, which requires state establish a Total Maximum Daily Load (TMDL) for pollutants responsible for impairement.
 ---
 
 States are responsible for water quality assessments that ensure waterbodies comply with designated uses under Section 305(b) of the Clean Water Act. Waterbodies that do not meet applicable standards are listed on the Section 303(d) list, which requires state establish a Total Maximum Daily Load (TMDL) for pollutants responsible for impairement.
@@ -15,11 +16,6 @@ States are responsible for water quality assessments that ensure waterbodies com
 For conventional parameters, the current guidance from EPA requires that a waterbody be listed when greater than 10% of samples exceed the numeric criteria. For bacteria parameters, a waterbody is listed when the geometric mean of samples exceeds the criteria. `r tufte::margin_note("Plenty of reading from EPA regarding establishing and assessing [recreational water quality criteria](https://www.epa.gov/sites/production/files/2015-10/documents/rwqc2012.pdf) and guidaance [for assessing water quality data](https://www.epa.gov/waterdata/consolidated-assessment-and-listing-methodology-calm)")` In the state of Texas, the Texas Comission on Environmental Quality (TCEQ) publishes its assessment [guidance document](https://www.tceq.texas.gov/assets/public/waterquality/swqm/assess/14txir/2014_guidance.pdf) (pdf warning) regarding listing and delisting decisions made for waterbodies. TCEQ publishes the results of their assessment every two years in the [Texas Integrated Report of Surface Water Quality](https://www.tceq.texas.gov/waterquality/assessment/14twqi). Although published every two years, the data typically lags behind an additional two years. For example the 2014 report, which was released in late 2015, includes data collected through 2012. To provide an up to date snapshot, I am interested in providing a visualization of current water quality data and representation of the assessment.
 
 For bacteria parameters, this seems fairly easy. Plotting a 7-yr rolling geometric mean depicts when assessment exceedances occur. However, most packages in `R` `r tufte::margin_note("for examples using time window rolling functions see \x60zoo\x60, \x60tibbletime\x60, and \x60dplyr::rollsum\x60")`will calculate rolling averages or functions for regularly spaced data based on the number of observations. Water quality data is collected at random and unequal intervals. For any 7-yr period there might be 20 samples or 100 samples. All valid samples should be included in the function window.
-
-For other conventional parameters, we can determine compliance when a standards violation is unlikely to occur more than 10% of the time. Using EPA guidance, we have both a test statistic (proportion of exceedances) and rejection region (>10%).  We assume that each water quality sample is a sample from the population that represents the water body with unknown probability ($p$) of exceeding the criterion. Therefore, the null hyposthesis:
-
-$$H_0 : \pi \le p_0$$
-where $p_0$ is the acceptable exceedance rate and equals 0.1. By transforming measurements below the criterion to 0 (failure), and measurements above the criterion as 1 (success) we can apply a simple binomial test to samples collected during the assessment period to evaluate current compliance. This binomial approach is discussed in detail by [Smith et. al 2001](https://pubs.acs.org/doi/abs/10.1021/es001159e).
 
 ## Rolling geometric mean for bacteria assessment
 
@@ -107,74 +103,4 @@ ggplot(df2) +
 ```
 
 I think this a relatively easy figure for stakeholders to understand. The red line depicts the rolling geometric mean used to assess compliance with water quality standards at any given sampling point.
-
-## Rolling exceedance rates for dissolved oxygen assessment
-
-Something (would like to plot exceedances with 95% confidence intervals)
-
-In the example below, I am importing grab dissolved oxygen at two stations on water body. Some events utilize two or more samples at varying depths, those samples are averaged to determine the event dissolved oxygen value.
-
-```{r message=FALSE, warning=FALSE, paged.print=FALSE}
-file <- url("https://gist.githubusercontent.com/mps9506/274e0debee7e7f1289dac3371ce05d1e/raw/284ff43565d03bd57c59c3151feaa739abd40f2e/1501_DO.txt")
-df <- read_delim(file, "|")
-
-df <- df %>%
-  #select(`RFA(Sample Set ID)/Tag_id`, Segment, `Parameter Code`, Value, `End Date`, `Monitoring Type`) %>%
-  mutate(`End Date` = as.Date(`End Date`, "%m/%d/%Y")) %>%
-  filter(`Monitoring Type` == "RT") %>%
-  arrange(`End Date`) %>%
-  group_by(`End Date`, `Station ID`) %>%
-  summarise(Value = mean(Value))
-
-ggplot(df) +
-  geom_point(aes(x = `End Date`, y = Value)) +
-  geom_hline(aes(yintercept = 4)) +
-  xlab("Sample Date") + ylab("DO (mg/L)")
-```
-
-
-In order to determine if the waterbody meets the water quality criterion I select the water quality values during the assessment period and use the `binom.test` function in R. The arguments for `binom.test` are
-```{eval=FALSE}
-binom.test(x, n, p = 0.5,
-           alternative = c("two.sided", "less", "greater"),
-           conf.level = 0.95)
-
-x    number of successes, or a vector of length 2 giving the numbers of successes and failures, respectively.
-n    number of trials; ignored if x has length 2.
-p    hypothesized probability of success.
-alternative    indicates the alternative hypothesis and must be one of "two.sided", "greater" or "less". You can specify just the initial letter.
-conf.level    confidence level for the returned confidence interval.
-
-```
-
-So we need to first count the total number of "successes," which in this case means water quality exceedances (DO value less than 4 mg/L). Note, that this is slightly different than worded above since we typically think of exceedance as above a water quality standard. We also need to count the total number of trials. Both of these are accomplished using dplyr and the `mutate`, `case_when`, and `summarise` functions.
-
-```{r}
-### figure out what the binomial test returns based, use 2014 assessment results
-
-df <- df %>%
-  filter(`End Date` > as.Date("2005-11-30") & `End Date` < as.Date("2012-12-01")) %>%
-  ungroup() %>%
-  mutate(
-    success = case_when(
-      Value < 4 ~ 1,
-      Value >= 4 ~ 0
-      ))
-
-binomial_df <- df %>%
-  summarise(n = n(), x = sum(success))
-binomial_df
-
-```
-So, now we have 15 exceedances for 67 trials. This matches the values indicated on the [TCEQ waterbody assessment report](https://www.tceq.texas.gov/assets/public/waterquality/swqm/assess/14txir/2014_basin15.pdf). (Another pdf warning!)
-
-
-The hypothesised rate of success is given to us by the water quality standard, 10%. Therefore the null and alternative hypothesis are:
-$$H_0 : \pi \le 0.10$$
-$$H_1 : \pi \gt 0.10$$
-```{r}
-
-binom.test(x = binomial_df$x, n = binomial_df$n, p = 0.1, alternative = "g")
-
-```
 
