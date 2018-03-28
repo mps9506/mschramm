@@ -18,6 +18,7 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 
 [params]
     description = "A blog for Michael Schramm"
+    googleAnalytics = "UA-71354421-1"
     showPoweredBy = true
     copyrightHolder = "Michael Schramm"
 
