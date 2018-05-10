@@ -10,8 +10,8 @@ fontfamily: mathpazo
 fontfamilyoptions: sc, osf
 fontsize: 11pt
 geometry: margin=1in
-github: mps9506
 linkcolor: blue
+github: mps9506
 fontawesome: yes
 phone: 910 232-3760
 address: 578 John Kimbrough Blvd · 2260 TAMU · College Station, TX 77843
@@ -50,7 +50,7 @@ Environmental and Water Policy Analysis, GIS, `Python`, Qualitative and Quantita
 
 ## Journal Articles
 
-**Schramm, M.P.**, Bevelhimer, M.S., Scherelis, C. 2017. Effects of hydrokinetic turbine sound on the behavior of four species of fish within an experimental mesocosm. *Fisheries Research* 190:1-14. doi:10.1016/j.fishres.2017.01.012
+**Schramm, M.P.**, Bevelhimer, M.S., Scherelis, C. 2017. Effects of hydrokinetic turbine sound on the behavior of four species of fish within an experimental mesocosm. *Fisheries Research* 190:1-14.
 
 DeRolph, C.R., **Schramm, M.P.**, Bevelhimer, M.S. 2016. Predicting environmental mitigation requirements for hydropower projects through the integration of biophysical and socio-political geographies. *Science of The Total Environment* 566:888-918. doi:10.1016/j.scitotenv.2016.05.099
 
@@ -72,14 +72,17 @@ Kramer, C., Dsouza, C., **Schramm, M.P.**, Griffin, M., Teron, L. 2014. Brownfie
 
 Caldwell, J., Cruz-Ortiz, C., Dsouza, C., Johnson, T., Schorse, M., **Schramm, M.P.**, and Zhang, X. 2012. Supporting Urban Green Infrastructure. Technical report, Center for Energy and Environmental Policy, Newark. doi:10.13140/RG.2.1.1204.9687
 
+## Software
+
+**Schramm, M.P.** 2018. `echor`: Access EPA ECHO Data. *R package version 0.1.0. (CRAN).* https://CRAN.R-project.org/package=echor
+
 ## Datasets
 
-Bevelhimer, M.S., **Schramm, M.P** , DeRolph, C.R. 2015. Non-Federal Hydropower Mitigation Database, Oak Ridge National Laboratory, available at: http://nhaap.ornl.gov/environmental-mitigation
+Bevelhimer, M.S., **Schramm, M.P.** , DeRolph, C.R. 2015. Non-Federal Hydropower Mitigation Database, Oak Ridge National Laboratory, available at: http://nhaap.ornl.gov/environmental-mitigation
 
 Bevelhimer, M.S., **Schramm M.P.**, DeRolph, C.R. 2015. US Maps of Non-Federal Hydropower Mitigation Data, Oak Ridge National Laboratory, available at: http://nhaap.ornl.gov/environmental-mitigation
 
 Bevelhimer, M.S., **Schramm M.P.**, C.R. DeRolph 2015. US Maps of Non-Federal Hydropower Water Quality Requirements, Oak Ridge National Laboratory, available at: http://nhaap.ornl.gov/environmental-mitigation
-
 
 ## Forthcoming
 
