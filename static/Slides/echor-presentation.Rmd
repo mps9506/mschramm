@@ -4,7 +4,7 @@ author: "Michael Schramm"
 output:
   xaringan::moon_reader:
     lib_dir: libs
-    css: ["default", "fonts.css"]
+    css: ["default", "fonts.css", "twri.css"]
     nature:
       highlightStyle: github
       highlightLines: true
@@ -70,9 +70,14 @@ https://ofmpub.epa.gov/echo/cwa_rest_services.get_facility_info?output=JSON&xmin
 - Nitty gritty details are here: https://echo.epa.gov/tools/web-services
 
 ---
+class: inverse, center, middle
+
+# Download effluent data
+
+---
 ## Demo 1
 
-- Download effluent records from a permitted discharger
+- `echoGetEffluent()` downloads effluent records from a permitted discharger
 
 ```{r message=FALSE, warning=FALSE, paged.print=FALSE}
 library(echor)
@@ -82,10 +87,25 @@ df <- echoGetEffluent(p_id = 'tx0119407', parameter_code = '50050')
 ```
 
 --
-- `p_id = NPDES identifier`
+
+Available arguments:
 
 --
-- parameter code 50050 returns discharge (mean and max)
+
+- `p_id = Permit number as string`
+
+--
+
+- `parameter_code = Parameter code as string`
+
+--
+
+- `start_date = Start date of interest as "mm/dd/yyyy"`
+
+--
+
+- `end_date = End date of interest as "mm/dd/yyyy"`
+
 ---
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
@@ -97,7 +117,7 @@ DT::datatable(df, width = 800, options = list(scrollX = TRUE,
 
 - Hey! I don't know what parameter code to use!
 
--
+--
 ```{r}
 params <- echoWaterGetParams(term = "Oxygen")
 params
@@ -114,12 +134,15 @@ How about *E. coli*?
 
 - Sometimes you need to try a few search terms
 
+--
+
 - `term = "escherichia coli"` returns nothing
 
+--
 - `term = "escherichia"` returns nothing
 
+--
 - try `term = "coli"`
-
 
 ```{r}
 params <- echoWaterGetParams(term = "coli")
@@ -133,6 +156,170 @@ DT::datatable(params, width = 800, options = list(scrollX = TRUE,
                                               pageLength = 8))
 ```
 
+
+---
+class: inverse, center, middle
+
+# Find permit info
+
+---
+`echoWaterGetFacilityInfo()` downloads facility info from facilities within your query parameters.
+
+```{r tidy=TRUE}
+## get facility info by HUC, note that can only use 2-, 4-, 6-, or 8- digit HUCs
+df <- echoWaterGetFacilityInfo(p_huc = "12100401")
+df
+```
+
+---
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
+DT::datatable(df, width = 800, options = list(scrollX = TRUE,
+                                              pageLength = 4))
+```
+
+---
+## notes
+
+- If your query returns a large number of permits your dataframe will be empty.
+
+- This will be fixed soon, but should not cause a problem at the scales we are working at right now.
+
+- Lots of arguments to look up facilities by: https://echo.epa.gov/tools/web-services/facility-search-water#!/Facility_Information/get_cwa_rest_services_get_facility_info
+
+---
+class: inverse, center, middle
+
+# Sample workflow
+
+---
+class: center, middle
+
+Find permits 
+
+--
+
+`r icon::fa("arrow-alt-circle-down")` 
+
+--
+
+Create list of permits
+
+--
+
+`r icon::fa("arrow-alt-circle-down")` 
+
+--
+
+Use loops or map functions to download desired discharges
+
+--
+
+`r icon::fa("arrow-alt-circle-down")` 
+
+--
+
+plot data, assess data, export data
+
+
+---
+## Find permits
+
+```{r}
+df <- echoWaterGetFacilityInfo(p_huc = "12100401")
+```
+
+## Create list of permits
+
+```{r}
+permits <- df$SourceID
+```
+
+---
+
+## Use loops or map functions to download discharge data
+
+--
+for loops : for `i` in `n` do something
+
+Common in most programming languages
+
+--
+
+but for loops in **R**
+
+
+![](https://media.giphy.com/media/naXyAp2VYMR4k/giphy.gif)
+
+---
+
+## Use loops or map functions to download discharge data
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE}
+library(dplyr)
+library(purrr)
+
+DMR <- tibble::tibble(permits = permits[df$CWPFacilityTypeIndicator == "POTW"]) %>%
+  pmap(., ~echoGetEffluent(p_id = ..1, parameter_code = "51040",
+                           start_date = "01/01/2010", end_date = "12/30/2017"))
+
+# DMR is a list of dataframes
+# Next step is to collapse into a single dataframe
+
+```
+
+---
+
+## Use loops or map functions to download discharge data
+
+```{r}
+
+DMR <- map_df(DMR, bind_rows)
+
+```
+
+--
+- Returns a dataframe with a row for each event report as each plant
+
+---
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
+DT::datatable(DMR, width = 800, options = list(scrollX = TRUE,
+                                              pageLength = 4))
+```
+
+---
+## Plot the data
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, fig.align = 'center', fig.dim =c(8,3), dpi = 200}
+library(ggplot2)
+
+ggplot(data = DMR, aes(x = MonitoringPeriodEndDate,y = DMRValueNmbr)) +
+  geom_step(aes(color = StatisticalBaseDesc), alpha = 0.5) +
+  geom_point(aes(color = StatisticalBaseDesc), alpha = 0.5) +
+  facet_wrap(~Name) +
+  scale_y_log10() +
+  theme_light()
+
+```
+
+---
+## Troubleshooting
+
+- All echor functions have an argument called *verbose*
+
+-- 
+
+- `echoWaterGetParams(code = "00300", verbose = TRUE)`
+- will print the server status and the URL built by echor
+
+--
+
+- `SuccessOKSuccess: (200) OK` indicates server returned something
+
+- 400 indicates echor probably sent a bad request. Let me know.
+
+- 404 indicates the server can't be found
+
+- 500 something went wrong on the server end
 ---
 
 class: center, middle
@@ -141,4 +328,4 @@ class: center, middle
 
 Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan).
 
-The help from [remark.js](https://remarkjs.com), [**knitr**](http://yihui.name/knitr), and [R Markdown](https://rmarkdown.rstudio.com).
+With help from [remark.js](https://remarkjs.com), [**knitr**](http://yihui.name/knitr), and [R Markdown](https://rmarkdown.rstudio.com).
