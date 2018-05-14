@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Downloading EPA ECHO data with echor</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Michael Schramm" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/fontawesome-all.min.css" rel="stylesheet" />
+    <script src="libs/htmlwidgets/htmlwidgets.js"></script>
+    <script src="libs/jquery/jquery.min.js"></script>
+    <link href="libs/datatables-css/datatables-crosstalk.css" rel="stylesheet" />
+    <script src="libs/datatables-binding/datatables.js"></script>
+    <link href="libs/dt-core/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="libs/dt-core/css/jquery.dataTables.extra.css" rel="stylesheet" />
+    <script src="libs/dt-core/js/jquery.dataTables.min.js"></script>
+    <link href="libs/crosstalk/css/crosstalk.css" rel="stylesheet" />
+    <script src="libs/crosstalk/js/crosstalk.min.js"></script>
+    <link rel="stylesheet" href="fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Downloading EPA ECHO data with echor
+### Michael Schramm
+
+---
+
+
+
+
+class: center, middle
+
+
+![](https://media.giphy.com/media/W441N5w0cKVGw/giphy.gif)
+
+
+
+---
+class: inverse, center, middle
+
+# Get Started
+
+---
+
+Install the **echor** package from the CRAN repository:
+
+
+```r
+install.packages("echor")
+```
+
+--
+
+if you are brave, install the development version from github:
+
+
+```r
+install.packages("devtools")
+devtools::install_github("mps9506/echor")
+```
+
+---
+**echor** utilizes the public web services of the EPA ECHO website to obtain a live feed of data from ECHO. 
+
+- Uses URLs to download data from ECHO as a JSON file. 
+- The package forms the URL, reads the JSON files, and formats it to a dataframe.
+
+--
+
+See the JSON yourself by testing this URL:
+
+https://ofmpub.epa.gov/echo/cwa_rest_services.get_facility_info?output=JSON&amp;xmin=-96.407563&amp;ymin=30.554395&amp;xmax=-96.25947&amp;ymax=30.751984
+
+<i class="fab  fa-chrome "></i> or <i class="fab  fa-firefox "></i> will show you the JSON data in a nice format for you to browse.
+
+---
+## Some notes before starting
+
+- Requires internet connection
+
+- Depends on EPA ECHO server
+
+- Tons of available arguments, not all documented by me
+
+- Nitty gritty details are here: https://echo.epa.gov/tools/web-services
+
+---
+## Demo 1
+
+- Download effluent records from a permitted discharger
+
+
+```r
+library(echor)
+
+df &lt;- echoGetEffluent(p_id = 'tx0119407', parameter_code = '50050')
+```
+
+--
+- `p_id = NPDES identifier`
+
+--
+- parameter code 50050 returns discharge (mean and max)
+---
+
+<div id="htmlwidget-17d4253211e67d692cc3" style="width:800px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-17d4253211e67d692cc3">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59","60","61","62","63","64","65","66","67","68","69","70","71","72","73","74","75","76","77","78"],["SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP","SKIDMORE WSC WWTP"],["001","001","001","001","001","001","001","001","001","001","001","001","001","001","001","001","001","001","001","001","001","001","001","001","001","001","001","001","001","001","001","001","001","001","001","001","001","001","001","001","001","001","001","001","001","001","001","001","001","001","001","001","001","001","001","001","001","001","001","001","001","001","001","001","001","001","001","001","001","001","001","001","001","001","001","001","001","001"],["TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407","TX0119407"],["110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693","110009771693"],["1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX","1000 FT N OF THE END OF BLACK RANCH RD AND APPROX"],["SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE","SKIDMORE"],["TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX","TX"],["78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387"],["78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387","78387"],["2015-08-01","2015-08-01","2015-08-01","2015-08-01","2015-08-01","2015-08-01","2015-08-01","2015-08-01","2015-08-01","2015-08-01","2015-08-01","2015-08-01","2015-08-01","2015-08-01","2015-08-01","2015-08-01","2015-08-01","2015-08-01","2015-08-01","2015-08-01","2015-08-01","2015-08-01","2015-08-01","2015-08-01","2015-08-01","2015-08-01","2015-08-01","2015-08-01","2015-08-01","2015-08-01","2015-08-01","2015-08-01","2015-08-01","2015-08-01","2015-08-01","2015-08-01","2015-08-01","2015-08-01","2015-08-01","2015-08-01","2015-08-01","2015-08-01","2015-08-01","2015-08-01","2015-08-01","2015-08-01","2015-08-01","2015-08-01","2015-08-01","2015-08-01","2015-08-01","2015-08-01","2015-08-01","2015-08-01","2015-08-01","2015-08-01","2015-08-01","2015-08-01","2015-08-01","2015-08-01","2015-08-01","2015-08-01","2015-08-01","2015-08-01","2010-04-01","2010-04-01","2010-04-01","2010-04-01","2010-04-01","2010-04-01","2010-04-01","2010-04-01","2010-04-01","2010-04-01","2010-04-01","2010-04-01","2010-04-01","2010-04-01"],["2020-03-01","2020-03-01","2020-03-01","2020-03-01","2020-03-01","2020-03-01","2020-03-01","2020-03-01","2020-03-01","2020-03-01","2020-03-01","2020-03-01","2020-03-01","2020-03-01","2020-03-01","2020-03-01","2020-03-01","2020-03-01","2020-03-01","2020-03-01","2020-03-01","2020-03-01","2020-03-01","2020-03-01","2020-03-01","2020-03-01","2020-03-01","2020-03-01","2020-03-01","2020-03-01","2020-03-01","2020-03-01","2020-03-01","2020-03-01","2020-03-01","2020-03-01","2020-03-01","2020-03-01","2020-03-01","2020-03-01","2020-03-01","2020-03-01","2020-03-01","2020-03-01","2020-03-01","2020-03-01","2020-03-01","2020-03-01","2020-03-01","2020-03-01","2020-03-01","2020-03-01","2020-03-01","2020-03-01","2020-03-01","2020-03-01","2020-03-01","2020-03-01","2020-03-01","2020-03-01","2020-03-01","2020-03-01","2020-03-01","2020-03-01","2015-03-01","2015-03-01","2015-03-01","2015-03-01","2015-03-01","2015-03-01","2015-03-01","2015-03-01","2015-03-01","2015-03-01","2015-03-01","2015-03-01","2015-03-01","2015-03-01"],[0.131,null,0.131,null,0.131,null,0.131,null,0.131,null,0.131,null,0.131,null,0.131,null,0.131,null,0.131,null,0.131,null,0.131,null,0.131,null,0.131,null,0.131,null,0.131,null,0.131,null,0.131,null,0.131,null,0.131,null,0.131,null,0.131,null,0.131,null,0.131,null,0.131,null,0.131,null,0.131,null,0.131,null,0.131,null,0.131,null,0.131,null,0.131,null,0.131,null,0.131,null,0.131,null,0.131,null,0.131,null,0.131,null,0.131,null],["03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03"],["MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD"],["MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD"],["MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD"],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],["DB","DD","DB","DD","DB","DD","DB","DD","DB","DD","DB","DD","DB","DD","DB","DD","DB","DD","DB","DD","DB","DD","DB","DD","DB","DD","DB","DD","DB","DD","DB","DD","DB","DD","DB","DD","DB","DD","DB","DD","DB","DD","DB","DD","DB","DD","DB","DD","DB","DD","DB","DD","DB","DD","DB","DD","DB","DD","DB","DD","DB","DD","DB","DD","DB","DD","DB","DD","DB","DD","DB","DD","DB","DD","DB","DD","DB","DD"],["DAILY AV","DAILY MX","DAILY AV","DAILY MX","DAILY AV","DAILY MX","DAILY AV","DAILY MX","DAILY AV","DAILY MX","DAILY AV","DAILY MX","DAILY AV","DAILY MX","DAILY AV","DAILY MX","DAILY AV","DAILY MX","DAILY AV","DAILY MX","DAILY AV","DAILY MX","DAILY AV","DAILY MX","DAILY AV","DAILY MX","DAILY AV","DAILY MX","DAILY AV","DAILY MX","DAILY AV","DAILY MX","DAILY AV","DAILY MX","DAILY AV","DAILY MX","DAILY AV","DAILY MX","DAILY AV","DAILY MX","DAILY AV","DAILY MX","DAILY AV","DAILY MX","DAILY AV","DAILY MX","DAILY AV","DAILY MX","DAILY AV","DAILY MX","DAILY AV","DAILY MX","DAILY AV","DAILY MX","DAILY AV","DAILY MX","DAILY AV","DAILY MX","DAILY AV","DAILY MX","DAILY AV","DAILY MX","DAILY AV","DAILY MX","DAILY AV","DAILY MX","DAILY AV","DAILY MX","DAILY AV","DAILY MX","DAILY AV","DAILY MX","DAILY AV","DAILY MX","DAILY AV","DAILY MX","DAILY AV","DAILY MX"],["AVG","MAX","AVG","MAX","AVG","MAX","AVG","MAX","AVG","MAX","AVG","MAX","AVG","MAX","AVG","MAX","AVG","MAX","AVG","MAX","AVG","MAX","AVG","MAX","AVG","MAX","AVG","MAX","AVG","MAX","AVG","MAX","AVG","MAX","AVG","MAX","AVG","MAX","AVG","MAX","AVG","MAX","AVG","MAX","AVG","MAX","AVG","MAX","AVG","MAX","AVG","MAX","AVG","MAX","AVG","MAX","AVG","MAX","AVG","MAX","AVG","MAX","AVG","MAX","AVG","MAX","AVG","MAX","AVG","MAX","AVG","MAX","AVG","MAX","AVG","MAX","AVG","MAX"],["Average","Maximum","Average","Maximum","Average","Maximum","Average","Maximum","Average","Maximum","Average","Maximum","Average","Maximum","Average","Maximum","Average","Maximum","Average","Maximum","Average","Maximum","Average","Maximum","Average","Maximum","Average","Maximum","Average","Maximum","Average","Maximum","Average","Maximum","Average","Maximum","Average","Maximum","Average","Maximum","Average","Maximum","Average","Maximum","Average","Maximum","Average","Maximum","Average","Maximum","Average","Maximum","Average","Maximum","Average","Maximum","Average","Maximum","Average","Maximum","Average","Maximum","Average","Maximum","Average","Maximum","Average","Maximum","Average","Maximum","Average","Maximum","Average","Maximum","Average","Maximum","Average","Maximum"],["3403423151","3403423151","3403423173","3403423173","3403423185","3403423185","3403423200","3403423200","3403423215","3403423215","3403423224","3403423224","3403423234","3403423234","3403423247","3403423247","3403423274","3403423274","3600838713","3600838713","3600838733","3600838733","3600838743","3600838743","3600838750","3600838750","3600838760","3600838760","3600838773","3600838773","3600838800","3600838800","3600838812","3600838812","3600838828","3600838828","3600838836","3600838836","3600838845","3600838845","3600838854","3600838854","3600838863","3600838863","3601380408","3601380408","3601380409","3601380409","3601380410","3601380410","3601380411","3601380411","3601380412","3601380412","3601380413","3601380413","3601380414","3601380414","3601380415","3601380415","3601380416","3601380416","3601380417","3601380417","1800821835","1800821835","1800821836","1800821836","3403423056","3403423056","3403423081","3403423081","3403423091","3403423091","3403423108","3403423108","3403423129","3403423129"],["2015-08-31","2015-08-31","2015-09-30","2015-09-30","2015-10-31","2015-10-31","2015-11-30","2015-11-30","2015-12-31","2015-12-31","2016-01-31","2016-01-31","2016-02-29","2016-02-29","2016-03-31","2016-03-31","2016-04-30","2016-04-30","2016-05-31","2016-05-31","2016-06-30","2016-06-30","2016-07-31","2016-07-31","2016-08-31","2016-08-31","2016-09-30","2016-09-30","2016-10-31","2016-10-31","2016-11-30","2016-11-30","2016-12-31","2016-12-31","2017-01-31","2017-01-31","2017-02-28","2017-02-28","2017-03-31","2017-03-31","2017-04-30","2017-04-30","2017-05-31","2017-05-31","2017-06-30","2017-06-30","2017-07-31","2017-07-31","2017-08-31","2017-08-31","2017-09-30","2017-09-30","2017-10-31","2017-10-31","2017-11-30","2017-11-30","2017-12-31","2017-12-31","2018-01-31","2018-01-31","2018-02-28","2018-02-28","2018-03-31","2018-03-31","2015-01-31","2015-01-31","2015-02-28","2015-02-28","2015-03-31","2015-03-31","2015-04-30","2015-04-30","2015-05-31","2015-05-31","2015-06-30","2015-06-30","2015-07-31","2015-07-31"],["3442281023","3442281032","3442281323","3442281328","3442281496","3442281524","3442281759","3442281762","3442281913","3442281941","3442282077","3442282082","3442282187","3442282191","3442282431","3442282435","3442282531","3442282534","3610876510","3610876514","3610876612","3610876613","3610876711","3610876716","3610876864","3610876867","3610877011","3610877019","3610877102","3610877106","3610877361","3610877366","3610877557","3610877567","3610877668","3610877673","3610877789","3610877795","3610877880","3610877885","3610877999","3610878004","3610878104","3610878109","3618540399","3618540400","3618540417","3618540418","3618540435","3618540436","3618540453","3618540454","3618540471","3618540472","3618540489","3618540490","3618540507","3618540508","3618540525","3618540526","3618540543","3618540544","3618540561","3618540562","1810352262","1810352263","1810352278","1810352279","3442279850","3442279867","3442279996","3442279998","3442280189","3442280236","3442280552","3442280554","3442280724","3442280729"],["Q1","Q2","Q1","Q2","Q1","Q2","Q1","Q2","Q1","Q2","Q1","Q2","Q1","Q2","Q1","Q2","Q1","Q2","Q1","Q2","Q1","Q2","Q1","Q2","Q1","Q2","Q1","Q2","Q1","Q2","Q1","Q2","Q1","Q2","Q1","Q2","Q1","Q2","Q1","Q2","Q1","Q2","Q1","Q2","Q1","Q2","Q1","Q2","Q1","Q2","Q1","Q2","Q1","Q2","Q1","Q2","Q1","Q2","Q1","Q2","Q1","Q2","Q1","Q2","Q1","Q2","Q1","Q2","Q1","Q2","Q1","Q2","Q1","Q2","Q1","Q2","Q1","Q2"],["Quantity1","Quantity2","Quantity1","Quantity2","Quantity1","Quantity2","Quantity1","Quantity2","Quantity1","Quantity2","Quantity1","Quantity2","Quantity1","Quantity2","Quantity1","Quantity2","Quantity1","Quantity2","Quantity1","Quantity2","Quantity1","Quantity2","Quantity1","Quantity2","Quantity1","Quantity2","Quantity1","Quantity2","Quantity1","Quantity2","Quantity1","Quantity2","Quantity1","Quantity2","Quantity1","Quantity2","Quantity1","Quantity2","Quantity1","Quantity2","Quantity1","Quantity2","Quantity1","Quantity2","Quantity1","Quantity2","Quantity1","Quantity2","Quantity1","Quantity2","Quantity1","Quantity2","Quantity1","Quantity2","Quantity1","Quantity2","Quantity1","Quantity2","Quantity1","Quantity2","Quantity1","Quantity2","Quantity1","Quantity2","Quantity1","Quantity2","Quantity1","Quantity2","Quantity1","Quantity2","Quantity1","Quantity2","Quantity1","Quantity2","Quantity1","Quantity2","Quantity1","Quantity2"],["3612155723","3612155724","3613394763","3613394764","3614856996","3614856997","3616166160","3616166161","3616860611","3616860612","3618418931","3618418933","3619770369","3619770370","3620518309","3620518310","3622205112","3622205113","3623428270","3623428271","3624449551","3624449552","3625942745","3625942746","3627603124","3627603125","3628828308","3628828309","3630384878","3630384880","3631583599","3631583601","3632739759","3632739761","3634771541","3634771542","3636031818","3636031819","3637452692","3637452693","3639062095","3639062096","3641504046","3641504047","3642739816","3642739817","3644982010","3644982011","3646508935","3646508936","3653225983","3653225984","3649723774","3649723775","3650650075","3650650076","3651857696","3651857697","3653653760","3653653761","3662543719","3662543720","3662543761","3662543762","3604715312","3604715313","3605551768","3605551771","3606492688","3606492689","3607915018","3607915019","3608861180","3608861181","3609645979","3609645980","3611131175","3611131177"],[0.0492,0.0534,0.0512,0.071,0.048,0.0613,0.0441,0.0501,0.0459,0.049,0.0459,0.0865,0.0435,0.0517,0.0487,0.0784,0.0521,0.099,0.0512,0.0809,0.0552,0.0628,0.0613,0.0689,0.0678,0.1176,0.0583,0.0839,0.0623,0.075,0.0572,0.0857,0.064,0.1428,0.0603,0.0878,0.0534,0.0709,0.0513,0.0779,0.0499,70.881,0.0603,0.0878,0.0494,0.0709,0.0492,0.0721,0.0511,0.0722,0.06,0.0994,0.0557,0.0923,0.0544,0.0763,0.0558,0.084,0.0538,0.0538,0.0502,0.108,0.0467,0.0756,0.0489,0.0587,0.0443,0.0585,0.0492,0.0908,0.0589,0.0946,0.0576,0.0983,0.0484,0.0937,0.0458,0.0572],["03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03","03"],["MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD","MGD"],[0.0492,0.0534,0.0512,0.071,0.048,0.0613,0.0441,0.0501,0.0459,0.049,0.0459,0.0865,0.0435,0.0517,0.0487,0.0784,0.0521,0.099,0.0512,0.0809,0.0552,0.0628,0.0613,0.0689,0.0678,0.1176,0.0583,0.0839,0.0623,0.075,0.0572,0.0857,0.064,0.1428,0.0603,0.0878,0.0534,0.0709,0.0513,0.0779,0.0499,70.881,0.0603,0.0878,0.0494,0.0709,0.0492,0.0721,0.0511,0.0722,0.06,0.0994,0.0557,0.0923,0.0544,0.0763,0.0558,0.084,0.0538,0.0538,0.0502,0.108,0.0467,0.0756,0.0489,0.0587,0.0443,0.0585,0.0492,0.0908,0.0589,0.0946,0.0576,0.0983,0.0484,0.0937,0.0458,0.0572],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],["2015-09-17","2015-09-17","2015-10-20","2015-10-20","2015-11-20","2015-11-20","2015-12-29","2015-12-29","2016-01-19","2016-01-19","2016-02-16","2016-02-16","2016-03-21","2016-03-21","2016-04-12","2016-04-12","2016-05-12","2016-05-12","2016-06-20","2016-06-20","2016-07-18","2016-07-18","2016-08-11","2016-08-11","2016-09-20","2016-09-20","2016-10-20","2016-10-20","2016-11-18","2016-11-18","2016-12-20","2016-12-20","2017-01-17","2017-01-17","2017-02-16","2017-02-16","2017-03-20","2017-03-20","2017-04-17","2017-04-17","2017-05-15","2017-05-15","2017-06-19","2017-06-19","2017-07-13","2017-07-13","2017-08-15","2017-08-15","2017-09-19","2017-09-19","2018-02-07","2018-02-07","2017-11-21","2017-11-21","2017-12-15","2017-12-15","2018-01-16","2018-01-16","2018-02-19","2018-02-19","2018-04-17","2018-04-17","2018-04-17","2018-04-17","2015-02-20","2015-02-20","2015-03-19","2015-03-19","2015-04-17","2015-04-17","2015-05-19","2015-05-19","2015-06-22","2015-06-22","2015-07-20","2015-07-20","2015-08-18","2015-08-18"],[null,null,null,null,null,null,9,9,null,null,null,null,1,1,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,110,110,1,1,null,null,null,null,34,34,28,28,null,null,null,null,null,null,null,null,null,null,2,2,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,[{"NPDESViolationId":"3631136094","ViolationCode":"D90","ViolationDesc":"DMR, Limited - Overdue","RNCDetectionCode":"N","RNCDetectionDesc":"Non-Receipt of DMR/Schedule Report","RNCDetectionDate":"20-NOV-17","RNCResolutionCode":"2","RNCResolutionDesc":"RE - Back into Compliance","RNCResolutionDate":"07-FEB-18","ViolationSeverity":"Unknown"}],[{"NPDESViolationId":"3631136136","ViolationCode":"D80","ViolationDesc":"DMR, Monitor Only - Overdue","RNCDetectionCode":"K","RNCDetectionDesc":"Non-receipt Violation, Non-Monthly Average","RNCDetectionDate":"20-NOV-17","RNCResolutionCode":"2","RNCResolutionDesc":"RE - Back into Compliance","RNCResolutionDate":"07-FEB-18","ViolationSeverity":"Unknown"}],null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Name<\/th>\n      <th>Outfall<\/th>\n      <th>ID<\/th>\n      <th>RegistryID<\/th>\n      <th>Location<\/th>\n      <th>City<\/th>\n      <th>State<\/th>\n      <th>Zip<\/th>\n      <th>Status<\/th>\n      <th>LimitBeginDate<\/th>\n      <th>LimitEndDate<\/th>\n      <th>LimitValueNmbr<\/th>\n      <th>LimitUnitCode<\/th>\n      <th>LimitUnitDesc<\/th>\n      <th>StdUnitCode<\/th>\n      <th>StdUnitDesc<\/th>\n      <th>LimitValueStdUnit<\/th>\n      <th>StatisticalBaseCode<\/th>\n      <th>StatisticalBaseDesc<\/th>\n      <th>StatisticalBaseTypeCode<\/th>\n      <th>StatisticalBaseTypeDesc<\/th>\n      <th>DMREventId<\/th>\n      <th>MonitoringPeriodEndDate<\/th>\n      <th>DMRFormValueId<\/th>\n      <th>ValueTypeCode<\/th>\n      <th>ValueTypeDesc<\/th>\n      <th>DMRValueId<\/th>\n      <th>DMRValueNmbr<\/th>\n      <th>DMRUnitCode<\/th>\n      <th>DMRUnitDesc<\/th>\n      <th>DMRValueStdUnits<\/th>\n      <th>DMRQualifierCode<\/th>\n      <th>ValueReceivedDate<\/th>\n      <th>DaysLate<\/th>\n      <th>NODICode<\/th>\n      <th>NODEDesc<\/th>\n      <th>ExceedancePct<\/th>\n      <th>NPDESViolations<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"scrollX":true,"pageLength":2,"columnDefs":[{"className":"dt-right","targets":[12,28,31,34]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[2,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+
+---
+
+- Hey! I don't know what parameter code to use!
+
+-
+
+```r
+params &lt;- echoWaterGetParams(term = "Oxygen")
+params
+```
+
+```
+## # A tibble: 36 x 2
+##    ValueCode ValueDescription                     
+##    &lt;chr&gt;     &lt;chr&gt;                                
+##  1 03602     Biochemical oxygen demand            
+##  2 85002     Biochemical oxygen demand-5          
+##  3 81383     Carbonaceous oxygen demand, % removal
+##  4 80115     Chem. oxygen demand [COD] % removal  
+##  5 00146     Chem. oxygen demand per production   
+##  6 81017     Chemical Oxygen Demand [COD]         
+##  7 80108     Chemical oxygen demand [COD]         
+##  8 80103     Chemical oxygen demand [COD]         
+##  9 80116     Chemical oxygen demand, soluble      
+## 10 00398     Dissolved oxygen injected            
+## # ... with 26 more rows
+```
+
+---
+<div id="htmlwidget-6a6842264b01ea00221a" style="width:800px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-6a6842264b01ea00221a">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36"],["03602","85002","81383","80115","00146","81017","80108","80103","80116","00398","82387","81382","81384","51905","82210","00341","00340","00335","00177","51186","00388","81018","00343","00192","00176","00181","34048","34049","34047","00300","51646","51645","00301","00399","51812","51903"],["Biochemical oxygen demand","Biochemical oxygen demand-5","Carbonaceous oxygen demand, % removal","Chem. oxygen demand [COD] % removal","Chem. oxygen demand per production","Chemical Oxygen Demand [COD]","Chemical oxygen demand [COD]","Chemical oxygen demand [COD]","Chemical oxygen demand, soluble","Dissolved oxygen injected","First stage oxygen demand, % removal","Nitrogenous oxygen demand [20-day, 20 C]","Nitrogenous oxygen demand, % removal","Oxygen Injected","Oxygen demand first stage","Oxygen demand, chem. [COD], dissolved","Oxygen demand, chem. [high level] [COD]","Oxygen demand, chem. [low level] [COD]","Oxygen demand, dissolved","Oxygen demand, nitrogenous, ultimate","Oxygen demand, sum product","Oxygen demand, total","Oxygen demand, total [tod]","Oxygen demand, ult. carbonaceous [UCOD]","Oxygen demand, ult., percent removal","Oxygen demand, ultimate","Oxygen injection diversion","Oxygen injection interruption","Oxygen transfer efficiency","Oxygen, dissolved [DO]","Oxygen, dissolved [DO] maximum","Oxygen, dissolved [DO] minimum","Oxygen, dissolved percent saturation","Oxygen, dissolved, % of time violated","Sediment Oxygen Demand","Specific Oxygen Update Rate [SOUR]"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>ValueCode<\/th>\n      <th>ValueDescription<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"scrollX":true,"pageLength":8,"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}],"lengthMenu":[8,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+
+---
+How about **E. coli*?
+
+- Sometimes you need to try a few search terms
+
+- escherichia coli returns nothing
+
+- escherichia returns nothing
+
+- try coli
+
+
+
+```r
+params &lt;- echoWaterGetParams(term = "coli")
+params
+```
+
+```
+## # A tibble: 28 x 2
+##    ValueCode ValueDescription                           
+##    &lt;chr&gt;     &lt;chr&gt;                                      
+##  1 51005     % of fecal coliform samples &lt; detectable   
+##  2 30500     Coliform, fecal - % samples exceeding limit
+##  3 31612     Coliform, fecal 10/mL                      
+##  4 31613     Coliform, fecal MF, MFC agar, 44.5 C, 24hr 
+##  5 31616     Coliform, fecal MF, MFC broth, 44.5 C      
+##  6 31625     Coliform, fecal MF, MFC, 0.7um             
+##  7 48201     Coliform, fecal MPN + membrane ftl 44.5 C  
+##  8 74055     Coliform, fecal general                    
+##  9 74057     Coliform, fecal, colony forming units      
+## 10 31505     Coliform, tot, MPN, completed, [100 mL]    
+## # ... with 18 more rows
+```
+
+---
+
+<div id="htmlwidget-262cc16d65260ea9cc9f" style="width:800px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-262cc16d65260ea9cc9f">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28"],["51005","30500","31612","31613","31616","31625","48201","74055","74057","31505","51694","31502","31503","31504","31501","74058","74056","51040","51617","31648","51041","31633","31641","51131","31615","00111","82028","49187"],["% of fecal coliform samples &lt; detectable","Coliform, fecal - % samples exceeding limit","Coliform, fecal 10/mL","Coliform, fecal MF, MFC agar, 44.5 C, 24hr","Coliform, fecal MF, MFC broth, 44.5 C","Coliform, fecal MF, MFC, 0.7um","Coliform, fecal MPN + membrane ftl 44.5 C","Coliform, fecal general","Coliform, fecal, colony forming units","Coliform, tot, MPN, completed, [100 mL]","Coliform, total - % samples exceeding limit","Coliform, total 10/mL","Coliform, total MF, delayed, m-endo med","Coliform, total MF, immed, les endo agar","Coliform, total MF, immed, m-endo med 35 C","Coliform, total colony forming units","Coliform, total general","E. coli","E. coli exceedances","E. coli, MTEC-MF","E. coli, colony forming units [CFU]","E. coli, thermotol, MF, MTEC","Fecal coliform","Fecal coliform in sludge, CFU/gram","Fecal coliform, MPN, EC med, 44.5 C","Ratio fecal coliform &amp; streptococci","Ratio of fecal coliform to fecal streptoc","Sanitary waste, fecal coliform"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>ValueCode<\/th>\n      <th>ValueDescription<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"scrollX":true,"pageLength":8,"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}],"lengthMenu":[8,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+
+---
+
+class: center, middle
+
+# Thanks!
+
+Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan).
+
+The help from [remark.js](https://remarkjs.com), [**knitr**](http://yihui.name/knitr), and [R Markdown](https://rmarkdown.rstudio.com).
+    </textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function() {
+  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})();</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+  }
+});
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

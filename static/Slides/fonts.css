@@ -1,0 +1,9 @@
+
+@import url(https://cdn.rawgit.com/tonsky/FiraCode/1.204/distr/fira_code.css);
+@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Sans|IBM+Plex+Serif:600');
+
+body { font-family: 'IBM Plex Sans', sans-serif; }
+
+h1, h2, h3 { font-family: 'IBM Plex Serif', serif; }
+
+.remark-code, .remark-inline-code { font-family: 'Fira Code';}

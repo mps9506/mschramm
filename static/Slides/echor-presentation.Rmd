@@ -1,0 +1,144 @@
+---
+title: "Downloading EPA ECHO data with echor"
+author: "Michael Schramm"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["default", "fonts.css"]
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+```
+
+class: center, middle
+
+
+![](https://media.giphy.com/media/W441N5w0cKVGw/giphy.gif)
+
+
+
+---
+class: inverse, center, middle
+
+# Get Started
+
+---
+
+Install the **echor** package from the CRAN repository:
+
+```{r eval=FALSE, tidy=FALSE}
+install.packages("echor")
+```
+
+--
+
+if you are brave, install the development version from github:
+
+```{r eval=FALSE, tidy=FALSE}
+install.packages("devtools")
+devtools::install_github("mps9506/echor")
+```
+
+---
+**echor** utilizes the public web services of the EPA ECHO website to obtain a live feed of data from ECHO. 
+
+- Uses URLs to download data from ECHO as a JSON file. 
+- The package forms the URL, reads the JSON files, and formats it to a dataframe.
+
+--
+
+See the JSON yourself by testing this URL:
+
+https://ofmpub.epa.gov/echo/cwa_rest_services.get_facility_info?output=JSON&xmin=-96.407563&ymin=30.554395&xmax=-96.25947&ymax=30.751984
+
+`r icon::fa("chrome")` or `r icon::fa("firefox")` will show you the JSON data in a nice format for you to browse.
+
+---
+## Some notes before starting
+
+- Requires internet connection
+
+- Depends on EPA ECHO server
+
+- Tons of available arguments, not all documented by me
+
+- Nitty gritty details are here: https://echo.epa.gov/tools/web-services
+
+---
+## Demo 1
+
+- Download effluent records from a permitted discharger
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE}
+library(echor)
+
+df <- echoGetEffluent(p_id = 'tx0119407', parameter_code = '50050')
+
+```
+
+--
+- `p_id = NPDES identifier`
+
+--
+- parameter code 50050 returns discharge (mean and max)
+---
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+DT::datatable(df, width = 800, options = list(scrollX = TRUE,
+                                              pageLength = 2))
+```
+
+---
+
+- Hey! I don't know what parameter code to use!
+
+-
+```{r}
+params <- echoWaterGetParams(term = "Oxygen")
+params
+```
+
+---
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
+DT::datatable(params, width = 800, options = list(scrollX = TRUE,
+                                              pageLength = 8))
+```
+
+---
+How about *E. coli*?
+
+- Sometimes you need to try a few search terms
+
+- `term = "escherichia coli"` returns nothing
+
+- `term = "escherichia"` returns nothing
+
+- try `term = "coli"`
+
+
+```{r}
+params <- echoWaterGetParams(term = "coli")
+params
+```
+
+---
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
+DT::datatable(params, width = 800, options = list(scrollX = TRUE,
+                                              pageLength = 8))
+```
+
+---
+
+class: center, middle
+
+# Thanks!
+
+Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan).
+
+The help from [remark.js](https://remarkjs.com), [**knitr**](http://yihui.name/knitr), and [R Markdown](https://rmarkdown.rstudio.com).
