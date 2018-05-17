@@ -62,9 +62,11 @@ Cutting, R.H., Cahoon, L.B., Flood, J.F., Horton, L., **Schramm, M.P.** 2010. Sp
 
 ## Other Publications
 
-**Schramm, M.P.**, Entwistle, C., Berthold, T. 2017. Implementation Plan for One Total Maximum Daily Load for Indicator Bacteria in Tres Palacios Creek Tidal. Prepared by Texas Water Resources Institute for Total Maximum Daily Load Program, Texas Commission on Environmental Quality. Austin, TX. URL: https://www.tceq.texas.gov/assets/public/waterquality/tmdl/108trespalacios/108-TresPalaciosBacteria_TMDLIPlan_Comment_July05-2017.pdf
+**Schramm, M.P.**, Entwistle, C., Berthold, T. 2017. Tres Palacios Watershed Protection Plan. Technical report, Texas Water Resources Institute TR-500. College Station, TX. URL: http://twri.tamu.edu/publications/reports/2017/tr-500/
 
-**Schramm, M.P.** 2017. Technical Support Document for Total Maximum Daily Loads for Indicator Bacteria in Aransas River Above Tidal and Poesta Creek. Prepared by Texas Water Resources Institute for Total Maximum Daily Load Program, Texas Commission on Environmental Quality. Austin, TX. URL: https://www.tceq.texas.gov/assets/public/waterquality/tmdl/76copano/76-aransas-poesta-tsd.pdf
+**Schramm, M.P.**, Entwistle, C., Berthold, T. 2017. Implementation Plan for One Total Maximum Daily Load for Indicator Bacteria in Tres Palacios Creek Tidal. Prepared by the Texas Water Resources Institute for the Total Maximum Daily Load Program, Texas Commission on Environmental Quality. Austin, TX. URL: https://www.tceq.texas.gov/assets/public/waterquality/tmdl/108trespalacios/108-TresPalaciosBacteria_TMDLIPlan_Comment_July05-2017.pdf
+
+**Schramm, M.P.** 2017. Technical Support Document for Total Maximum Daily Loads for Indicator Bacteria in Aransas River Above Tidal and Poesta Creek. Prepared by the Texas Water Resources Institute for the Total Maximum Daily Load Program, Texas Commission on Environmental Quality. Austin, TX. URL: https://www.tceq.texas.gov/assets/public/waterquality/tmdl/76copano/76-aransas-poesta-tsd.pdf
 
 McManamay, R.A., Troia, M.J., DeRolph, C.R., Bevelhimer, M.S., **Schramm, M.P.**, Larson, K.B., Tagestad, J.D., Johnson, G.E., Jager, H.I. 2015. Identifying Environmental Opportunities outside the Hydropower Project Boundary : An Updated Methodology of the Basin Scale Opportunity Assessment. doi:10.13140/RG.2.1.3000.0482
 
@@ -88,7 +90,6 @@ Bevelhimer, M.S., **Schramm M.P.**, C.R. DeRolph 2015. US Maps of Non-Federal Hy
 
 **Schramm, M.P.**, Entwistle, C., Berthold, T. (Forthcoming). Lavaca River Watershed Protection Plan. Technical report, Texas Water Resources Institute. College Station, TX.
 
-**Schramm, M.P.**, Entwistle, C., Berthold, T.A. (Forthcoming). Tres Palacios Watershed Protection Plan. Technical report, Texas Water Resources Institute TR-500. College Station, TX.
+**Schramm, M.P.**, Entwistle, C., Berthold, T. (Forthcoming). Implementation Plan for Two Total Maximum Daily Loads for Indicator Bacteria in Lavaca River Above Tidal and Rocky Creek. Prepared by the Texas Water Resources Institute for the Total Maximum Daily Load Program, Texas Commission on Environmental Quality. Austin, TX.
 
-**Schramm, M.P.**, Entwistle, C., Berthold, T. (Forthcoming). Implementation Plan for Two Total Maximum Daily Loads for Indicator Bacteria in Lavaca River Above Tidal and Rocky Creek. Prepared by Texas Water Resources Institute for Total Maximum Daily Load Program, Texas Commission on Environmental Quality. Austin, TX.
-
+**Schramm, M.P.**, Broad, T., Arsuffi, R. (Forthcoming). *Escherichia coli* and Dissolved Oxygen Trends in the Upper Llano River Watershed, Texas (2001-2016). Prepared by the Texas Water Resources Institute and the Llano River Field Station for the Texas State Soil and Water Conservation Board. Temple, TX.
