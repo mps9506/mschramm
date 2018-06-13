@@ -1,0 +1,110 @@
+---
+title: "FDC and LDC Development in R"
+author: "Michael Schramm"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["default", "fonts.css", "twri.css"]
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+```
+
+# Basic steps
+
+- Obtain mean daily flows sorted by date for entire period of interest (preferable to instantaneous flows)
+
+- Plot exceedance probability (x-axis) against flow (y-axis) $=$ flow duration curve
+
+- Convert flow to load $flow\times time\times concentration$
+
+- Convert measured concentration to load and overlay on the load duration curve
+
+---
+
+# Flow
+
+- Obtain flow data at relevant USGS gage
+- Do this in R with the `dataRetrieval` package
+
+```{r echo=TRUE, message=FALSE, warning=FALSE, paged.print=FALSE}
+library(dataRetrieval)
+
+# download data to R as a dataframe 
+# this returns flow as mean daily flow in cubic feet per second
+flow <- readNWISdv("08150000", "00060", "2001-01-01", "2016-12-31")
+
+# columns do not have informational column names
+# this function will automatically rename them
+flow <- renameNWISColumns(flow)
+```
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
+head(flow)
+```
+
+---
+
+# Calculate flow exceedance
+Use `dplyr` package and some built in R functions to make a flow exceedance column
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE}
+library(dplyr)
+flow <- flow %>%
+  arrange(Flow) %>% # gets our flows into order by value of flow
+  mutate(Exceedance = cume_dist(-Flow)) # exceedance = 1 - cumulative distribution function of flow
+```
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
+head(flow)
+```
+
+---
+
+# Plot
+Use `ggplot2` to make a flow duration curve
+```{r message=FALSE, warning=FALSE, paged.print=FALSE}
+library(ggplot2)
+fdc <- ggplot(flow, aes(x = Exceedance, y = Flow)) +
+  geom_line() +
+  scale_y_log10(labels = scales::comma) +
+  scale_x_continuous(labels = scales::percent) +
+  labs(x = "Percent of Days Flow Exceeded",
+       y = "Flow (cfs)")
+
+```
+
+---
+
+#Flow Duration Curve
+```{r echo=FALSE, fig.align = 'center', fig.dim =c(8,3), dpi = 200}
+fdc
+```
+
+---
+FDC in a handful of lines
+```{r eval=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
+library(dataRetrieval)
+library(dplyr)
+library(ggplot2)
+
+flow <- readNWISdv("08150000", "00060", "2001-01-01", "2016-12-31")
+flow <- renameNWISColumns(flow)
+
+flow <- flow %>%
+  arrange(Flow) %>% 
+  mutate(Exceedance = cume_dist(-Flow))
+
+ggplot(flow, aes(x = Exceedance, y = Flow)) +
+  geom_line() +
+  scale_y_log10(labels = scales::comma) +
+  scale_x_continuous(labels = scales::percent) +
+  labs(x = "Percent of Days Flow Exceeded",
+       y = "Flow (cfs)")
+```
+

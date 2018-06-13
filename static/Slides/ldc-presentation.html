@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>FDC and LDC Development in R</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Michael Schramm" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link rel="stylesheet" href="fonts.css" type="text/css" />
+    <link rel="stylesheet" href="twri.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# FDC and LDC Development in R
+### Michael Schramm
+
+---
+
+
+
+
+# Basic steps
+
+- Obtain mean daily flows sorted by date for entire period of interest (preferable to instantaneous flows)
+
+- Plot exceedance probability (x-axis) against flow (y-axis) `\(=\)` flow duration curve
+
+- Convert flow to load `\(flow\times time\times concentration\)`
+
+- Convert measured concentration to load and overlay on the load duration curve
+
+---
+
+# Flow
+
+- Obtain flow data at relevant USGS gage
+- Do this in R with the `dataRetrieval` package
+
+
+```r
+library(dataRetrieval)
+
+# download data to R as a dataframe 
+# this returns flow as mean daily flow in cubic feet per second
+flow &lt;- readNWISdv("08150000", "00060", "2001-01-01", "2016-12-31")
+
+# columns do not have informational column names
+# this function will automatically rename them
+flow &lt;- renameNWISColumns(flow)
+```
+
+
+```
+##   agency_cd  site_no       Date Flow Flow_cd
+## 1      USGS 08150000 2001-01-01  257       A
+## 2      USGS 08150000 2001-01-02  255       A
+## 3      USGS 08150000 2001-01-03  252       A
+## 4      USGS 08150000 2001-01-04  250       A
+## 5      USGS 08150000 2001-01-05  248       A
+## 6      USGS 08150000 2001-01-06  246       A
+```
+
+---
+
+# Calculate flow exceedance
+Use `dplyr` package and some built in R functions to make a flow exceedance column
+
+
+```r
+library(dplyr)
+flow &lt;- flow %&gt;%
+  arrange(Flow) %&gt;% # gets our flows into order by value of flow
+  mutate(Exceedance = cume_dist(-Flow)) # exceedance = 1 - cumulative distribution function of flow
+```
+
+
+```
+##   agency_cd  site_no       Date Flow Flow_cd Exceedance
+## 1      USGS 08150000 2011-08-06 31.8       A  1.0000000
+## 2      USGS 08150000 2011-08-07 31.9       A  0.9998289
+## 3      USGS 08150000 2011-08-08 32.2       A  0.9996578
+## 4      USGS 08150000 2011-08-05 32.3       A  0.9994867
+## 5      USGS 08150000 2011-08-10 32.3       A  0.9994867
+## 6      USGS 08150000 2011-08-03 32.4       A  0.9991444
+```
+
+---
+
+# Plot
+Use `ggplot2` to make a flow duration curve
+
+```r
+library(ggplot2)
+fdc &lt;- ggplot(flow, aes(x = Exceedance, y = Flow)) +
+  geom_line() +
+  scale_y_log10(labels = scales::comma) +
+  scale_x_continuous(labels = scales::percent) +
+  labs(x = "Percent of Days Flow Exceeded",
+       y = "Flow (cfs)")
+```
+
+---
+
+#Flow Duration Curve
+&lt;img src="ldc-presentation_files/figure-html/unnamed-chunk-6-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+FDC in a handful of lines
+
+```r
+library(dataRetrieval)
+library(dplyr)
+library(ggplot2)
+
+flow &lt;- readNWISdv("08150000", "00060", "2001-01-01", "2016-12-31")
+flow &lt;- renameNWISColumns(flow)
+
+flow &lt;- flow %&gt;%
+  arrange(Flow) %&gt;% 
+  mutate(Exceedance = cume_dist(-Flow))
+
+ggplot(flow, aes(x = Exceedance, y = Flow)) +
+  geom_line() +
+  scale_y_log10(labels = scales::comma) +
+  scale_x_continuous(labels = scales::percent) +
+  labs(x = "Percent of Days Flow Exceeded",
+       y = "Flow (cfs)")
+```
+    </textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function() {
+  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})();</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+  }
+});
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
