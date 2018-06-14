@@ -17,21 +17,30 @@ options(htmltools.dir.version = FALSE)
 
 # Basic steps
 
-- Obtain mean daily flows sorted by date for entire period of interest (preferable to instantaneous flows)
+--
 
-- Plot exceedance probability (x-axis) against flow (y-axis) $=$ flow duration curve
+Obtain mean daily flows sorted by date for entire period of interest (preferable to instantaneous flows)
 
-- Convert flow to load $flow\times time\times concentration$
+--
 
-- Convert measured concentration to load and overlay on the load duration curve
+Plot exceedance probability (x-axis) against flow (y-axis) $=$ flow duration curve
+
+--
+
+Convert flow to load $flow\times time\times concentration$
+
+--
+
+Convert measured concentration to load and overlay on the load duration curve
 
 ---
 
 # Flow
 
 - Obtain flow data at relevant USGS gage
+--
 - Do this in R with the `dataRetrieval` package
-
+--
 ```{r echo=TRUE, message=FALSE, warning=FALSE, paged.print=FALSE}
 library(dataRetrieval)
 
@@ -43,7 +52,7 @@ flow <- readNWISdv("08150000", "00060", "2001-01-01", "2016-12-31")
 # this function will automatically rename them
 flow <- renameNWISColumns(flow)
 ```
-
+--
 ```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
 head(flow)
 ```
@@ -59,7 +68,7 @@ flow <- flow %>%
   arrange(Flow) %>% # gets our flows into order by value of flow
   mutate(Exceedance = cume_dist(-Flow)) # exceedance = 1 - cumulative distribution function of flow
 ```
-
+--
 ```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
 head(flow)
 ```
@@ -107,4 +116,104 @@ ggplot(flow, aes(x = Exceedance, y = Flow)) +
   labs(x = "Percent of Days Flow Exceeded",
        y = "Flow (cfs)")
 ```
+
+---
+# Convert FDC to LDC
+
+$Daily Load=126colonies/100mL\times 28316.8mL/foot^3\times feet^3/second\times 86,400 seconds/day$
+
+Use `dplyr` to create new column with load duration curve values calculated from mean daily flow and the 126 cfu/100 mL standard. 
+
+```{r}
+flow <- flow %>%
+  mutate(ldc = 126/100 * 28316.8 * Flow * 86400)
+```
+--
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
+head(flow)
+```
+
+---
+#Load Duration Curve
+Use `ggplot2` again
+```{r, fig.align = 'center', fig.dim =c(8,3), dpi = 200}
+ggplot(flow, aes(x = Exceedance, y = ldc)) +
+  geom_line() +
+  scale_y_log10() +
+  scale_x_continuous(labels = scales::percent) +
+  labs(x = "Percent of Days Load Exceeded",
+       y = "Load (colonies per day)")
+```
+
+---
+The LDC is usually broken into flow categories based on a visual inspection of the curve. This curve can probably be broken into three categories. This is subjective. 
+
+```{r fig.align='center', fig.dim=c(8,3), message=FALSE, warning=FALSE, dpi=200, paged.print=FALSE}
+ggplot(flow, aes(x = Exceedance, y = ldc)) +
+  geom_line() +
+  geom_vline(xintercept = 0.10, linetype = 2) +  #<<
+  geom_vline(xintercept = 0.90, linetype = 2) +  #<<
+  scale_y_log10() +
+  scale_x_continuous(labels = scales::percent) +
+  labs(x = "Percent of Days Load Exceeded",
+       y = "Load (colonies per day)")
+```
+
+---
+We also need to add measured concentrations, converted to loads.
+Go back to our dataframe, we can import water quality measurements and join them by date.
+
+We are going to use the `dataRetrieval` package to download monitoring data from STORET.
+```{r}
+ecoli <- readWQPqw(siteNumbers = c("TCEQMAIN-21489"), parameterCd = "Escherichia coli")
+## When I inspect this data, it includes the holding time, I just want concentrations.
+## so the next lines will filter rows that report holding time in hours
+## and select only the relevant variable columns and rename them
+ecoli <- ecoli %>%
+  filter(ResultMeasure.MeasureUnitCode != "hours") %>%
+  select(Date = ActivityStartDate, Concentration = ResultMeasureValue)
+```
+--
+```{r echo=FALSE}
+head(ecoli)
+```
+
+---
+We can join the `ecoli` dataframe to the `flow` dataframe using the date and ActivityStartDate column and the `left_join()` function in `dplyr`.
+```{r}
+df <- flow %>%
+  left_join(ecoli, by = "Date")
+```
+--
+```{r}
+head(df)
+```
+
+---
+Estimate daily loads from measured concentrations
+$Colonies/100mL\times Flow\times 28316.8mL/foot^3\times 86,400 seconds/day$
+
+```{r}
+df <- df %>%
+  mutate(load = Concentration/100 * Flow * 28316.8 * 86400)
+```
+--
+```{r echo=FALSE}
+head(df)
+```
+
+---
+# Plot the LDC
+
+```{r fig.align='center', fig.dim=c(8,3), message=FALSE, warning=FALSE, dpi=200, paged.print=FALSE}
+ggplot(df) +
+  geom_line(aes(x = Exceedance, y = ldc)) +
+  geom_point(aes(x = Exceedance, y = load)) +
+  scale_y_log10() + scale_x_continuous(labels = scales::percent) +
+  geom_vline(xintercept = 0.10, linetype = 2) +
+  geom_vline(xintercept = 0.90, linetype = 2) +
+  labs(x = "Percent of Days Load Exceeded",
+       y = "Load (colonies per day)")
+```
+
 

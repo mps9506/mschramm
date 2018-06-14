@@ -22,21 +22,30 @@ class: center, middle, inverse, title-slide
 
 # Basic steps
 
-- Obtain mean daily flows sorted by date for entire period of interest (preferable to instantaneous flows)
+--
 
-- Plot exceedance probability (x-axis) against flow (y-axis) `\(=\)` flow duration curve
+Obtain mean daily flows sorted by date for entire period of interest (preferable to instantaneous flows)
 
-- Convert flow to load `\(flow\times time\times concentration\)`
+--
 
-- Convert measured concentration to load and overlay on the load duration curve
+Plot exceedance probability (x-axis) against flow (y-axis) `\(=\)` flow duration curve
+
+--
+
+Convert flow to load `\(flow\times time\times concentration\)`
+
+--
+
+Convert measured concentration to load and overlay on the load duration curve
 
 ---
 
 # Flow
 
 - Obtain flow data at relevant USGS gage
+--
 - Do this in R with the `dataRetrieval` package
-
+--
 
 ```r
 library(dataRetrieval)
@@ -49,7 +58,7 @@ flow &lt;- readNWISdv("08150000", "00060", "2001-01-01", "2016-12-31")
 # this function will automatically rename them
 flow &lt;- renameNWISColumns(flow)
 ```
-
+--
 
 ```
 ##   agency_cd  site_no       Date Flow Flow_cd
@@ -73,7 +82,7 @@ flow &lt;- flow %&gt;%
   arrange(Flow) %&gt;% # gets our flows into order by value of flow
   mutate(Exceedance = cume_dist(-Flow)) # exceedance = 1 - cumulative distribution function of flow
 ```
-
+--
 
 ```
 ##   agency_cd  site_no       Date Flow Flow_cd Exceedance
@@ -127,6 +136,166 @@ ggplot(flow, aes(x = Exceedance, y = Flow)) +
   labs(x = "Percent of Days Flow Exceeded",
        y = "Flow (cfs)")
 ```
+
+---
+# Convert FDC to LDC
+
+`\(Daily Load=126colonies/100mL\times 28316.8mL/foot^3\times feet^3/second\times 86,400 seconds/day\)`
+
+Use `dplyr` to create new column with load duration curve values calculated from mean daily flow and the 126 cfu/100 mL standard. 
+
+
+```r
+flow &lt;- flow %&gt;%
+  mutate(ldc = 126/100 * 28316.8 * Flow * 86400)
+```
+--
+
+```
+##   agency_cd  site_no       Date Flow Flow_cd Exceedance         ldc
+## 1      USGS 08150000 2011-08-06 31.8       A  1.0000000 98029227663
+## 2      USGS 08150000 2011-08-07 31.9       A  0.9998289 98337495675
+## 3      USGS 08150000 2011-08-08 32.2       A  0.9996578 99262299709
+## 4      USGS 08150000 2011-08-05 32.3       A  0.9994867 99570567721
+## 5      USGS 08150000 2011-08-10 32.3       A  0.9994867 99570567721
+## 6      USGS 08150000 2011-08-03 32.4       A  0.9991444 99878835732
+```
+
+---
+#Load Duration Curve
+Use `ggplot2` again
+
+```r
+ggplot(flow, aes(x = Exceedance, y = ldc)) +
+  geom_line() +
+  scale_y_log10() +
+  scale_x_continuous(labels = scales::percent) +
+  labs(x = "Percent of Days Load Exceeded",
+       y = "Load (colonies per day)")
+```
+
+&lt;img src="ldc-presentation_files/figure-html/unnamed-chunk-10-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+The LDC is usually broken into flow categories based on a visual inspection of the curve. This curve can probably be broken into three categories. This is subjective. 
+
+
+```r
+ggplot(flow, aes(x = Exceedance, y = ldc)) +
+  geom_line() +
+* geom_vline(xintercept = 0.10, linetype = 2) +
+* geom_vline(xintercept = 0.90, linetype = 2) +
+  scale_y_log10() +
+  scale_x_continuous(labels = scales::percent) +
+  labs(x = "Percent of Days Load Exceeded",
+       y = "Load (colonies per day)")
+```
+
+&lt;img src="ldc-presentation_files/figure-html/unnamed-chunk-11-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+We also need to add measured concentrations, converted to loads.
+Go back to our dataframe, we can import water quality measurements and join them by date.
+
+We are going to use the `dataRetrieval` package to download monitoring data from STORET.
+
+```r
+ecoli &lt;- readWQPqw(siteNumbers = c("TCEQMAIN-21489"), parameterCd = "Escherichia coli")
+## When I inspect this data, it includes the holding time, I just want concentrations.
+## so the next lines will filter rows that report holding time in hours
+## and select only the relevant variable columns and rename them
+ecoli &lt;- ecoli %&gt;%
+  filter(ResultMeasure.MeasureUnitCode != "hours") %&gt;%
+  select(Date = ActivityStartDate, Concentration = ResultMeasureValue)
+```
+--
+
+```
+## # A tibble: 6 x 2
+##   Date       Concentration
+##   &lt;date&gt;             &lt;dbl&gt;
+## 1 2005-08-11            50
+## 2 2005-04-06            14
+## 3 2005-10-03            59
+## 4 2004-10-12            84
+## 5 2004-08-16            80
+## 6 2004-12-02            73
+```
+
+---
+We can join the `ecoli` dataframe to the `flow` dataframe using the date and ActivityStartDate column and the `left_join()` function in `dplyr`.
+
+```r
+df &lt;- flow %&gt;%
+  left_join(ecoli, by = "Date")
+```
+--
+
+```r
+head(df)
+```
+
+```
+##   agency_cd  site_no       Date Flow Flow_cd Exceedance         ldc
+## 1      USGS 08150000 2011-08-06 31.8       A  1.0000000 98029227663
+## 2      USGS 08150000 2011-08-07 31.9       A  0.9998289 98337495675
+## 3      USGS 08150000 2011-08-08 32.2       A  0.9996578 99262299709
+## 4      USGS 08150000 2011-08-05 32.3       A  0.9994867 99570567721
+## 5      USGS 08150000 2011-08-10 32.3       A  0.9994867 99570567721
+## 6      USGS 08150000 2011-08-03 32.4       A  0.9991444 99878835732
+##   Concentration
+## 1            NA
+## 2            NA
+## 3            NA
+## 4            NA
+## 5            NA
+## 6            NA
+```
+
+---
+Estimate daily loads from measured concentrations
+`\(Colonies/100mL\times Flow\times 28316.8mL/foot^3\times 86,400 seconds/day\)`
+
+
+```r
+df &lt;- df %&gt;%
+  mutate(load = Concentration/100 * Flow * 28316.8 * 86400)
+```
+--
+
+```
+##   agency_cd  site_no       Date Flow Flow_cd Exceedance         ldc
+## 1      USGS 08150000 2011-08-06 31.8       A  1.0000000 98029227663
+## 2      USGS 08150000 2011-08-07 31.9       A  0.9998289 98337495675
+## 3      USGS 08150000 2011-08-08 32.2       A  0.9996578 99262299709
+## 4      USGS 08150000 2011-08-05 32.3       A  0.9994867 99570567721
+## 5      USGS 08150000 2011-08-10 32.3       A  0.9994867 99570567721
+## 6      USGS 08150000 2011-08-03 32.4       A  0.9991444 99878835732
+##   Concentration load
+## 1            NA   NA
+## 2            NA   NA
+## 3            NA   NA
+## 4            NA   NA
+## 5            NA   NA
+## 6            NA   NA
+```
+
+---
+# Plot the LDC
+
+
+```r
+ggplot(df) +
+  geom_line(aes(x = Exceedance, y = ldc)) +
+  geom_point(aes(x = Exceedance, y = load)) +
+  scale_y_log10() + scale_x_continuous(labels = scales::percent) +
+  geom_vline(xintercept = 0.10, linetype = 2) +
+  geom_vline(xintercept = 0.90, linetype = 2) +
+  labs(x = "Percent of Days Load Exceeded",
+       y = "Load (colonies per day)")
+```
+
+&lt;img src="ldc-presentation_files/figure-html/unnamed-chunk-18-1.png" style="display: block; margin: auto;" /&gt;
     </textarea>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
