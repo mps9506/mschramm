@@ -1,12 +1,14 @@
+/* Add maven for code font (keep other xaringan defaults */
+@import url(https://fonts.googleapis.com/css?family=Inconsolata);
+@import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+@import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+@import url(https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700);
 
-@import url(https://cdn.rawgit.com/tonsky/FiraCode/1.204/distr/fira_code.css);
-@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Sans|IBM+Plex+Serif:600');
+body { font-family: 'Droid Serif', 'Palatino Linotype', 'Book Antiqua', Palatino, 'Microsoft YaHei', 'Songti SC', serif; }
+h1, h2, h3 {
+  font-family: 'Yanone Kaffeesatz';
+  font-weight: normal;
+}
 
-body { font-family: 'IBM Plex Sans', sans-serif; }
-
-h1, h2, h3 { font-family: 'IBM Plex Serif', serif; }
-
-.remark-code, .remark-inline-code { font-family: 'Fira Code';
-  -webkit-font-feature-settings: "liga" off, "calt" off;
-  -font-feature-settings: "liga" off, "calt" off}
-  
+.remark-code, .remark-inline-code { font-family: 'Inconsolata', monospace; }
+.remark-code-line-highlighted { background-color: #ffff88; }

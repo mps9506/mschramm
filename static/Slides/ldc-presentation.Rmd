@@ -9,50 +9,69 @@ output:
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
+      ratio: "16:9"
 ---
 
-```{r setup, include=FALSE}
+```{r setup, include=FALSE, cache=FALSE}
 options(htmltools.dir.version = FALSE)
+library(RefManageR)
+BibOptions(check.entries = FALSE, 
+           bib.style = "numeric",
+           cite.style = "numeric",
+           style = "markdown",
+           hyperlink = FALSE, 
+           dashed = FALSE)
+Bib <- ReadBib("./ldc-presentation_files/ldc-presentation-bib.bib")
 ```
 
 # Basic steps
 
 --
 
-Obtain mean daily flows sorted by date for entire period of interest (preferable to instantaneous flows)
+- Obtain mean daily flows sorted by date for entire period of interest. If exceedances are primarily under high flow conditions, instanteous flows may provide a more accurate flow and load estimation`r AutoCite(Bib, "UnitedStatesEnvironmentalProtectionAgency2008")`.
 
 --
 
-Plot exceedance probability (x-axis) against flow (y-axis) $=$ flow duration curve
+- Plot exceedance probability (x-axis) against flow (y-axis) $=$ flow duration curve
 
 --
 
-Convert flow to load $flow\times time\times concentration$
+- Convert flow to load $flow\times time\times concentration$
 
 --
 
-Convert measured concentration to load and overlay on the load duration curve
+- Convert measured concentration to load and overlay on the load duration curve
 
 ---
 
 # Flow
 
 - Obtain flow data at relevant USGS gage
+
 --
+
 - Do this in R with the `dataRetrieval` package
+
 --
+
 ```{r echo=TRUE, message=FALSE, warning=FALSE, paged.print=FALSE}
 library(dataRetrieval)
 
 # download data to R as a dataframe 
 # this returns flow as mean daily flow in cubic feet per second
-flow <- readNWISdv("08150000", "00060", "2001-01-01", "2016-12-31")
+flow <- readNWISdv(siteNumbers = "08186000", 
+                   parameterCd = "00060", 
+                   startDate = "2001-01-01", 
+                   endDate = "2016-12-31",
+                   statCd = "00003")
 
 # columns do not have informational column names
 # this function will automatically rename them
 flow <- renameNWISColumns(flow)
 ```
+
 --
+
 ```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
 head(flow)
 ```
@@ -66,7 +85,7 @@ Use `dplyr` package and some built in R functions to make a flow exceedance colu
 library(dplyr)
 flow <- flow %>%
   arrange(Flow) %>% # gets our flows into order by value of flow
-  mutate(Exceedance = cume_dist(-Flow)) # exceedance = 1 - cumulative distribution function of flow
+  mutate(Exceedance = percent_rank(-Flow)) # exceedance = 1 - cumulative distribution function of flow
 ```
 --
 ```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
@@ -91,7 +110,7 @@ fdc <- ggplot(flow, aes(x = Exceedance, y = Flow)) +
 ---
 
 #Flow Duration Curve
-```{r echo=FALSE, fig.align = 'center', fig.dim =c(8,3), dpi = 200}
+```{r echo=FALSE, fig.align='center', fig.dim=c(8,3), message=FALSE, warning=FALSE, dpi=, paged.print=FALSE}
 fdc
 ```
 
@@ -102,12 +121,12 @@ library(dataRetrieval)
 library(dplyr)
 library(ggplot2)
 
-flow <- readNWISdv("08150000", "00060", "2001-01-01", "2016-12-31")
+flow <- readNWISdv("08186000", "00060", "2001-01-01", "2016-12-31")
 flow <- renameNWISColumns(flow)
 
 flow <- flow %>%
   arrange(Flow) %>% 
-  mutate(Exceedance = cume_dist(-Flow))
+  mutate(Exceedance = percent_rank(-Flow))
 
 ggplot(flow, aes(x = Exceedance, y = Flow)) +
   geom_line() +
@@ -136,36 +155,31 @@ head(flow)
 ---
 #Load Duration Curve
 Use `ggplot2` again
-```{r, fig.align = 'center', fig.dim =c(8,3), dpi = 200}
-ggplot(flow, aes(x = Exceedance, y = ldc)) +
-  geom_line() +
-  scale_y_log10() +
-  scale_x_continuous(labels = scales::percent) +
-  labs(x = "Percent of Days Load Exceeded",
-       y = "Load (colonies per day)")
-```
-
----
-The LDC is usually broken into flow categories based on a visual inspection of the curve. This curve can probably be broken into three categories. This is subjective. 
-
 ```{r fig.align='center', fig.dim=c(8,3), message=FALSE, warning=FALSE, dpi=200, paged.print=FALSE}
 ggplot(flow, aes(x = Exceedance, y = ldc)) +
   geom_line() +
-  geom_vline(xintercept = 0.10, linetype = 2) +  #<<
-  geom_vline(xintercept = 0.90, linetype = 2) +  #<<
   scale_y_log10() +
   scale_x_continuous(labels = scales::percent) +
   labs(x = "Percent of Days Load Exceeded",
        y = "Load (colonies per day)")
 ```
+
 
 ---
 We also need to add measured concentrations, converted to loads.
 Go back to our dataframe, we can import water quality measurements and join them by date.
 
 We are going to use the `dataRetrieval` package to download monitoring data from STORET.
+
+--
+
+Alternatively, use the `readr` package and `read_csv()` or `read_xl()` functions to import concentration data. Your data should have one column for date and one column for concentration. 
+
+--
+
+Using `dataRetrieval`:
 ```{r}
-ecoli <- readWQPqw(siteNumbers = c("TCEQMAIN-21489"), parameterCd = "Escherichia coli")
+ecoli <- readWQPqw(siteNumbers = c("TCEQMAIN-14211"), parameterCd = "Escherichia coli")
 ## When I inspect this data, it includes the holding time, I just want concentrations.
 ## so the next lines will filter rows that report holding time in hours
 ## and select only the relevant variable columns and rename them
@@ -208,12 +222,118 @@ head(df)
 ```{r fig.align='center', fig.dim=c(8,3), message=FALSE, warning=FALSE, dpi=200, paged.print=FALSE}
 ggplot(df) +
   geom_line(aes(x = Exceedance, y = ldc)) +
-  geom_point(aes(x = Exceedance, y = load)) +
+  geom_point(aes(x = Exceedance, y = load), alpha = 0.4) +
   scale_y_log10() + scale_x_continuous(labels = scales::percent) +
-  geom_vline(xintercept = 0.10, linetype = 2) +
-  geom_vline(xintercept = 0.90, linetype = 2) +
   labs(x = "Percent of Days Load Exceeded",
        y = "Load (colonies per day)")
 ```
 
+
+---
+
+We can break our LDC into a few flow categories here. This is subjective, but it appears five categories would be appropriate. `r Citet(Bib, author = "Cleland2003")` provides some guidance.
+
+```{r, fig.align='center', fig.dim=c(8,3), message=FALSE, warning=FALSE, dpi=200, paged.print=FALSE}
+ggplot(df) +
+  geom_line(aes(x = Exceedance, y = ldc)) +
+  geom_point(aes(x = Exceedance, y = load), alpha = 0.4) +
+  scale_y_log10() + scale_x_continuous(labels = scales::percent) +
+  labs(x = "Percent of Days Load Exceeded",
+       y = "Load (colonies per day)") +
+  geom_vline(xintercept = c(.10,.4,.6,.90), linetype = 2) #<<
+```
+
+---
+
+There are a few approaches for estimating loads. For example, we could use the USGS `LOADEST` tool estimate loads with regressions. For simplicilty, I will estimate the geometric mean load in each flow category from measured values and subtract that from the geometric mean allowable load. This is used in the Tres Palacios, Carancahua Bay, and Aransas/Poesta Creek TMDLs.
+
+---
+
+The general approach:
+
+--
+
+- Group estimated loads and allowable loads by flow category
+
+--
+
+- Calculate the geomean for each flow category
+
+--
+
+- Take the difference to estimate mean daily reductions for each category
+
+---
+We need to load another package to get a function that calculates the geometric mean.
+```{r message=FALSE, warning=FALSE, paged.print=FALSE}
+## Comment out the line below to install the package if you don't have it
+## install.packages("DescTools")
+library(DescTools)
+```
+
+---
+Now create a column for the flow groups. We decided on 0-10%, 10-40%, 40-60%, 60-90%, and 90-100% earlier.
+```{r}
+# creates a column specifying the flow category based on exceedance value
+df <- df %>%
+  mutate(fc = case_when(
+    Exceedance <= .10 ~ "Highest Flows",
+    Exceedance > .10 & Exceedance <= .40 ~ "Moist Conditions",
+    Exceedance > .40 & Exceedance <= .60 ~ "Mid-range Conditions",
+    Exceedance > .60 & Exceedance <= .90 ~ "Dry Conditions",
+    Exceedance > .90 & Exceedance <= 1 ~ "Low Flows"
+  ))
+```
+
+---
+Now we can use dplyr to group the observations by flow category (the new fc column) and calculate teh geometric mean in each category
+```{r}
+df_summary <- df %>%
+  group_by(fc) %>%
+  summarise(AllowableLoad = Gmean(ldc, na.rm = FALSE),  ## Gmean function is from DescTools
+            GMConc = Gmean(Concentration, na.rm = TRUE),
+            MeasuredLoad = Gmean(load, na.rm = TRUE),
+            Exceedance = round(median(Exceedance),digits = 2)) ## Exceedance is the x-axis coordinate
+```
+
+
+--
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
+head(df_summary)
+```
+
+---
+#Basic LDC
+```{r, fig.align='center', fig.dim=c(8,3), dpi=200, message=FALSE, warning=FALSE, paged.print=FALSE}
+ggplot(df) +
+  geom_line(aes(x = Exceedance, y = ldc)) +
+  geom_point(aes(x = Exceedance, y = load), alpha = 0.4) +
+  geom_point(data = df_summary, aes(x = Exceedance, y = MeasuredLoad), shape = 7, color = "red") +
+  scale_y_log10() + scale_x_continuous(labels = scales::percent) +
+  labs(x = "Percent of Days Load Exceeded",
+       y = "Load (colonies per day)") +
+  geom_vline(xintercept = c(.10,.4,.6,.90), linetype = 2)
+```
+
+---
+We probably want to fancy this plot up.
+
+```{r, fig.align='center', fig.dim=c(8,3), dpi=200, message=FALSE, warning=FALSE, paged.print=FALSE}
+ggplot(df) +
+  geom_line(aes(x = Exceedance, y = ldc)) +
+  geom_point(aes(x = Exceedance, y = load), alpha = 0.4) +
+  geom_point(data = df_summary, aes(x = Exceedance, y = MeasuredLoad), shape = 7, color = "red") +
+  scale_y_log10() + scale_x_continuous(labels = scales::percent) +
+  labs(x = "Percent of Days Load Exceeded",
+       y = "Load (colonies per day)") +
+  geom_vline(xintercept = c(.10,.4,.6,.90), linetype = 2)
+```
+
+
+---
+## Refs
+```{r, 'refs', results='asis', echo = FALSE}
+PrintBibliography(bib = Bib)
+```
 

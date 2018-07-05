@@ -24,50 +24,56 @@ class: center, middle, inverse, title-slide
 
 --
 
-Obtain mean daily flows sorted by date for entire period of interest (preferable to instantaneous flows)
+- Obtain mean daily flows sorted by date for entire period of interest. If exceedances are primarily under high flow conditions, instanteous flows may provide a more accurate flow and load estimation[1].
 
 --
 
-Plot exceedance probability (x-axis) against flow (y-axis) `\(=\)` flow duration curve
+- Plot exceedance probability (x-axis) against flow (y-axis) `\(=\)` flow duration curve
 
 --
 
-Convert flow to load `\(flow\times time\times concentration\)`
+- Convert flow to load `\(flow\times time\times concentration\)`
 
 --
 
-Convert measured concentration to load and overlay on the load duration curve
+- Convert measured concentration to load and overlay on the load duration curve
 
 ---
 
 # Flow
 
 - Obtain flow data at relevant USGS gage
+
 --
+
 - Do this in R with the `dataRetrieval` package
+
 --
+
 
 ```r
 library(dataRetrieval)
 
 # download data to R as a dataframe 
 # this returns flow as mean daily flow in cubic feet per second
-flow &lt;- readNWISdv("08150000", "00060", "2001-01-01", "2016-12-31")
+flow &lt;- readNWISdv("08186000", "00060", "2001-01-01", "2016-12-31")
 
 # columns do not have informational column names
 # this function will automatically rename them
 flow &lt;- renameNWISColumns(flow)
 ```
+
 --
+
 
 ```
 ##   agency_cd  site_no       Date Flow Flow_cd
-## 1      USGS 08150000 2001-01-01  257       A
-## 2      USGS 08150000 2001-01-02  255       A
-## 3      USGS 08150000 2001-01-03  252       A
-## 4      USGS 08150000 2001-01-04  250       A
-## 5      USGS 08150000 2001-01-05  248       A
-## 6      USGS 08150000 2001-01-06  246       A
+## 1      USGS 08186000 2001-01-01   61       A
+## 2      USGS 08186000 2001-01-02   56       A
+## 3      USGS 08186000 2001-01-03   53       A
+## 4      USGS 08186000 2001-01-04   51       A
+## 5      USGS 08186000 2001-01-05   49       A
+## 6      USGS 08186000 2001-01-06   48       A
 ```
 
 ---
@@ -80,18 +86,18 @@ Use `dplyr` package and some built in R functions to make a flow exceedance colu
 library(dplyr)
 flow &lt;- flow %&gt;%
   arrange(Flow) %&gt;% # gets our flows into order by value of flow
-  mutate(Exceedance = cume_dist(-Flow)) # exceedance = 1 - cumulative distribution function of flow
+  mutate(Exceedance = percent_rank(-Flow)) # exceedance = 1 - cumulative distribution function of flow
 ```
 --
 
 ```
 ##   agency_cd  site_no       Date Flow Flow_cd Exceedance
-## 1      USGS 08150000 2011-08-06 31.8       A  1.0000000
-## 2      USGS 08150000 2011-08-07 31.9       A  0.9998289
-## 3      USGS 08150000 2011-08-08 32.2       A  0.9996578
-## 4      USGS 08150000 2011-08-05 32.3       A  0.9994867
-## 5      USGS 08150000 2011-08-10 32.3       A  0.9994867
-## 6      USGS 08150000 2011-08-03 32.4       A  0.9991444
+## 1      USGS 08186000 2015-04-08    0       A   0.997604
+## 2      USGS 08186000 2015-04-09    0       A   0.997604
+## 3      USGS 08186000 2015-04-10    0       A   0.997604
+## 4      USGS 08186000 2015-04-21    0       A   0.997604
+## 5      USGS 08186000 2015-05-01    0       A   0.997604
+## 6      USGS 08186000 2015-05-05    0       A   0.997604
 ```
 
 ---
@@ -112,6 +118,11 @@ fdc &lt;- ggplot(flow, aes(x = Exceedance, y = Flow)) +
 ---
 
 #Flow Duration Curve
+
+```
+## Warning: Transformation introduced infinite values in continuous y-axis
+```
+
 &lt;img src="ldc-presentation_files/figure-html/unnamed-chunk-6-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
@@ -122,12 +133,12 @@ library(dataRetrieval)
 library(dplyr)
 library(ggplot2)
 
-flow &lt;- readNWISdv("08150000", "00060", "2001-01-01", "2016-12-31")
+flow &lt;- readNWISdv("08186000", "00060", "2001-01-01", "2016-12-31")
 flow &lt;- renameNWISColumns(flow)
 
 flow &lt;- flow %&gt;%
   arrange(Flow) %&gt;% 
-  mutate(Exceedance = cume_dist(-Flow))
+  mutate(Exceedance = percent_rank(-Flow))
 
 ggplot(flow, aes(x = Exceedance, y = Flow)) +
   geom_line() +
@@ -152,13 +163,13 @@ flow &lt;- flow %&gt;%
 --
 
 ```
-##   agency_cd  site_no       Date Flow Flow_cd Exceedance         ldc
-## 1      USGS 08150000 2011-08-06 31.8       A  1.0000000 98029227663
-## 2      USGS 08150000 2011-08-07 31.9       A  0.9998289 98337495675
-## 3      USGS 08150000 2011-08-08 32.2       A  0.9996578 99262299709
-## 4      USGS 08150000 2011-08-05 32.3       A  0.9994867 99570567721
-## 5      USGS 08150000 2011-08-10 32.3       A  0.9994867 99570567721
-## 6      USGS 08150000 2011-08-03 32.4       A  0.9991444 99878835732
+##   agency_cd  site_no       Date Flow Flow_cd Exceedance ldc
+## 1      USGS 08186000 2015-04-08    0       A   0.997604   0
+## 2      USGS 08186000 2015-04-09    0       A   0.997604   0
+## 3      USGS 08186000 2015-04-10    0       A   0.997604   0
+## 4      USGS 08186000 2015-04-21    0       A   0.997604   0
+## 5      USGS 08186000 2015-05-01    0       A   0.997604   0
+## 6      USGS 08186000 2015-05-05    0       A   0.997604   0
 ```
 
 ---
@@ -174,24 +185,12 @@ ggplot(flow, aes(x = Exceedance, y = ldc)) +
        y = "Load (colonies per day)")
 ```
 
-&lt;img src="ldc-presentation_files/figure-html/unnamed-chunk-10-1.png" style="display: block; margin: auto;" /&gt;
-
----
-The LDC is usually broken into flow categories based on a visual inspection of the curve. This curve can probably be broken into three categories. This is subjective. 
-
-
-```r
-ggplot(flow, aes(x = Exceedance, y = ldc)) +
-  geom_line() +
-* geom_vline(xintercept = 0.10, linetype = 2) +
-* geom_vline(xintercept = 0.90, linetype = 2) +
-  scale_y_log10() +
-  scale_x_continuous(labels = scales::percent) +
-  labs(x = "Percent of Days Load Exceeded",
-       y = "Load (colonies per day)")
+```
+## Warning: Transformation introduced infinite values in continuous y-axis
 ```
 
-&lt;img src="ldc-presentation_files/figure-html/unnamed-chunk-11-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="ldc-presentation_files/figure-html/unnamed-chunk-10-1.png" style="display: block; margin: auto;" /&gt;
+
 
 ---
 We also need to add measured concentrations, converted to loads.
@@ -199,8 +198,16 @@ Go back to our dataframe, we can import water quality measurements and join them
 
 We are going to use the `dataRetrieval` package to download monitoring data from STORET.
 
+--
+
+Alternatively, use the `readr` package and `read_csv()` or `read_xl()` functions to import concentration data. Your data should have one column for sample date and one column for concentration. 
+
+--
+
+Using `dataRetrieval`:
+
 ```r
-ecoli &lt;- readWQPqw(siteNumbers = c("TCEQMAIN-21489"), parameterCd = "Escherichia coli")
+ecoli &lt;- readWQPqw(siteNumbers = c("TCEQMAIN-14211"), parameterCd = "Escherichia coli")
 ## When I inspect this data, it includes the holding time, I just want concentrations.
 ## so the next lines will filter rows that report holding time in hours
 ## and select only the relevant variable columns and rename them
@@ -214,12 +221,12 @@ ecoli &lt;- ecoli %&gt;%
 ## # A tibble: 6 x 2
 ##   Date       Concentration
 ##   &lt;date&gt;             &lt;dbl&gt;
-## 1 2005-08-11            50
-## 2 2005-04-06            14
-## 3 2005-10-03            59
-## 4 2004-10-12            84
-## 5 2004-08-16            80
-## 6 2004-12-02            73
+## 1 2011-06-29            88
+## 2 2011-12-21           140
+## 3 2011-11-30            69
+## 4 2011-12-07            69
+## 5 2011-11-02            93
+## 6 2011-10-12           500
 ```
 
 ---
@@ -236,20 +243,13 @@ head(df)
 ```
 
 ```
-##   agency_cd  site_no       Date Flow Flow_cd Exceedance         ldc
-## 1      USGS 08150000 2011-08-06 31.8       A  1.0000000 98029227663
-## 2      USGS 08150000 2011-08-07 31.9       A  0.9998289 98337495675
-## 3      USGS 08150000 2011-08-08 32.2       A  0.9996578 99262299709
-## 4      USGS 08150000 2011-08-05 32.3       A  0.9994867 99570567721
-## 5      USGS 08150000 2011-08-10 32.3       A  0.9994867 99570567721
-## 6      USGS 08150000 2011-08-03 32.4       A  0.9991444 99878835732
-##   Concentration
-## 1            NA
-## 2            NA
-## 3            NA
-## 4            NA
-## 5            NA
-## 6            NA
+##   agency_cd  site_no       Date Flow Flow_cd Exceedance ldc Concentration
+## 1      USGS 08186000 2015-04-08    0       A   0.997604   0           280
+## 2      USGS 08186000 2015-04-09    0       A   0.997604   0            NA
+## 3      USGS 08186000 2015-04-10    0       A   0.997604   0            NA
+## 4      USGS 08186000 2015-04-21    0       A   0.997604   0            NA
+## 5      USGS 08186000 2015-05-01    0       A   0.997604   0            NA
+## 6      USGS 08186000 2015-05-05    0       A   0.997604   0            NA
 ```
 
 ---
@@ -264,20 +264,20 @@ df &lt;- df %&gt;%
 --
 
 ```
-##   agency_cd  site_no       Date Flow Flow_cd Exceedance         ldc
-## 1      USGS 08150000 2011-08-06 31.8       A  1.0000000 98029227663
-## 2      USGS 08150000 2011-08-07 31.9       A  0.9998289 98337495675
-## 3      USGS 08150000 2011-08-08 32.2       A  0.9996578 99262299709
-## 4      USGS 08150000 2011-08-05 32.3       A  0.9994867 99570567721
-## 5      USGS 08150000 2011-08-10 32.3       A  0.9994867 99570567721
-## 6      USGS 08150000 2011-08-03 32.4       A  0.9991444 99878835732
-##   Concentration load
-## 1            NA   NA
-## 2            NA   NA
-## 3            NA   NA
-## 4            NA   NA
-## 5            NA   NA
-## 6            NA   NA
+##   agency_cd  site_no       Date Flow Flow_cd Exceedance ldc Concentration
+## 1      USGS 08186000 2015-04-08    0       A   0.997604   0           280
+## 2      USGS 08186000 2015-04-09    0       A   0.997604   0            NA
+## 3      USGS 08186000 2015-04-10    0       A   0.997604   0            NA
+## 4      USGS 08186000 2015-04-21    0       A   0.997604   0            NA
+## 5      USGS 08186000 2015-05-01    0       A   0.997604   0            NA
+## 6      USGS 08186000 2015-05-05    0       A   0.997604   0            NA
+##   load
+## 1    0
+## 2   NA
+## 3   NA
+## 4   NA
+## 5   NA
+## 6   NA
 ```
 
 ---
@@ -287,21 +287,150 @@ df &lt;- df %&gt;%
 ```r
 ggplot(df) +
   geom_line(aes(x = Exceedance, y = ldc)) +
-  geom_point(aes(x = Exceedance, y = load)) +
+  geom_point(aes(x = Exceedance, y = load), alpha = 0.4) +
   scale_y_log10() + scale_x_continuous(labels = scales::percent) +
-  geom_vline(xintercept = 0.10, linetype = 2) +
-  geom_vline(xintercept = 0.90, linetype = 2) +
   labs(x = "Percent of Days Load Exceeded",
        y = "Load (colonies per day)")
 ```
 
+&lt;img src="ldc-presentation_files/figure-html/unnamed-chunk-17-1.png" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+We can break our LDC into a few flow categories here. This is subjective, but it appears five categories would be appropriate.  provides some guidance.
+
+
+```r
+ggplot(df) +
+  geom_line(aes(x = Exceedance, y = ldc)) +
+  geom_point(aes(x = Exceedance, y = load), alpha = 0.4) +
+  scale_y_log10() + scale_x_continuous(labels = scales::percent) +
+  labs(x = "Percent of Days Load Exceeded",
+       y = "Load (colonies per day)") +
+* geom_vline(xintercept = c(.10,.4,.6,.90), linetype = 2)
+```
+
 &lt;img src="ldc-presentation_files/figure-html/unnamed-chunk-18-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+There are a few approaches for estimating loads. For example, we could use the USGS `LOADEST` tool estimate loads with regressions. For simplicilty, I will estimate the geometric mean load in each flow category from measured values and subtract that from the geometric mean allowable load. This is used in the Tres Palacios, Carancahua Bay, and Aransas/Poesta Creek TMDLs.
+
+---
+
+The general approach:
+
+--
+
+- Group estimated loads and allowable loads by flow category
+
+--
+
+- Calculate the geomean for each flow category
+
+--
+
+- Take the difference to estimate mean daily reductions for each category
+
+---
+Unfortunately R does not have a built-in geomean function, so let's create one. (Consider this your introduction to functional programming. The following line block creates a function you can use later, just like `mean()` or `sum()`)
+
+```r
+gm_mean &lt;- function(x, na.rm=TRUE){
+  if (na.rm == TRUE) {
+    x &lt;- x[!is.na(x)]
+    exp(sum(log(x[x &gt; 0]), na.rm = na.rm) / length(x))
+  }
+  else {
+    exp(sum(log(x[x &gt; 0]), na.rm = na.rm) / length(x))
+  }
+}
+```
+
+---
+Now create groups for measured and allowable loads. We decided on 0-10%, 10-40%, 40-60%, 60-90%, and 90-100% earlier.
+
+```r
+# creates a column specifying the flow category based on exceedance value
+df &lt;- df %&gt;%
+  mutate(fc = case_when(
+    Exceedance &lt;= .10 ~ "Highest Flows",
+    Exceedance &gt; .10 &amp; Exceedance &lt;= .40 ~ "Moist Conditions",
+    Exceedance &gt; .40 &amp; Exceedance &lt;= .60 ~ "Mid-range Conditions",
+    Exceedance &gt; .60 &amp; Exceedance &lt;= .90 ~ "Dry Conditions",
+    Exceedance &gt; .90 &amp; Exceedance &lt;= 1 ~ "Low Flows"
+  ))
+
+df_summary &lt;- df %&gt;%
+  group_by(fc) %&gt;%
+  summarise(AllowableLoad = gm_mean(ldc),
+            GMConc = gm_mean(Concentration),
+            MeasuredLoad = gm_mean(load),
+            Exceedance = round(median(Exceedance),digits = 2))
+```
+
+--
+
+
+```
+## # A tibble: 5 x 5
+##   fc                   AllowableLoad GMConc MeasuredLoad Exceedance
+##   &lt;chr&gt;                        &lt;dbl&gt;  &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;
+## 1 Dry Conditions             8.67e10   120.      8.02e10       0.75
+## 2 Highest Flows              2.12e12  2058.      2.37e13       0.05
+## 3 Low Flows                  2.15e10   146.      1.78e10       0.95
+## 4 Mid-range Conditions       1.51e11   181.      2.10e11       0.5 
+## 5 Moist Conditions           3.03e11   473.      1.16e12       0.25
+```
+
+---
+#Basic LDC
+
+```r
+ggplot(df) +
+  geom_line(aes(x = Exceedance, y = ldc)) +
+  geom_point(aes(x = Exceedance, y = load), alpha = 0.4) +
+  geom_point(data = df_summary, aes(x = Exceedance, y = MeasuredLoad), shape = 7, color = "red") +
+  scale_y_log10() + scale_x_continuous(labels = scales::percent) +
+  labs(x = "Percent of Days Load Exceeded",
+       y = "Load (colonies per day)") +
+  geom_vline(xintercept = c(.10,.4,.6,.90), linetype = 2)
+```
+
+&lt;img src="ldc-presentation_files/figure-html/unnamed-chunk-22-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+We probably want to fancy this plot up.
+
+
+```r
+ggplot(df) +
+  geom_line(aes(x = Exceedance, y = ldc)) +
+  geom_point(aes(x = Exceedance, y = load), alpha = 0.4) +
+  geom_point(data = df_summary, aes(x = Exceedance, y = MeasuredLoad), shape = 7, color = "red") +
+  scale_y_log10() + scale_x_continuous(labels = scales::percent) +
+  labs(x = "Percent of Days Load Exceeded",
+       y = "Load (colonies per day)") +
+  geom_vline(xintercept = c(.10,.4,.6,.90), linetype = 2)
+```
+
+&lt;img src="ldc-presentation_files/figure-html/unnamed-chunk-23-1.png" style="display: block; margin: auto;" /&gt;
+
+
+---
+## Refs
+[1] M. Morrison and J. Bonta. _Development of Duration-Curve Based
+Methods for Quantifying Variability and Change in Watershed
+Hydrology and Water Quality Hydrology and Water Quality_. Tech.
+rep. May. EPA, 2008.
     </textarea>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
 "highlightStyle": "github",
 "highlightLines": true,
-"countIncrementalSlides": false
+"countIncrementalSlides": false,
+"ratio": "16:9"
 });
 if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   window.dispatchEvent(new Event('resize'));
