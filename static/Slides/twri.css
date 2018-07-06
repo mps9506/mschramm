@@ -114,7 +114,7 @@ thead, tfoot, tr:nth-child(even) { background: none; }
 
 /* Add image and change bg color */
 .title-slide {
-  background-image: url(https://cdn.rawgit.com/mps9506/twri_xaringan/1b5540dd/img/twrilogowhite.png);
+  /*background-image: url(https://cdn.rawgit.com/mps9506/twri_xaringan/1b5540dd/img/twrilogowhite.png); */
   background-position: 9% 15%;
   background-size: 55px;
   background-color: #fff;

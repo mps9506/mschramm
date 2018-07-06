@@ -85,7 +85,8 @@ Use `dplyr` package and some built in R functions to make a flow exceedance colu
 library(dplyr)
 flow <- flow %>%
   arrange(Flow) %>% # gets our flows into order by value of flow
-  mutate(Exceedance = percent_rank(-Flow)) # exceedance = 1 - cumulative distribution function of flow
+  mutate(Exceedance = percent_rank(-Flow)) %>% # exceedance = 1 - cumulative distribution function of flow
+  filter(Flow > 0)
 ```
 --
 ```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
@@ -110,7 +111,7 @@ fdc <- ggplot(flow, aes(x = Exceedance, y = Flow)) +
 ---
 
 #Flow Duration Curve
-```{r echo=FALSE, fig.align='center', fig.dim=c(8,3), message=FALSE, warning=FALSE, dpi=, paged.print=FALSE}
+```{r echo=FALSE, fig.align='center', fig.dim=c(8,3), message=FALSE, warning=FALSE, dpi=200, paged.print=FALSE}
 fdc
 ```
 
@@ -126,7 +127,8 @@ flow <- renameNWISColumns(flow)
 
 flow <- flow %>%
   arrange(Flow) %>% 
-  mutate(Exceedance = percent_rank(-Flow))
+  mutate(Exceedance = percent_rank(-Flow)) %>%
+  filter(Flow > 0)
 
 ggplot(flow, aes(x = Exceedance, y = Flow)) +
   geom_line() +
@@ -286,11 +288,11 @@ df <- df %>%
 ```
 
 ---
-Now we can use dplyr to group the observations by flow category (the new fc column) and calculate teh geometric mean in each category
+Now we can use dplyr to group the observations by flow category (the new fc column) and calculate the geometric mean in each category
 ```{r}
 df_summary <- df %>%
   group_by(fc) %>%
-  summarise(AllowableLoad = Gmean(ldc, na.rm = FALSE),  ## Gmean function is from DescTools
+  summarise(AllowableLoad = Gmean(ldc, na.rm = TRUE),  ## Gmean function is from DescTools
             GMConc = Gmean(Concentration, na.rm = TRUE),
             MeasuredLoad = Gmean(load, na.rm = TRUE),
             Exceedance = round(median(Exceedance),digits = 2)) ## Exceedance is the x-axis coordinate
@@ -300,7 +302,7 @@ df_summary <- df %>%
 --
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
-head(df_summary)
+df_summary
 ```
 
 ---
@@ -320,14 +322,117 @@ ggplot(df) +
 We probably want to fancy this plot up.
 
 ```{r, fig.align='center', fig.dim=c(8,3), dpi=200, message=FALSE, warning=FALSE, paged.print=FALSE}
-ggplot(df) +
-  geom_line(aes(x = Exceedance, y = ldc)) +
-  geom_point(aes(x = Exceedance, y = load), alpha = 0.4) +
-  geom_point(data = df_summary, aes(x = Exceedance, y = MeasuredLoad), shape = 7, color = "red") +
-  scale_y_log10() + scale_x_continuous(labels = scales::percent) +
+p <- ggplot(df) +
+  geom_line(aes(x = Exceedance, y = ldc)) + ## plots the allowable load
+  geom_point(aes(x = Exceedance, y = load), 
+             alpha = 0.4) + ## plots the measured loads
+  geom_point(data = df_summary, aes(x = Exceedance, y = MeasuredLoad), 
+             shape = 7, color = "red") + ## plots the geomean of measured loads
   labs(x = "Percent of Days Load Exceeded",
+       y = "Load (colonies per day)") + ## x and y labels
+  geom_vline(xintercept = c(.10,.4,.6,.90), linetype = 2, alpha = 0.5) + ## lines to define flow categories
+  annotate("text", x = 0.05, y = max(df$load, na.rm = T) + (max(df$load, na.rm = T)), 
+           label = "Highest Flows", hjust = 0.5, size = 3) +
+  annotate("text", x = 0.25, y = max(df$load, na.rm = T) + (max(df$load, na.rm = T)), 
+           label = "Moist Conditions", hjust = 0.5, size = 3) +
+  annotate("text", x = 0.50, y = max(df$load, na.rm = T) + (max(df$load, na.rm = T)), 
+           label = "Mid-Range Flow", hjust = 0.5, size = 3) +
+  annotate("text", x = 0.75, y = max(df$load, na.rm = T) + (max(df$load, na.rm = T)), 
+           label = "Dry Conditions", hjust = 0.5, size = 3) +
+  annotate("text", x = 0.95, y = max(df$load, na.rm = T) + (max(df$load, na.rm = T)), 
+           label = "Low Flows", hjust = 0.5, size = 3) +
+  scale_y_log10() + ## apply log scale to y axis
+  scale_x_continuous(labels = scales::percent, breaks = c(0, .1, .4, .6, .9, 1)) ## apply percent labels to x axis
+```
+
+---
+```{r, fig.align='center', fig.dim=c(8,3), dpi=200, message=FALSE, warning=FALSE, paged.print=FALSE}
+
+p
+
+```
+
+---
+Spend some time with the labeling and theme functions in `ggplot2` to get the plot looking nice. Including legends is a challenge, and a full explanation is beyond the scope of these slides.
+
+The script used to create the figure on the next slide. The LDC can be easily updated for any stations and date range by updating the first few lines.
+
+https://gist.github.com/mps9506/d61a23eabe23dfe401c3da4e6e816f57
+
+---
+```{r, echo=FALSE, fig.align='center', fig.dim=c(8,3), message=FALSE, warning=FALSE, dpi=200, paged.print=FALSE}
+
+library(hrbrthemes)
+library(purrr)
+
+df_summary2 <- df %>%
+  group_by(fc) %>%
+  do(AllowableLoad = Gmean(.$ldc, na.rm = TRUE),
+     GMConc = Gmean(.$Concentration, na.rm = TRUE),
+     Exceedance = round(median(.$Exceedance), digits = 2),
+     GMLoad = Gmean(.$load, conf.level = 0.95, na.rm = TRUE)) %>%
+  tidyr::unnest(AllowableLoad, GMConc, Exceedance) %>%
+  mutate(GMmeanLoad = map_dbl(.$GMLoad,c("mean")),
+         GMmeanLow = map_dbl(.$GMLoad,c("lwr.ci")),
+         GMmeanHigh = map_dbl(.$GMLoad,c("upr.ci")))
+  #mutate(AllowableLoad2 = map_dbl(.$AllowableLoad)) %>%
+  #NULL
+  
+
+```
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE, fig.dim=c(8,5.5), dpi=200}
+ggplot(df) +
+  geom_line(aes(x = Exceedance, y = ldc, linetype = "Allowable Load at Geomean Criterion")) +
+  geom_point(aes(x = Exceedance, y = load, 
+                 shape = "Sampling Events", 
+                 fill = "Sampling Events",
+                 alpha = "Sampling Events")) + 
+  geom_pointrange(data = df_summary2, aes(x = Exceedance, 
+                                          y = GMmeanLoad, 
+                                          ymin = GMmeanLow, 
+                                          ymax = GMmeanHigh,
+                                          color = "Geomean Load with 95% CI"), 
+                  shape = 22, fill = "white") +
+  labs(title = expression(paste(bolditalic("E. coli"),bold(" Load Duration Curve"))),
+       subtitle = "TCEQ Station 14211, USGS Gage 08186000, 2001 - 2017",
+       x = "Percent of Days Load Exceeded",
        y = "Load (colonies per day)") +
-  geom_vline(xintercept = c(.10,.4,.6,.90), linetype = 2)
+  geom_vline(xintercept = c(.10,.4,.6,.90), linetype = 2, alpha = 0.5) +
+  annotate("text", x = 0.05, y = max(df$load, na.rm = T) + (max(df$load, na.rm = T)), 
+           label = "High Flows", hjust = 0.5, size = 3) +
+  annotate("text", x = 0.25, y = max(df$load, na.rm = T) + (max(df$load, na.rm = T)), 
+           label = "Moist Conditions", hjust = 0.5, size = 3) +
+  annotate("text", x = 0.50, y = max(df$load, na.rm = T) + (max(df$load, na.rm = T)), 
+           label = "Mid-Range Flow", hjust = 0.5, size = 3) +
+  annotate("text", x = 0.75, y = max(df$load, na.rm = T) + (max(df$load, na.rm = T)), 
+           label = "Dry Conditions", hjust = 0.5, size = 3) +
+  annotate("text", x = 0.95, y = max(df$load, na.rm = T) + (max(df$load, na.rm = T)), 
+           label = "Low Flows", hjust = 0.5, size = 3) +
+  scale_y_log10() +
+  scale_x_continuous(labels = scales::percent, breaks = c(0, .1, .4, .6, .9, 1)) +
+  scale_color_manual(name = NULL, breaks = c("Geomean Load with 95% CI"), values = c("#e41a1c"),
+                     guide = guide_legend(title = NULL, title.position = "right")) +
+  scale_fill_manual(name = NULL, breaks = c("Sampling Events"), values = c("#377eb8"),
+                     guide = guide_legend(title = NULL, title.position = "right")) +
+  scale_alpha_manual(name = NULL, breaks = c("Sampling Events"), values = c(0.5),
+                     guide = guide_legend(title = NULL, title.position = "right")) +
+  scale_shape_manual(name = NULL, 
+                     breaks = c("Sampling Events"), 
+                     values = c(21),
+                     guide = guide_legend(title = NULL, title.position = "right")) +
+  scale_linetype_manual(name = NULL, 
+                     breaks = c("Allowable Load at Geomean Criterion"), 
+                     values = c(1),
+                     guide = guide_legend(title = NULL, title.position = "right")) +
+  theme_ipsum_rc(axis = TRUE, plot_title_size = 14, subtitle_size = 11) +
+  theme(legend.title = element_blank(),
+        legend.position = "bottom",
+        legend.direction = "vertical",
+        legend.box = "horizontal", 
+        legend.key = element_blank(),
+        legend.spacing.y = unit(0, 'lines'),
+        panel.background = element_blank())
 ```
 
 
