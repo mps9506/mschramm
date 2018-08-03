@@ -1,0 +1,338 @@
+---
+draft: yes
+title: Introducing hugo-tint
+author: Frida Gomam
+date: '2018-07-06'
+slug: introducing-hugo-tint
+categories: ["Blogdown", "example"]
+excerpt: This post introduces hugo-tint and blogdown features to get you up and running with Hugo and blogdown.
+bibliography: skeleton.bib
+link-citations: yes
+blogdown::html_page:
+  dev: "svg"
+  toc: TRUE
+---
+
+
+
+<div id="the-basics" class="section level1">
+<h1>The Basics</h1>
+<p>This Hugo theme is intended for use with R <em><a href="https://github.com/rstudio/blogdown">blogdown</a></em>. Before starting, see <span class="citation">(Allaire et al. <a href="#ref-R-rmarkdown">2018</a>)</span> for more info about <em>rmarkdown</em> and <span class="citation">(Xie, Thomas, and Hill <a href="#ref-R-blogdown">2018</a>)</span> for more info about <em>blogdown</em>.</p>
+<div id="getting-blogdown" class="section level2">
+<h2>Getting Blogdown</h2>
+<p><label for="tufte-mn-" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-" class="margin-toggle"><span class="marginnote"><strong>R Console</strong></span></p>
+<pre class="r"><code>## Install from CRAN
+install.packages(&#39;blogdown&#39;)
+
+## Or, install from GitHub
+devtools::install_github(&#39;rstudio/blogdown&#39;)
+
+#installs Hugo (works for Windows,macOS, and Linux)
+blogdown::install_hugo()
+
+#initialize a new blog
+blogdown::new_site()
+
+#install theme
+blogdown::install_theme(&quot;mps9506/hugo-tint&quot;)</code></pre>
+</div>
+</div>
+<div id="features" class="section level1">
+<h1>Features</h1>
+<div id="block-quotes" class="section level2">
+<h2>Block Quotes</h2>
+<p>We know from the Markdown syntax that paragraphs that start with <code>&gt;</code> are converted to block quotes. If you want to add a right-aligned footer for the quote, you may use the function <code>quote_footer()</code> from <strong>tufte</strong> in an inline R expression. Here is an example:</p>
+<pre><code>&gt; _&quot;If it weren&#39;t for my lawyer, I&#39;d still be in prison. It went a lot faster with two people digging.&quot;_
+&gt;
+&gt; `r tufte::quote_footer(&quot;---Joe Martin&quot;)`</code></pre>
+<blockquote>
+<p><em>“If it weren’t for my lawyer, I’d still be in prison. It went a lot faster with two people digging.”</em></p>
+<footer>
+— Joe Martin
+</footer>
+</blockquote>
+<p>Without using <code>quote_footer()</code>, it looks like this (the second line is just a normal paragraph):</p>
+<blockquote>
+<p><em>“Great people talk about ideas, average people talk about things, and small people talk about wine.”</em></p>
+<p>— Fran Lebowitz</p>
+</blockquote>
+<p>If you are using Rmd documents to generate the blog, the above syntax is reccomended because it will be the most portable if you decide to change from Hugo to another static generator. However, you have the option of using Hugo shortcodes to generate blockquotes in markdown or rmd documents. See details in the shortcode sections.</p>
+</div>
+<div id="figures" class="section level2">
+<h2>Figures</h2>
+<p>Figures can be generated with R using chunks as follows:</p>
+<pre><code>```{r message=FALSE, warning=FALSE, paged.print=FALSE, fig.cap=&quot;some caption text&quot;}
+library(ggplot2)
+mtcars2 &lt;- mtcars
+mtcars2$am &lt;- factor(
+mtcars$am, labels = c(&#39;automatic&#39;, &#39;manual&#39;)
+)
+ggplot(mtcars2, aes(hp, mpg, color = am)) +
+  geom_point() + geom_smooth() +
+  theme(legend.position = &#39;bottom&#39;)
+```</code></pre>
+<div class="figure"><span id="fig:unnamed-chunk-2"></span>
+<img src="/post/2018-07-06-introducing-hugo-tint_files/figure-html/unnamed-chunk-2-1.png" alt="Some caption text" width="672" />
+<p class="caption">
+Figure 1: Some caption text
+</p>
+</div>
+<p>Note that <code>tint</code> and <code>tufte</code> chunk options for full-width figures and margin figures are not supported in <code>blogdown</code>. This is because <code>blogdown</code> wraps <code>bookdown::html_document2()</code> in order to render Rmd files to HTML pages.</p>
+<p>If you really want margin figures, one option is to wrap the chunks with <code>&lt;span class=&quot;marginnote&quot;&gt; ... &lt;/span&gt;</code> to takes advantage of tint’s css. This probably isn’t wise if you want portable code. However, this is demonstrated below:</p>
+<p><span class="marginnote"> <img src="/post/2018-07-06-introducing-hugo-tint_files/figure-html/unnamed-chunk-3-1.png" width="384" /> </span></p>
+<pre><code>```
+&lt;span class=&quot;marginnote&quot;&gt;
+```{r echo=FALSE, fig.height=2, fig.width=4, message=FALSE, warning=FALSE}
+## Don&#39;t use the fig.cap option with margin figures
+## It will make for a bad day
+mtcars2 &lt;- mtcars
+mtcars2$am &lt;- factor(
+mtcars$am, labels = c(&#39;automatic&#39;, &#39;manual&#39;)
+)
+ggplot(mtcars2, aes(hp, mpg, color = am)) +
+geom_point() + geom_smooth() +
+theme(legend.position = &#39;bottom&#39;)
+```
+&lt;/span&gt;
+```</code></pre>
+</div>
+<div id="margin-notes" class="section level2">
+<h2>Margin notes</h2>
+<p>The R syntax for margin notes are generated with the following inline R chunk.</p>
+<p><label for="tufte-mn-" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-" class="margin-toggle"><span class="marginnote">Your margin note text</span></p>
+<pre class="r"><code>`r tufte::margin_note(&quot;Your margin note text&quot;)`</code></pre>
+<p>This inline code can also be used to embed images or anything else into margin figures. <label for="tufte-mn-" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-" class="margin-toggle"><span class="marginnote"><img src="https://www.oldbookillustrations.com/wp-content/high-res/1836-1849/scaly-dragonfish-768.jpg" /> The scaly dragonfish (Stomias boa boa), also kown as boa dragonfish, is a fish in the family Stomiidae. It lives in oceanic waters to more than 3,300 ft (1000 m) deep and feeds on other fish and crustaceans. Series of photophores distributed across its body allow it to emit light. The caption reads in the original French: Stomias boa. (Stomias boa, Cuv.)</span> <code>`r tufte::margin_note(&quot;![](https://www.oldbookillustrations.com/wp-content/high-res/1836-1849/scaly-dragonfish-768.jpg) The scaly dragonfish (Stomias boa boa), also kown as boa dragonfish, is a fish in the family Stomiidae. It lives in oceanic waters to more than 3,300 ft (1000 m) deep and feeds on other fish and crustaceans. Series of photophores distributed across its body allow it to emit light. The caption reads in the original French: Stomias boa. (Stomias boa, Cuv.)&quot;)`</code></p>
+<p>See Shortcodes section below on how to accomplish this using plain markdown.</p>
+</div>
+<div id="math" class="section level2">
+<h2>Math</h2>
+<p>Inline and centered math works using mathjax.js.</p>
+<pre><code>For example, we know that for $x$ in $[a, b]$:
+
+$$\frac{d}{dx}\left( \int_{a}^{x} f(u)\,du\right)=f(x).$$</code></pre>
+<p>For example, we know that for <span class="math inline">\(x\)</span> in <span class="math inline">\([a, b]\)</span>:</p>
+<p><span class="math display">\[\frac{d}{dx}\left( \int_{a}^{x} f(u)\,du\right)=f(x).\]</span></p>
+</div>
+<div id="references" class="section level2">
+<h2>References</h2>
+<p>We can include references in Rmd documents. References will be displayed at the bottom of the document. To enable this feature, you must set <code>link-citations: yes</code> in the YAML metadata.</p>
+<p>Here is an example reference to the R-core team: <code>[@R-base]</code> which renders as : <span class="citation">(R Core Team <a href="#ref-R-base">2018</a>)</span></p>
+</div>
+<div id="styles" class="section level2">
+<h2>Styles</h2>
+<p>This style provides first and second-level headings (that is, <code>#</code> and <code>##</code>), demonstrated in the next section. You may get unexpected output if you try to use <code>###</code> and smaller headings.</p>
+<p><span class="newthought">In his later books</span><a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>, Tufte starts each section with a bit of vertical space, a non-indented paragraph, and sets the first few words of the sentence in small caps. To accomplish this using this style, call the <code>newthought()</code> function in <strong>tufte</strong> in an <em>inline R expression</em> <code>`r `</code> as demonstrated at the beginning of this paragraph.<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a></p>
+</div>
+<div id="tables" class="section level2">
+<h2>Tables</h2>
+<p>You can use the <code>kable()</code> function from the <strong>knitr</strong> package to format and embed tables from rmarkdown chunks.</p>
+<pre class="r"><code>knitr::kable(
+  mtcars[1:6, 1:6], caption = &#39;A subset of mtcars.&#39;
+)</code></pre>
+<table>
+<caption><span id="tab:unnamed-chunk-5">Table 1: </span>A subset of mtcars.</caption>
+<thead>
+<tr class="header">
+<th></th>
+<th align="right">mpg</th>
+<th align="right">cyl</th>
+<th align="right">disp</th>
+<th align="right">hp</th>
+<th align="right">drat</th>
+<th align="right">wt</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Mazda RX4</td>
+<td align="right">21.0</td>
+<td align="right">6</td>
+<td align="right">160</td>
+<td align="right">110</td>
+<td align="right">3.90</td>
+<td align="right">2.620</td>
+</tr>
+<tr class="even">
+<td>Mazda RX4 Wag</td>
+<td align="right">21.0</td>
+<td align="right">6</td>
+<td align="right">160</td>
+<td align="right">110</td>
+<td align="right">3.90</td>
+<td align="right">2.875</td>
+</tr>
+<tr class="odd">
+<td>Datsun 710</td>
+<td align="right">22.8</td>
+<td align="right">4</td>
+<td align="right">108</td>
+<td align="right">93</td>
+<td align="right">3.85</td>
+<td align="right">2.320</td>
+</tr>
+<tr class="even">
+<td>Hornet 4 Drive</td>
+<td align="right">21.4</td>
+<td align="right">6</td>
+<td align="right">258</td>
+<td align="right">110</td>
+<td align="right">3.08</td>
+<td align="right">3.215</td>
+</tr>
+<tr class="odd">
+<td>Hornet Sportabout</td>
+<td align="right">18.7</td>
+<td align="right">8</td>
+<td align="right">360</td>
+<td align="right">175</td>
+<td align="right">3.15</td>
+<td align="right">3.440</td>
+</tr>
+<tr class="even">
+<td>Valiant</td>
+<td align="right">18.1</td>
+<td align="right">6</td>
+<td align="right">225</td>
+<td align="right">105</td>
+<td align="right">2.76</td>
+<td align="right">3.460</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="page-parameters" class="section level2">
+<h2>Page Parameters</h2>
+<p>Page parameters are specfied in the <code>yaml</code> chunk at the top of each post or page.</p>
+<pre class="yaml"><code>---
+title: Introducing hugo-tint
+author: Frida Gomam
+date: &#39;2018-07-06&#39;
+slug: introducing-hugo-tint
+categories: [&quot;Blogdown&quot;, &quot;example&quot;]
+tags: []
+excerpt: This post introduces hugo-tint and blogdown features to get you up and running with Hugo and blogdown.
+---</code></pre>
+<ul>
+<li><code>hideDate</code> boolean: if true, do not display a page date. When <code>meta</code> is set to true, <code>hideDate</code> takes greater precedence.</li>
+<li><code>hideReadTime</code> boolean: if true, do not display the page’s reading time estimate. When <code>meta</code> is set to true, <code>hideReadTime</code> takes greater precedence.</li>
+<li><code>meta</code> boolean: if true, display page metadata such as author, date, categories provided these page parameters exist and are not overridden. Content in the <code>/post</code> directory, (i.e., pages of type “post”) ignore this parameter.</li>
+</ul>
+</div>
+<div id="site-parameters" class="section level2">
+<h2>Site parameters</h2>
+<p>Site parameters are specified in <code>config.toml</code>.</p>
+<div id="general-site-options" class="section level3">
+<h3>General site options</h3>
+<p>Within <code>[params]</code>:</p>
+<ul>
+<li><p><code>showPoweredBy</code> boolean: if true, display a shoutout to Hugo and this theme.</p></li>
+<li><p><code>copyrightHolder</code> string: Inserts the value in the default copyright notice.</p></li>
+<li><p><code>copyright</code> string: Custom copyright notice.</p></li>
+</ul>
+</div>
+<div id="main-menu" class="section level3">
+<h3>Main menu</h3>
+<p>Add direct links for the main menu by adding additional <code>[[menu.main]]</code> entries (note that links are relative):</p>
+<pre class="yaml"><code>[[menu.main]]
+    name = &quot;About&quot;
+    url = &quot;/About/&quot;
+[[menu.main]]
+    name = &quot;CV&quot;
+    url = &quot;/CV/&quot;</code></pre>
+</div>
+<div id="social-media-links" class="section level3">
+<h3>Social media links</h3>
+<p>Add social media links in the footer by adding <code>[[params.social]]</code> entries using <a href="http://fontawesome.io/icons/">Fontawesome icons</a>.</p>
+<pre class="yaml"><code>    [[params.social]]
+    name = &quot;GitHub&quot;
+    icon = &quot;github&quot;
+    link = &quot;https://github.com/rstudio/blogdown&quot;
+    [[params.social]]
+    name = &quot;Twitter&quot;
+    icon = &quot;twitter&quot;
+    link = &quot;https://twitter.com/rstudio&quot;
+    [[params.social]]
+    name = &quot;LinkedIn&quot;
+    icon = &quot;linkedin-square&quot;
+    link = &quot;https://www.linkedin.com/&quot;
+    [[params.social]]
+    name = &quot;Instagram&quot;
+    icon = &quot;instagram&quot;
+    link = &quot;https://www.instagram.com/&quot;</code></pre>
+</div>
+</div>
+<div id="shortcodes" class="section level2">
+<h2>Shortcodes</h2>
+<p><a href="https://gohugo.io/content-management/shortcodes/">Shortcodes</a> are Hugo’s way around some of Markdown’s formatting limitations. As such, they are designed to work with markdown documents, not rmd files. Blogdown does provide the <code>blogdown::shortcode()</code> function if you want to use them in rmd documents. To maximize file portability, it is generally reccomended to avoid shortcodes since other markdown engines will not interpret the output.</p>
+<p><code>blockquote</code></p>
+<ul>
+<li><strong>Description</strong>: Wrap text in a blockquote and insert optional <code>cite</code> or <code>footer</code> metadata.</li>
+<li><strong>Usage</strong>: Accepts the named parameters <code>cite</code> and <code>footer</code>.</li>
+<li><strong>Example</strong>:</li>
+</ul>
+<p><em>markdown</em></p>
+<pre><code>{{%/* blockquote cite=&quot;https://www.goodreads.com/author/show/61105.Dr_Seuss&quot; footer=&quot;Dr. Seuss&quot; */%}}
+  Don&#39;t cry because it&#39;s over, smile because it happened.
+{{%/* /blockquote */%}}</code></pre>
+<p><em>blogdown</em></p>
+<pre class="r"><code>blogdown::shortcode(.name = &quot;blockquote&quot;,
+                    cite = &quot;https://www.goodreads.com/author/show/61105.Dr_Seuss&quot;,
+                    footer=&quot;Dr. Seuss&quot;,
+                    .content = &quot;Don&#39;t cry because it&#39;s over, smile because it happened.&quot;)</code></pre>
+{{% blockquote cite="https://www.goodreads.com/author/show/61105.Dr_Seuss" footer="Dr. Seuss" %}}
+Don't cry because it's over, smile because it happened.
+{{% /blockquote %}}
+<p><code>epigraph</code></p>
+<ul>
+<li><strong>Description</strong>: Create an epigraph with the wrapped text.</li>
+<li><strong>Usage</strong>: To include a footer with source attribution, pass in the optional named parameters <code>pre</code>, <code>cite</code>, <code>post</code>. These parameters make no styling assumptions, so spacing is important. A more compactly styled epigraph will be used if the <code>type</code> parameter is set to <code>compact</code>.</li>
+<li><strong>Example</strong>:</li>
+</ul>
+<p><em>markdown</em></p>
+<pre><code>{{%/* epigraph pre=&quot;Author Writer, &quot; cite=&quot;Math is Fun&quot; */%}}
+  This is an example of an epigraph with some math 
+  \\( \mathbb N \subseteq \mathbb R \\)
+  to start the beginning of a section.
+{{%/* /epigraph */%}}</code></pre>
+<p><em>blogdown</em></p>
+<pre class="r"><code>blogdown::shortcode(.name = &quot;epigraph&quot;,
+                    pre = &quot;Author Writer&quot;,
+                    cite = &quot;Math is Fun&quot;,
+                    .content = &quot;Don&#39;t even try to put math in this like the md example above.&quot;)</code></pre>
+{{% epigraph pre="Author Writer" cite="Math is Fun" %}}
+Don't even try to put math in this like the md example above.
+{{% /epigraph %}}
+<p><code>tweet</code></p>
+<ul>
+<li><strong>Description</strong>: Embed a single tweet.</li>
+<li><strong>Usage</strong>: Pass the tweet’s ID from the URL as a parameter to the <code>tweet</code> shortcode (look at the tweet url to find the number):</li>
+<li><strong>Example</strong>:</li>
+</ul>
+<p><em>markdown</em></p>
+<pre><code>{{&lt; tweet 852205086956818432 &gt;}}</code></pre>
+<p><em>blogdown</em></p>
+<pre class="r"><code>blogdown::shortcode(&quot;tweet&quot;, &quot;852205086956818432&quot;)</code></pre>
+{{% tweet "852205086956818432" %}}
+</div>
+</div>
+<div id="references-1" class="section level1 unnumbered">
+<h1>References</h1>
+<div id="refs" class="references">
+<div id="ref-R-rmarkdown">
+<p>Allaire, JJ, Yihui Xie, Jonathan McPherson, Javier Luraschi, Kevin Ushey, Aron Atkins, Hadley Wickham, Joe Cheng, and Winston Chang. 2018. <em>Rmarkdown: Dynamic Documents for R</em>. <a href="https://CRAN.R-project.org/package=rmarkdown" class="uri">https://CRAN.R-project.org/package=rmarkdown</a>.</p>
+</div>
+<div id="ref-R-base">
+<p>R Core Team. 2018. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/" class="uri">https://www.R-project.org/</a>.</p>
+</div>
+<div id="ref-R-blogdown">
+<p>Xie, Yihui, Amber Thomas, and Alison Presmanes Hill. 2018. <em>Blogdown: Creating Websites with R Markdown</em>. <a href="https://CRAN.R-project.org/package=blogdown" class="uri">https://CRAN.R-project.org/package=blogdown</a>.</p>
+</div>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p><a href="http://www.edwardtufte.com/tufte/books_be">Beautiful Evidence</a><a href="#fnref1">↩</a></p></li>
+<li id="fn2"><p>Note you should not assume <strong>tufte</strong> has been attached to your R session. You should either <code>library(tufte)</code> in your R Markdown document before you call <code>newthought()</code>, or use <code>tint::newthought()</code>.<a href="#fnref2">↩</a></p></li>
+</ol>
+</div>
