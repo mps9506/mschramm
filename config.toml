@@ -1,7 +1,7 @@
 baseurl = "https://michaelpaulschramm.com/"
 languageCode = "en-us"
 title = "Mike's Notebook"
-theme = "blogdown-tufte"
+theme = "hugo-tint"
 googleAnalytics = ""
 disqusShortname = ""
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
@@ -19,7 +19,7 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 [params]
     description = "A blog for Michael Schramm"
     googleAnalytics = "UA-71354421-1"
-    showPoweredBy = true
+    showPoweredBy = false
     copyrightHolder = "Michael Schramm"
 
     # options for highlight.js (version, additional languages, and theme)
@@ -32,7 +32,7 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
     MathJaxVersion = "2.7.1"
 
     [params.logo]
-    url = "logo.png"
+    url = "/images/logo.png"
     width = 320
     height = 137
     alt = "Logo"

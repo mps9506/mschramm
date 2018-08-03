@@ -1,0 +1,330 @@
+---
+title: Introducing hugo-tint
+author: Frida Gomam
+date: '2018-07-06'
+slug: introducing-hugo-tint
+categories: ["Blogdown", "example"]
+excerpt: This post introduces hugo-tint and blogdown features to get you up and running with Hugo and blogdown.
+bibliography: skeleton.bib
+link-citations: yes
+draft: no
+blogdown::html_page:
+  dev: "svg"
+  toc: TRUE
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+library(tint)
+library(tufte)
+knitr::opts_chunk$set(collapse = TRUE)
+```
+
+# The Basics
+
+This Hugo theme is intended for use with R _[blogdown](https://github.com/rstudio/blogdown)_. Before starting, see [@R-rmarkdown] for more info about _rmarkdown_ and  [@R-blogdown] for more info about _blogdown_.
+
+
+## Getting Blogdown
+
+`r tint::margin_note("__R Console__")`
+```{r, eval = F}
+## Install from CRAN
+install.packages('blogdown')
+
+## Or, install from GitHub
+devtools::install_github('rstudio/blogdown')
+
+#installs Hugo (works for Windows,macOS, and Linux)
+blogdown::install_hugo()
+
+#initialize a new blog
+blogdown::new_site()
+
+#install theme
+blogdown::install_theme("mps9506/hugo-tint")
+```
+
+
+
+# Features
+
+## Block Quotes
+
+We know from the Markdown syntax that paragraphs that start with `>` are converted to block quotes. If you want to add a right-aligned footer for the quote, you may use the function `quote_footer()` from **tufte** in an inline R expression. Here is an example:
+
+```
+> _"If it weren't for my lawyer, I'd still be in prison. It went a lot faster with two people digging."_
+>
+> `r '\x60r tufte::quote_footer("---Joe Martin")\x60'`
+```
+
+> _"If it weren't for my lawyer, I'd still be in prison. It went a lot faster with two people digging."_
+>
+> `r tufte::quote_footer('--- Joe Martin')`
+
+Without using `quote_footer()`, it looks like this (the second line is just a normal paragraph):
+
+> _"Great people talk about ideas, average people talk about things, and small people talk about wine."_
+>
+> --- Fran Lebowitz
+
+If you are using Rmd documents to generate the blog, the above syntax is reccomended because it will be the most portable if you decide to change from Hugo to another static generator. However, you have the option of using Hugo shortcodes to generate blockquotes in markdown or rmd documents. See details in the shortcode sections.
+
+## Figures
+
+Figures can be generated with R using chunks as follows:
+
+    `r ''````{r message=FALSE, warning=FALSE, paged.print=FALSE, fig.cap="some caption text"}
+    library(ggplot2)
+    mtcars2 <- mtcars
+    mtcars2$am <- factor(
+    mtcars$am, labels = c('automatic', 'manual')
+    )
+    ggplot(mtcars2, aes(hp, mpg, color = am)) +
+      geom_point() + geom_smooth() +
+      theme(legend.position = 'bottom')
+    ```
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE, fig.cap="Some caption text"}
+library(ggplot2)
+mtcars2 <- mtcars
+mtcars2$am <- factor(
+  mtcars$am, labels = c('automatic', 'manual')
+)
+ggplot(mtcars2, aes(hp, mpg, color = am)) +
+  geom_point() + geom_smooth() +
+  theme(legend.position = 'bottom')
+
+```
+
+
+Note that `tint` and `tufte` chunk options for full-width figures and margin figures are not supported in `blogdown`. This is because `blogdown` wraps `bookdown::html_document2()` in order to render Rmd files to HTML pages.
+
+If you really want margin figures, one option is to wrap the chunks with `<span class="marginnote"> ... </span>` to takes advantage of tint's css. This probably isn't wise if you want portable code. However, this is demonstrated below:
+
+<span class="marginnote">
+```{r echo=FALSE, fig.height=2, fig.width=4, message=FALSE, warning=FALSE}
+library(ggplot2)
+mtcars2 <- mtcars
+mtcars2$am <- factor(
+  mtcars$am, labels = c('automatic', 'manual')
+)
+ggplot(mtcars2, aes(hp, mpg, color = am)) +
+  geom_point() + geom_smooth() +
+  theme(legend.position = 'bottom')
+```
+</span>
+
+    ```
+    <span class="marginnote">
+    `r ''````{r echo=FALSE, fig.height=2, fig.width=4, message=FALSE, warning=FALSE}
+    ## Don't use the fig.cap option with margin figures
+    ## It will make for a bad day
+    mtcars2 <- mtcars
+    mtcars2$am <- factor(
+    mtcars$am, labels = c('automatic', 'manual')
+    )
+    ggplot(mtcars2, aes(hp, mpg, color = am)) +
+    geom_point() + geom_smooth() +
+    theme(legend.position = 'bottom')
+    ```
+    </span>
+    ```
+
+## Margin notes
+
+The R syntax for margin notes are generated with the following inline R chunk.
+
+`r tufte::margin_note("Your margin note text")`
+```{r, eval = F}
+`r tufte::margin_note("Your margin note text")`
+```
+
+This inline code can also be used to embed images or anything else into margin figures. `r tufte::margin_note("![](https://www.oldbookillustrations.com/wp-content/high-res/1836-1849/scaly-dragonfish-768.jpg) The scaly dragonfish (Stomias boa boa), also kown as boa dragonfish, is a fish in the family Stomiidae. It lives in oceanic waters to more than 3,300 ft (1000 m) deep and feeds on other fish and crustaceans. Series of photophores distributed across its body allow it to emit light. The caption reads in the original French: Stomias boa. (Stomias boa, Cuv.)")` 
+`` `r '\x60r tufte::margin_note("![](https://www.oldbookillustrations.com/wp-content/high-res/1836-1849/scaly-dragonfish-768.jpg) The scaly dragonfish (Stomias boa boa), also kown as boa dragonfish, is a fish in the family Stomiidae. It lives in oceanic waters to more than 3,300 ft (1000 m) deep and feeds on other fish and crustaceans. Series of photophores distributed across its body allow it to emit light. The caption reads in the original French: Stomias boa. (Stomias boa, Cuv.)")\x60'` ``
+
+
+See Shortcodes section below on how to accomplish this using plain markdown.
+
+
+## Math
+
+Inline and centered math works using mathjax.js.
+```
+For example, we know that for $x$ in $[a, b]$:
+
+$$\frac{d}{dx}\left( \int_{a}^{x} f(u)\,du\right)=f(x).$$
+```
+
+For example, we know that for $x$ in $[a, b]$:
+
+$$\frac{d}{dx}\left( \int_{a}^{x} f(u)\,du\right)=f(x).$$
+
+## References
+
+We can include references in Rmd documents. References will be displayed at the bottom of the document. To enable this feature, you must set `link-citations: yes` in the YAML metadata.
+
+Here is an example reference to the R-core team: `[@R-base]` which renders as : [@R-base]
+
+## Styles
+
+This style provides first and second-level headings (that is, `#` and `##`), demonstrated in the next section. You may get unexpected output if you try to use `###` and smaller headings.
+
+`r newthought('In his later books')`^[[Beautiful Evidence](http://www.edwardtufte.com/tufte/books_be)], Tufte starts each section with a bit of vertical space, a non-indented paragraph, and sets the first few words of the sentence in small caps. To accomplish this using this style, call the `newthought()` function in **tufte** in an _inline R expression_ `` `r ` `` as demonstrated at the beginning of this paragraph.^[Note you should not assume **tufte** has been attached to your R session. You should either `library(tufte)` in your R Markdown document before you call `newthought()`, or use `tint::newthought()`.]
+
+## Tables
+
+
+You can use the `kable()` function from the **knitr** package to format and embed tables from rmarkdown chunks.
+
+```{r}
+knitr::kable(
+  mtcars[1:6, 1:6], caption = 'A subset of mtcars.'
+)
+```
+
+
+
+
+
+## Page Parameters
+
+Page parameters are specfied in the `yaml` chunk at the top of each post or page.
+
+```yaml
+---
+title: Introducing hugo-tint
+author: Frida Gomam
+date: '2018-07-06'
+slug: introducing-hugo-tint
+categories: ["Blogdown", "example"]
+tags: []
+excerpt: This post introduces hugo-tint and blogdown features to get you up and running with Hugo and blogdown.
+---
+```
+
+
+- `hideDate` boolean: if true, do not display a page date.  When `meta` is set to
+  true, `hideDate` takes greater precedence.
+- `hideReadTime` boolean: if true, do not display the page's reading time
+  estimate.  When `meta` is set to true, `hideReadTime` takes greater precedence.
+- `meta` boolean: if true, display page metadata such as author, date, categories provided
+  these page parameters exist and are not overridden.  Content in the `/post` directory,
+  (i.e., pages of type "post") ignore this parameter.
+
+## Site parameters
+
+Site parameters are specified in `config.toml`.
+
+### General site options
+
+Within `[params]`:
+
+- `showPoweredBy` boolean: if true, display a shoutout to Hugo and this theme.
+
+- `copyrightHolder` string: Inserts the value in the default copyright notice.
+
+- `copyright` string: Custom copyright notice.
+
+### Main menu
+Add direct links for the main menu by adding additional `[[menu.main]]` entries (note that links are relative):
+```yaml
+[[menu.main]]
+    name = "About"
+    url = "/About/"
+[[menu.main]]
+    name = "CV"
+    url = "/CV/"
+```
+
+### Social media links
+Add social media links in the footer by adding `[[params.social]]` entries using [Fontawesome icons](http://fontawesome.io/icons/).
+```yaml
+    [[params.social]]
+    name = "GitHub"
+    icon = "github"
+    link = "https://github.com/rstudio/blogdown"
+    [[params.social]]
+    name = "Twitter"
+    icon = "twitter"
+    link = "https://twitter.com/rstudio"
+    [[params.social]]
+    name = "LinkedIn"
+    icon = "linkedin-square"
+    link = "https://www.linkedin.com/"
+    [[params.social]]
+    name = "Instagram"
+    icon = "instagram"
+    link = "https://www.instagram.com/"
+```
+
+## Shortcodes
+[Shortcodes](https://gohugo.io/content-management/shortcodes/) are Hugo's way around some of Markdown's formatting limitations. As such, they are designed to work with markdown documents, not rmd files. Blogdown does provide the `blogdown::shortcode()` function if you want to use them in rmd documents. To maximize file portability, it is generally reccomended to avoid shortcodes since other markdown engines will not interpret the output.
+
+`blockquote`
+
+  - **Description**: Wrap text in a blockquote and insert optional
+  `cite` or `footer` metadata.
+  - **Usage**: Accepts the named parameters `cite` and `footer`.
+  - **Example**:
+  
+_markdown_  
+```
+{{%/* blockquote cite="https://www.goodreads.com/author/show/61105.Dr_Seuss" footer="Dr. Seuss" */%}}
+  Don't cry because it's over, smile because it happened.
+{{%/* /blockquote */%}}
+```
+
+_blogdown_
+```{r echo=TRUE}
+blogdown::shortcode(.name = "blockquote",
+                    cite = "https://www.goodreads.com/author/show/61105.Dr_Seuss",
+                    footer="Dr. Seuss",
+                    .content = "Don't cry because it's over, smile because it happened.")
+```
+
+
+`epigraph`
+
+  - **Description**: Create an epigraph with the wrapped text.
+  - **Usage**: To include a footer with source attribution, pass in the
+  optional named parameters `pre`, `cite`, `post`. These parameters 
+  make no styling assumptions, so spacing is important.  A more compactly
+  styled epigraph will be used if the `type` parameter is set to `compact`.
+  - **Example**:
+
+_markdown_  
+```
+{{%/* epigraph pre="Author Writer, " cite="Math is Fun" */%}}
+  This is an example of an epigraph with some math 
+  \\( \mathbb N \subseteq \mathbb R \\)
+  to start the beginning of a section.
+{{%/* /epigraph */%}}
+```
+
+_blogdown_
+```{r echo=TRUE}
+blogdown::shortcode(.name = "epigraph",
+                    pre = "Author Writer",
+                    cite = "Math is Fun",
+                    .content = "Don't even try to put math in this like the md example above.")
+```
+
+`tweet`
+
+  - **Description**: Embed a single tweet.
+  - **Usage**: Pass the tweet’s ID from the URL as a parameter to the `tweet` shortcode (look at the tweet url to find the number):
+  - **Example**:
+
+_markdown_
+```
+{{< tweet 852205086956818432 >}}
+```
+
+_blogdown_
+```{r echo=TRUE}
+blogdown::shortcode("tweet", "852205086956818432")
+```
+  
+# References
