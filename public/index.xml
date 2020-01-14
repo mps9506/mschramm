@@ -6,10 +6,19 @@
     <description>Recent content on Mike&#39;s Notebook</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 26 Mar 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 24 Sep 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Introducing echor</title>
+      <link>/2018/09/24/introducing-echor/</link>
+      <pubDate>Mon, 24 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/2018/09/24/introducing-echor/</guid>
+      <description>The U.S. Environmental Protection Agency (EPA) provides access to facility and compliance information for registered permit holders under the Clean Air Act, Clean Water Act. The primary way for non-governmental entities to obtain this data is through the EPA Environmental and Compliance History Online (ECHO) website. Data is housed under “media-specific” programs. Relevant to this post, the National Pollutant Discharge Elimination Systems (NPDES) maintains data on pollutant discharges to waterways and the Air Facility Service (AFS) maintain data on emission to air.</description>
+    </item>
     
     <item>
       <title>Binomial Test for Water Quality Compliance</title>
