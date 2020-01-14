@@ -22,9 +22,10 @@ urlcolor: blue
 
 # Employment
 
-*Texas Water Resources Institute, Texas A & M University*
+*Texas Water Resources Institute, Texas A&M AgriLife Research and Extension Service*
 
-Research Associate \hfill 2016-Current
+Research Specialist III \hfill 2019-current  
+Research Associate \hfill 2016-2019
 
 *Oak Ridge National Laboratory, Oak Ridge, TN*
 
@@ -42,15 +43,21 @@ Research Assistant \hfill 2012-2013
 
 *University of North Carolina - Wilmington*, B.S. Biology, 2004
 
+# Research Areas
+
+Water quality - policy analysis, stakeholder engagement, statistical modeling, and watershed planning
+
+Hydroinformatics - statistical modeling and visualization for decision-making
+
 # Skills
 
-Environmental and Water Policy Analysis, GIS, `Python`, Qualitative and Quantitative Data Analysis, `R`, Technical Writing, Water Quality Assessment
+Data Analysis, Environmental Policy, GIS, Grant Writing, Policy Analysis, `Python`, `R`, Reproducible Research, Stakeholder Facilitation, Technical Writing, Water Quality Modeling and Assessment, Watershed Planning
 
 # Publications
 
 ## Journal Articles
 
-**Schramm, M.P.**, Bevelhimer, M.S., Scherelis, C. 2017. Effects of hydrokinetic turbine sound on the behavior of four species of fish within an experimental mesocosm. *Fisheries Research* 190:1-14.
+**Schramm, M.P.**, Bevelhimer, M.S., Scherelis, C. 2017. Effects of hydrokinetic turbine sound on the behavior of four species of fish within an experimental mesocosm. *Fisheries Research* 190:1-14. doi:10.1016/j.fishres.2017.01.012
 
 DeRolph, C.R., **Schramm, M.P.**, Bevelhimer, M.S. 2016. Predicting environmental mitigation requirements for hydropower projects through the integration of biophysical and socio-political geographies. *Science of The Total Environment* 566:888-918. doi:10.1016/j.scitotenv.2016.05.099
 
@@ -60,9 +67,15 @@ Pracheil, B.M., DeRolph C.R., **Schramm, M.P.**, Bevelhimer, M.S. 2016. A fish-e
 
 Cutting, R.H., Cahoon, L.B., Flood, J.F., Horton, L., **Schramm, M.P.** 2010. Spill the beans: GoodGuide, Walmart and EPA use information as efficient, market-based environmental regulation. *Tul. Envtl. LJ* 24:291.
 
-## Other Publications
+## Technical Reports
 
-**Schramm, M.P.**, Berthold, T., Entwistle, C., Peddicord, K. (2018). Lavaca River Watershed Protection Plan. Technical report, Texas Water Resources Institute TR-507. College Station, TX. URL: http://twri.tamu.edu/media/692870/tr-507.pdf
+**Schramm, M.**, Jha, A. 2019. Technical Support Document for One Total Maximum Daily Load for Indicator Bacteria in Hillebrandt Bayou. Prepared by the Texas Water Resources Institute for the Total Maximum Daily Load Program, Texas Commission on Environmental Quality. Austin, TX. URL: https://www.tceq.texas.gov/assets/public/waterquality/tmdl/118hillebrandt/118-hillebrandtbayou-tsd-2019.pdf
+
+Jain, S., Ruff, S., **Schramm, M.** 2018. Technical Support Document for One Total Maximum Daily Load for Indicator Bacteria in Arenosa Creek. Prepared by the Texas Water Resources Institute for the Total Maximum Daily Load Program, Texas Commission on Environmental Quality. Austin, TX. URL: https://www.tceq.texas.gov/assets/public/waterquality/tmdl/108arenosa/108-arenosa-tsd-final.pdf
+
+**Schramm, M.P.**, Broad, T., Arsuffi, R. 2018. *Escherichia coli* and Dissolved Oxygen Trends in the Upper Llano River Watershed, Texas (2001-2016). Technical Report, Texas Water Resources Institute TR-511. Prepared by the Texas Water Resources Institute and Llano River Field Station for the Texas State Soil and Water Conservation Board. Temple, TX. URL: http://twri.tamu.edu/publications/reports/2018/tr-511/
+
+**Schramm, M.P.**, Entwistle, C., Berthold, T. 2018. Lavaca River Watershed Protection Plan. Technical report, Texas Water Resources Institute TR-507. College Station, TX. URL: http://twri.tamu.edu/publications/reports/2018/tr-507/
 
 **Schramm, M.P.**, Entwistle, C., Berthold, T. 2017. Tres Palacios Watershed Protection Plan. Technical report, Texas Water Resources Institute TR-500. College Station, TX. URL: http://twri.tamu.edu/publications/reports/2017/tr-500/
 
@@ -78,7 +91,13 @@ Caldwell, J., Cruz-Ortiz, C., Dsouza, C., Johnson, T., Schorse, M., **Schramm, M
 
 ## Software
 
-**Schramm, M.P.** 2018. `echor`: Access EPA ECHO Data. *R package version 0.1.0. (CRAN).* https://CRAN.R-project.org/package=echor
+**Schramm, M.P.** 2018. `echor`: Access EPA ECHO Data. *R package version 0.1.3 (CRAN).* https://CRAN.R-project.org/package=echor
+
+**Schramm, M.P.** 2018. `tbrf`: Time-Based Rolling Functions. *R package version 0.1.3 (CRAN)* https://CRAN.R-project.org/package=tbrf
+
+**Schramm, M.P.** 2019. `dartx`: Drainage Area Ratio with Correction Factors. *R package version 0.1 (github)* https://github.com/mps9506/dartx
+
+**Schramm, M.P.** 2019. `wd4tx`: R Interface for Texas Water Development Board water data. *R package version 0.0.9999 (github)* https://github.com/mps9506/wd4tx
 
 ## Datasets
 
@@ -86,10 +105,91 @@ Bevelhimer, M.S., **Schramm, M.P.** , DeRolph, C.R. 2015. Non-Federal Hydropower
 
 Bevelhimer, M.S., **Schramm M.P.**, DeRolph, C.R. 2015. US Maps of Non-Federal Hydropower Mitigation Data, Oak Ridge National Laboratory, available at: http://nhaap.ornl.gov/environmental-mitigation
 
-Bevelhimer, M.S., **Schramm M.P.**, C.R. DeRolph 2015. US Maps of Non-Federal Hydropower Water Quality Requirements, Oak Ridge National Laboratory, available at: http://nhaap.ornl.gov/environmental-mitigation
+Bevelhimer, M.S., **Schramm M.P.**, DeRolph, C.R. 2015. US Maps of Non-Federal Hydropower Water Quality Requirements, Oak Ridge National Laboratory, available at: http://nhaap.ornl.gov/environmental-mitigation
 
 ## Forthcoming
 
-**Schramm, M.P.**, Entwistle, C., Berthold, T. (Forthcoming). Implementation Plan for Two Total Maximum Daily Loads for Indicator Bacteria in Lavaca River Above Tidal and Rocky Creek. Prepared by the Texas Water Resources Institute for the Total Maximum Daily Load Program, Texas Commission on Environmental Quality. Austin, TX.
+**Schramm, M.**, Jha, A. (forthcoming). Technical Support Document for Four Total Maximum Daily Loads for Indicator Bacteria in Neches River Tidal . Prepared by the Texas Water Resources Institute for the Total Maximum Daily Load Program, Texas Commission on Environmental Quality. Austin, TX. 
 
-**Schramm, M.P.**, Broad, T., Arsuffi, R. (Forthcoming). *Escherichia coli* and Dissolved Oxygen Trends in the Upper Llano River Watershed, Texas (2001-2016). Prepared by the Texas Water Resources Institute and the Llano River Field Station for the Texas State Soil and Water Conservation Board. Temple, TX.
+**Schramm, M.**, Jha, A. (forthcoming). Technical Support Document for Two Total Maximum Daily Loads for Indicator Bacteria in Sandy Creek and Wolf Creek. Prepared by the Texas Water Resources Institute for the Total Maximum Daily Load Program, Texas Commission on Environmental Quality. Austin, TX. 
+
+## Conference Presentations
+
+Presenting author *italicized*, if other.
+
+**Schramm, M.** 2019. Automating Retrieval of Wastewater Discharge Monitoring Reports with R. National Water Quality Monitoring Conference. Denver, Colorado.
+
+**Schramm, M.** 2019. Automating Retrieval of Wastewater Discharge Monitoring Reports with R. Southern Region Water Conference. College Station, TX.
+
+*DeRolph, C.R.*, Bevelhimer, M.S., Schramm, M.P. 2015. Development of an Environmental Mitigation Database and Statistical Models for Predicting Likely FERC License Mitigation Requirements at Hydropower Projects. American Fisheries Society. Portland, Oregon.
+
+**Schramm, M.**, Bevelhimer, M.S., DeRolph, C.R. 2015. Analysis of Required Environmental Mitigation at Licensed Hydropower Projects Across the US. Southern Division American Fisheries Society. Savannah, Georgia.
+
+
+## Grants
+
+*Texas Commision on Environmental Quality*: Basins approach to address bacterial impairments in the Lower Neches Basin (FY20); PI: Lucas Gregory. Project Lead: Michael Schramm. September 2018-August 2019. Total: \$135,790. Amount to Schramm: \$135,790.
+
+*Texas Commision on Environmental Quality*: Basins approach to address bacterial impairments in basins 15, 16, 17 (FY20); PI: Allen Berthold. Project Lead: Michael Schramm. September 2018-August 2019. Total: \$51,888. Amount to Schramm: \$51,888.
+
+*Texas Commision on Environmental Quality*: Basins approach to address bacterial impairments in the Lower Neches Basin (FY19); PI: Lucas Gregory. Project Lead: Michael Schramm. September 2018-August 2019. Total: \$139,343. Amount to Schramm: \$139,343.
+
+*Texas Commision on Environmental Quality*: Basins approach to address bacterial impairments in basins 15, 16, 17 (FY19); PI: Allen Berthold. Project Lead: Michael Schramm. September 2018-August 2019. Total: \$97,399. Amount to Schramm: \$97,399.
+
+*Texas Commision on Environmental Quality*: Lavaca River Watershed Protection Plan (WPP) - Coordination, implementation and routine water quality; PI: Allen Berthold. Project Lead: Michael Schramm. September 2018 - August 2021. Total: \$150,000. Amount to Schramm: \$124,910.
+
+*Texas Commision on Environmental Quality*: Tres Palacios on-site sewage facilities remediation; PI: Allen Berthold. Project Lead: Michael Schramm. May 2018 - December 2020. Total: \$327,361. Amount to Schramm: \$327,361.
+
+*Texas Commision on Environmental Quality*: Tres Palacios WPP implementation (TCEQ FY17); PI: Allen Berthold. Project Lead: Michael Schramm. May 2018 - December 2020. Total: \$355,800. Amount to Schramm: \$235,866.
+
+*Texas General Land Office*: Mission and Aransas Rivers TMDL I-Plan implementation; PI: Allen Berthold. Project Lead: Michael Schramm. October 2017-March 2019. Total: \$83,979. Amount to Schramm: \$83,979.
+
+*Texas General Land Office*: Coordinating implementation of the Tres Palacios Watershed Protection Plan; PI: Allen Berthold. Project Lead: Michael Schramm. October 2017-March 2019. Total: \$95,816. Amount to Schramm: \$95,816.
+
+*Texas Commision on Environmental Quality*: Basins approach to address bacterial impairments in basins 15, 16, 17 (FY18); PI: Allen Berthold. Project Lead: Michael Schramm. September 2017-August 2018. Total: \$220,166. Amount to Schramm: \$179,996.
+
+*Texas Commision on Environmental Quality*: Basins approach to address bacterial impairments in basins 15, 16, 17 (FY17); PI: Allen Berthold. Project Lead: Michael Schramm. September 2016-August 2017. Total: \$292,699. Amount to Schramm: \$229,649.
+
+*Texas State Soil and Water Conservation Board*: Coordinating Implementation of the Upper Llano Watershed Protection Plan. Co-PIs: Tom Arsuffi, Kevin Wagner. December 2015-November2017. Total: \$347,493. Amount to Schramm: \$51,235.
+
+# Media Coverage
+
+**Water Quality Projects**
+
+"Team's work to improve water quality at region's watersheds paying off": The Lufkin Daily News. [Link here](http://lufkindailynews.com/news/community/article_2cc81fbf-0056-59e4-a6bd-66b92fdce3a0.html)
+
+"Experts gather to discuss Arenosa Creek's water quality": Victoria Advocate. [Link here](https://www.victoriaadvocate.com/news/agriculture/experts-gather-to-discuss-arenosa-creek-s-water-quality/article_15aea768-a18c-11e8-80e4-f320cf54cbe6.html)
+
+"Texas Water Resources Institute protection plan for Lavaca River accepted by EPA": The Eagle. [Link here](https://www.theeagle.com/landandlivestockpost/agrilifetoday/texas-water-resources-institute-protection-plan-for-lavaca-river-accepted/article_0a3ad628-4947-5dbd-b08e-5dd269210de3.html)
+
+"Group finalizes watershed protection plan": Victoria Advocate. [Link here](https://www.victoriaadvocate.com/counties/jackson/group-finalizes-watershed-protection-plan/article_3b443b45-800a-5f0c-b455-95bd629a1ef7.html)
+
+"Residents look to improve Lavaca River quality": Victoria Advocate. [Link here](https://www.victoriaadvocate.com/news/local/residents-look-to-improve-lavaca-river-quality/article_66dfd2be-7e12-5916-9c20-9f751f78c497.html)
+
+# Awards and Honors
+
+2013 - Center for Energy and Environmental Policy Leadership Award
+
+2011 - NCDOT Environmental Science Scholarship
+
+# Service
+
+**Review committees:**
+
+- Texas A\&M AgriLife , Texas A\&M AgriLife Extension, and Texas A&M Engineering Station Water Seed Grant Initiative (2019)
+
+- TWRI Mills Scholarship Program (2017 - ongoing)
+
+- USGS Graduate Research Program (2017 - ongoing)
+
+- Texas Hill Country Headwaters Conservation Initiative Regional Conservation Partnership Program (2018 - ongoing)
+
+**Journal peer review:**
+
+*Water*, *Sustainbility*
+
+# Professional Affiliations
+
+American Water Resources Assocation (AWRA)
+
+Universities Council on Water Resources (UCOWR)
