@@ -14,7 +14,7 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
     url = "/About/"
 [[menu.main]]
     name = "CV"
-    url = "/CV/CV.pdf"
+    url = "/CV/CV-RMD/CV/CV.pdf"
 [[menu.main]]
     name = "Slides"
     url = "/Slides/"
