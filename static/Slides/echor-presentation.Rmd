@@ -81,6 +81,7 @@ class: inverse, center, middle
 
 ```{r message=FALSE, warning=FALSE, paged.print=FALSE}
 library(echor)
+library(dplyr)
 
 df <- echoGetEffluent(p_id = 'tx0119407', parameter_code = '50050')
 
@@ -180,7 +181,7 @@ DT::datatable(df, width = 800, options = list(scrollX = TRUE,
 ---
 ## notes
 
-- If your query returns a large number of permits your dataframe will be empty.
+- If your query returns a large number of permits your dataframe will be empty. UPDATE: This is fixed!
 
 - This will be fixed soon, but should not cause a problem at the scales we are working at right now.
 
@@ -228,10 +229,12 @@ plot data, assess data, export data
 df <- echoWaterGetFacilityInfo(p_huc = "12100401")
 ```
 
-## Create list of permits
+## Create dataframe of permit numbers
 
 ```{r}
-permits <- df$SourceID
+permits <- df %>%
+  filter(CWPPermitTypeDesc == "NPDES Individual Permit") %>%
+  select(SourceID)
 ```
 
 ---
@@ -258,27 +261,33 @@ but for loops in **R**
 library(dplyr)
 library(purrr)
 
-DMR <- tibble::tibble(permits = permits[df$CWPFacilityTypeIndicator == "POTW"]) %>%
-  pmap(., ~echoGetEffluent(p_id = ..1, parameter_code = "51040",
-                           start_date = "01/01/2010", end_date = "12/30/2017"))
+# DMR <- tibble::tibble(permits = permits[df$CWPFacilityTypeIndicator == "POTW"]) %>%
+#   pmap(., ~echoGetEffluent(p_id = ..1, parameter_code = "51040",
+#                            start_date = "01/01/2010", end_date = "12/30/2017"))
 
-# DMR is a list of dataframes
-# Next step is to collapse into a single dataframe
+DMR <- downloadDMRs(permits, SourceID, pBar = FALSE,
+                    parameter_code = "51040",
+                    start_date = "01/01/2010", 
+                    end_date = "12/30/2017")
+
+# DMR includes a list of dataframes
 
 ```
 
 ---
 
-## Use loops or map functions to download discharge data
+## Unnest the `dmr` column
 
 ```{r}
 
-DMR <- map_df(DMR, bind_rows)
+DMR <- DMR %>%
+  tidyr::unnest(dmr)
 
 ```
 
 --
 - Returns a dataframe with a row for each event report as each plant
+- note that all the columns are returned as character type
 
 ---
 ```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
@@ -292,12 +301,15 @@ DT::datatable(DMR, width = 800, options = list(scrollX = TRUE,
 ```{r message=FALSE, warning=FALSE, paged.print=FALSE, fig.align = 'center', fig.dim =c(8,3), dpi = 200}
 library(ggplot2)
 
-ggplot(data = DMR, aes(x = MonitoringPeriodEndDate,y = DMRValueNmbr)) +
-  geom_step(aes(color = StatisticalBaseDesc), alpha = 0.5) +
-  geom_point(aes(color = StatisticalBaseDesc), alpha = 0.5) +
-  facet_wrap(~Name) +
+
+ggplot(data = DMR, aes(x = as.Date(monitoring_period_end_date, "%m/%d/%Y"),
+                       y = as.numeric(dmr_value_nmbr))) +
+  geom_step(aes(color = statistical_base_short_desc), alpha = 0.5) +
+  geom_point(aes(color = statistical_base_short_desc), alpha = 0.5) +
+  facet_wrap(~SourceID) +
   scale_y_log10() +
-  theme_light()
+  theme_light() +
+  labs(x = "Date", y = "Value")
 
 ```
 
