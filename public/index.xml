@@ -64,7 +64,17 @@ Extract the originlibrary(rtweet)library(tidyverse)txwater &amp;lt;- search_t
       <pubDate>Sat, 30 Dec 2017 00:00:00 +0000</pubDate>
       
       <guid>/about/</guid>
-      <description>About Michael Schramm I am an early career research professional specializing in water science and policy. I leverage spatial and data analytic tools that provide effective visual and written communication to bridge gaps between policy, science, and the public. Currently as a researcher at the Texas Water Resources Institute, I primarily lead projects aimed at improving surface water quality in coordination with state and local stakeholders. Primary research interests include (1) watershed based planning and sustainability, (2) environmental data visualization and communication, and (3) local and regional water and energy planning.</description>
+      <description>I am an early career research professional specializing in water science and policy. I leverage spatial and data analytic tools that provide effective visual and written communication to bridge gaps between policy, science, and the public. Currently as a researcher at the Texas Water Resources Institute, I primarily lead projects aimed at improving surface water quality in coordination with state and local stakeholders. Primary research interests include (1) watershed based planning and sustainability, (2) environmental data visualization and communication, and (3) local and regional water and energy planning.</description>
+    </item>
+    
+    <item>
+      <title>Slides</title>
+      <link>/slides/</link>
+      <pubDate>Sat, 30 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/slides/</guid>
+      <description>Downloading EPA ECHO data with echor
+FDC and LDC Development in R</description>
     </item>
     
     <item>

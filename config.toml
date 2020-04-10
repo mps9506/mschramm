@@ -15,6 +15,9 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 [[menu.main]]
     name = "CV"
     url = "/CV/CV.pdf"
+[[menu.main]]
+    name = "Slides"
+    url = "/Slides/"
 
 [params]
     description = "A blog for Michael Schramm"
