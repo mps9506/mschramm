@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0">
+  <channel>
+    <title>Michael Paul Schramm</title>
+    <link>https://michaelpaulschramm.com</link>
+    <atom:link href="https://michaelpaulschramm.com/index.xml" rel="self" type="application/rss+xml"/>
+    <description>Michael Paul Schramm
+</description>
+    <generator>Distill</generator>
+    <lastBuildDate>Mon, 24 Sep 2018 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Introducing echor</title>
+      <dc:creator>Michael Schramm</dc:creator>
+      <link>https://michaelpaulschramm.com/posts/introducing_echor</link>
+      <description>A new article created using the Distill format.</description>
+      <guid>https://michaelpaulschramm.com/posts/introducing_echor</guid>
+      <pubDate>Mon, 24 Sep 2018 00:00:00 +0000</pubDate>
+      <media:content url="https://michaelpaulschramm.com/posts/introducing_echor/distill-preview.png" medium="image" type="image/png" width="1248" height="768"/>
+    </item>
+    <item>
+      <title>Binomial Test for Water Quality Compliance</title>
+      <dc:creator>Michael Schramm</dc:creator>
+      <link>https://michaelpaulschramm.com/posts/binomial_water_quality</link>
+      <description>Use the binomial test to evaluate water quality compliance.</description>
+      <guid>https://michaelpaulschramm.com/posts/binomial_water_quality</guid>
+      <pubDate>Thu, 26 Apr 2018 00:00:00 +0000</pubDate>
+      <media:content url="https://michaelpaulschramm.com/posts/binomial_water_quality/binomial_water_quality_files/figure-html5/output-1.png" medium="image" type="image/png" width="1536" height="768"/>
+    </item>
+    <item>
+      <title>Date-based rolling functions</title>
+      <dc:creator>Michael Schramm</dc:creator>
+      <link>https://michaelpaulschramm.com/posts/date_based_rolling</link>
+      <description>Apply rolling statistics to non-routine time series data.</description>
+      <guid>https://michaelpaulschramm.com/posts/date_based_rolling</guid>
+      <pubDate>Wed, 04 Apr 2018 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>txwater retweets</title>
+      <dc:creator>Michael Schramm</dc:creator>
+      <link>https://michaelpaulschramm.com/posts/txwater_retweets</link>
+      <description>Let's find out the retweet relationships for txwater twitter users.</description>
+      <guid>https://michaelpaulschramm.com/posts/txwater_retweets</guid>
+      <pubDate>Wed, 21 Feb 2018 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Time-series decomposition and trend analysis in Python</title>
+      <dc:creator>Michael Schramm</dc:creator>
+      <link>https://michaelpaulschramm.com/posts/time-series-python</link>
+      <description>A new article created using the Distill format.</description>
+      <guid>https://michaelpaulschramm.com/posts/time-series-python</guid>
+      <pubDate>Sat, 01 Aug 2015 00:00:00 +0000</pubDate>
+    </item>
+  </channel>
+</rss>

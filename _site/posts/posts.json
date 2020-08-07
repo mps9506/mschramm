@@ -1,0 +1,86 @@
+[
+  {
+    "path": "posts/introducing_echor/",
+    "title": "Introducing echor",
+    "description": "A new article created using the Distill format.",
+    "author": [
+      {
+        "name": "Michael Schramm",
+        "url": "https://michaelpaulschramm.com"
+      }
+    ],
+    "date": "2018-09-24",
+    "categories": [],
+    "preview": "posts/introducing_echor/distill-preview.png",
+    "last_modified": "2020-07-29T20:11:16-05:00",
+    "input_file": {},
+    "preview_width": 1248,
+    "preview_height": 768
+  },
+  {
+    "path": "posts/binomial_water_quality/",
+    "title": "Binomial Test for Water Quality Compliance",
+    "description": "Use the binomial test to evaluate water quality compliance.",
+    "author": [
+      {
+        "name": "Michael Schramm",
+        "url": "https://michaelpaulschramm.com"
+      }
+    ],
+    "date": "2018-04-26",
+    "categories": [],
+    "preview": "posts/binomial_water_quality/binomial_water_quality_files/figure-html5/output-1.png",
+    "last_modified": "2020-08-07T13:45:32-05:00",
+    "input_file": {},
+    "preview_width": 1536,
+    "preview_height": 768
+  },
+  {
+    "path": "posts/date_based_rolling/",
+    "title": "Date-based rolling functions",
+    "description": "Apply rolling statistics to non-routine time series data.",
+    "author": [
+      {
+        "name": "Michael Schramm",
+        "url": "michaelpaulschramm.com"
+      }
+    ],
+    "date": "2018-04-04",
+    "categories": [],
+    "preview": {},
+    "last_modified": "2020-08-07T13:54:12-05:00",
+    "input_file": {}
+  },
+  {
+    "path": "posts/txwater_retweets/",
+    "title": "txwater retweets",
+    "description": "Let's find out the retweet relationships for txwater twitter users.",
+    "author": [
+      {
+        "name": "Michael Schramm",
+        "url": "https://michaelpaulschramm.com"
+      }
+    ],
+    "date": "2018-02-21",
+    "categories": [],
+    "preview": {},
+    "last_modified": "2020-08-07T13:32:37-05:00",
+    "input_file": {}
+  },
+  {
+    "path": "posts/time-series-python/",
+    "title": "Time-series decomposition and trend analysis in Python",
+    "description": "A new article created using the Distill format.",
+    "author": [
+      {
+        "name": "Michael Schramm",
+        "url": "https://michaelpaulschramm.com"
+      }
+    ],
+    "date": "2015-08-01",
+    "categories": [],
+    "preview": {},
+    "last_modified": "2020-07-29T08:42:47-05:00",
+    "input_file": {}
+  }
+]
