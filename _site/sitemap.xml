@@ -2,30 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" version="1.0">
   <url>
     <loc>https://michaelpaulschramm.com/about.html</loc>
-    <lastmod>2020-08-07T14:01:13-05:00</lastmod>
+    <lastmod>2020-08-07T16:06:53-05:00</lastmod>
   </url>
   <url>
     <loc>https://michaelpaulschramm.com/</loc>
-    <lastmod>2020-07-28T17:09:09-05:00</lastmod>
+    <lastmod>2020-08-07T16:06:53-05:00</lastmod>
   </url>
   <url>
     <loc>https://michaelpaulschramm.com/posts/introducing_echor/</loc>
-    <lastmod>2020-07-29T20:11:16-05:00</lastmod>
+    <lastmod>2020-08-07T16:06:53-05:00</lastmod>
   </url>
   <url>
     <loc>https://michaelpaulschramm.com/posts/binomial_water_quality/</loc>
-    <lastmod>2020-08-07T13:45:32-05:00</lastmod>
+    <lastmod>2020-08-07T16:06:52-05:00</lastmod>
   </url>
   <url>
     <loc>https://michaelpaulschramm.com/posts/date_based_rolling/</loc>
-    <lastmod>2020-08-07T13:54:12-05:00</lastmod>
+    <lastmod>2020-08-07T17:27:04-05:00</lastmod>
   </url>
   <url>
     <loc>https://michaelpaulschramm.com/posts/txwater_retweets/</loc>
-    <lastmod>2020-08-07T13:32:37-05:00</lastmod>
+    <lastmod>2020-08-07T16:06:53-05:00</lastmod>
   </url>
   <url>
     <loc>https://michaelpaulschramm.com/posts/time-series-python/</loc>
-    <lastmod>2020-07-29T08:42:47-05:00</lastmod>
+    <lastmod>2020-08-07T16:06:53-05:00</lastmod>
   </url>
 </urlset>
