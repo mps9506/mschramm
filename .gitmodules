@@ -1,6 +1,0 @@
-[submodule "themes/blogdown-tufte"]
-	path = themes/blogdown-tufte
-	url = https://github.com/mps9506/blogdown-tufte.git
-[submodule "static/CV/CV-RMD"]
-	path = static/CV/CV-RMD
-	url = https://github.com/mps9506/CV-RMD.git

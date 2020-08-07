@@ -1,3 +1,5 @@
 ---
-site: blogdown:::blogdown_site
+title: "Michael Paul Schramm"
+site: distill::distill_website
+listing: posts
 ---

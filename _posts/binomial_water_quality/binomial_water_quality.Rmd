@@ -1,0 +1,164 @@
+---
+title: "Binomial Test for Water Quality Compliance"
+description: |
+  Use the binomial test to evaluate water quality compliance.
+author:
+  - name: Michael Schramm
+    url: https://michaelpaulschramm.com
+    affiliation: Texas Water Resources Institute
+    affiliation_url: https://twri.tamu.edu
+date: April 26, 2018
+output:
+  distill::distill_article:
+    self_contained: false
+bibliography: bibliography.bib
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      R.options = list(width = 60))
+```
+
+In the previous post, I used a geometric mean to assess water quality compliance. According to EPA guidance, this is appropriate for assessing bacteria levels in water bodies. For other conventional parameters, we can determine compliance when a standards violation is unlikely to occur more than 10% of the time. Using EPA guidance, we have both a test statistic (proportion of exceedances) and rejection region (>10%).  We assume that each water quality sample is a sample from the population that represents the water body with unknown probability ($p$) of exceeding the criterion. Therefore, the null hypothesis:
+
+$$H_0 : \pi \le p_0$$
+
+where $p_0$ is the acceptable exceedance rate and equals 0.1. By transforming measurements below the criterion to 0 (failure), and measurements above the criterion as 1 (success) we can apply a simple binomial test to samples collected during the assessment period to evaluate current compliance. Smith et. al [@smith2001statistical] discuss the binomial approach in detail.
+
+In the example below, I am importing grab dissolved oxygen at two stations on water body. Some events utilize two or more samples at varying depths, those samples are averaged to determine the event dissolved oxygen value.
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE}
+library(readr)
+library(dplyr)
+library(ggplot2)
+file <- url("https://gist.githubusercontent.com/mps9506/274e0debee7e7f1289dac3371ce05d1e/raw/284ff43565d03bd57c59c3151feaa739abd40f2e/1501_DO.txt")
+df <- read_delim(file, "|")
+df <- df %>%
+  #select(`RFA(Sample Set ID)/Tag_id`, Segment, `Parameter Code`, Value, `End Date`, `Monitoring Type`) %>%
+  mutate(`End Date` = as.Date(`End Date`, "%m/%d/%Y")) %>%
+  filter(`Monitoring Type` == "RT") %>%
+  arrange(`End Date`) %>%
+  group_by(`End Date`, `Station ID`) %>%
+  summarise(Value = mean(Value))
+ggplot(df) +
+  geom_point(aes(x = `End Date`, y = Value)) +
+  geom_hline(aes(yintercept = 4)) +
+  xlab("Sample Date") + ylab("DO (mg/L)")
+```
+
+
+In order to determine if the waterbody meets the water quality criterion I select the water quality values during the assessment period and use the `binom.test` function in R. The arguments for `binom.test` are
+
+```{eval=FALSE}
+binom.test(x, n, p = 0.5,
+           alternative = c("two.sided", "less", "greater"),
+           conf.level = 0.95)
+x    number of successes, or a vector of length 2 giving the numbers of successes and failures, respectively.
+n    number of trials; ignored if x has length 2.
+p    hypothesized probability of success.
+alternative    indicates the alternative hypothesis and must be one of "two.sided", "greater" or "less". You can specify just the initial letter.
+conf.level    confidence level for the returned confidence interval.
+```
+
+So we need to first count the total number of "successes," which in this case means water quality exceedances (DO value less than 4 mg/L). Note, that this is slightly different than worded above since we typically think of exceedance as above a water quality standard. We also need to count the total number of trials. Both of these are accomplished using dplyr and the `mutate`, `case_when`, and `summarise` functions.
+
+```{r}
+binomial_df <- df %>%
+  filter(`End Date` > as.Date("2005-11-30") & `End Date` < as.Date("2012-12-01")) %>%
+  ungroup() %>%
+  mutate(
+    success = case_when(
+      Value < 4 ~ 1,
+      Value >= 4 ~ 0
+      ))
+binomial_df <- binomial_df %>%
+  summarise(n = n(), x = sum(success))
+binomial_df
+```
+
+So, now we have 15 exceedances for 67 trials. This matches the values indicated on the [TCEQ waterbody assessment report](https://www.tceq.texas.gov/assets/public/waterquality/swqm/assess/14txir/2014_basin15.pdf). (Another pdf warning!)
+
+
+The hypothesised rate of success is given to us by the water quality standard, 10%. Therefore the null and alternative hypothesis are:
+
+$$H_0 : \pi \le 0.10$$
+$$H_1 : \pi \gt 0.10$$
+
+```{r}
+binom.test(x = binomial_df$x, n = binomial_df$n, p = 0.1, alternative = "g")
+```
+
+Under this scenario, we accept reject the null hypothesis. The water body is listed as impaired for depressed dissolved oxygen according to water quality standards.
+
+We can simplify this test by creating a table or graph depicting the number of exceedances required for a listing based on the number of samples collected. In fact, this table is provided in the TCEQ assessment guide. Using `qbinom` we can create a table listing the number of exceedances leading to an impairment listing:
+
+<aside>The maximum Type 1 error rate specified in the State of Texas's assessment guidance is currently 20% for impairment listings.</aside>
+
+```{r}
+binom_chart <- tibble(n = 10:100,
+                       exceedances = qbinom(1-0.20, size = 10:100, prob = 0.1) + 1)
+binom_chart
+```
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(hrbrthemes)
+ggplot(binom_chart) +
+  geom_step(aes(x = n, y = exceedances)) +
+  theme_ipsum_rc() +
+  labs(
+    title = "Exceedances required for listing decisions",
+    subtitle = "Based on 2014 Guidance for Assessing Water Quality in Texas",
+    caption = "Source: 2014 Guidance for Assessing and Reporting Surface Water Quality in Texas",
+    x = "N samples", y = "N exceedances"
+    )
+```
+
+I am also interested in visualizing the trends in exceedance probability. Using the same date-based rolling functions in the previous post, I will apply the binomal test to 7-yrs of the most recent data and plot the probability over sampling date.
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE}
+library(purrr)
+library(lubridate) ## import lubridate for as.duration and dyears functions
+## This function will be applied to each sample,
+## return the estimated probability from the previous 7-yrs of data
+myfunc <- function(dates, values, years, i){
+  temp <- values[as.duration(dates[i] - dates)/dyears(1) <= years & as.duration(dates[i] - dates)/dyears(1) >= 0]
+  df <- data_frame(temp) %>%
+    summarise(n = n(), successes = as.integer(sum(temp)))
+  
+  results <- binom.test(x = df$successes, n = df$n, p = 0.1, alternative = "g")
+  
+  return(results$estimate)
+}
+df2 <- df %>%
+  ungroup() %>%
+  arrange(`End Date`) %>%
+  mutate(Success = as.integer(case_when(
+    Value < 4 ~ 1,
+    Value >= 4 ~ 0
+    )))
+df2 <- df2 %>%
+  mutate(ep = map_dbl(seq_along(.$`End Date`),
+                  ~myfunc(dates = `End Date`, values = Success, years = 7, i = .x)))
+df2
+```
+
+A little ggplot to create the figure:
+
+```{r output, layout="1-page", fig.width=8, fig.height=4, message=FALSE, warning=FALSE, paged.print=FALSE, preview=TRUE}
+ggplot(df2) +
+  geom_step(aes(x = `End Date`, y = ep, color = "7-yr estimated probability of exceedance")) +
+  geom_hline(aes(yintercept = 0.1, color = "Allowable proportion of exceedances"), size = .75) +
+  theme_ipsum_rc() +
+  scale_color_brewer(name = "", type = "qual", palette = "Set2") +
+  labs(
+    title = "Estimated probability of exceeding water quality standard",
+    subtitle = "Based on dissolved oxygen samples in Tres Palacios Tidal",
+    caption = "Source: TCEQ CRP Data Tool",
+    x = "Sample date", y = "Estimated probability"
+    )
+```
+
+
+
+
+
