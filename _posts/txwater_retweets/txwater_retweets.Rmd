@@ -8,7 +8,9 @@ author:
     affiliation: Texas Water Resources Institute
     affiliation_url: https://twri.tamu.edu
 date: February 21,2018
-output: distill::distill_article
+output: 
+  distill::distill_article:
+    self_contained: false
 ---
 
 ```{r setup, include=FALSE}
@@ -66,7 +68,7 @@ ggplot(data_frame(y=degree_distribution(rt_g), x=1:length(y))) +
 ```
 
 ## Plot retweet relationships
-```{r echo=TRUE, message=FALSE, warning=FALSE, dpi=200, fig.height=8, fig.width=8, preview=TRUE}
+```{r echo=TRUE, layout="l-body-outset", message=FALSE, warning=FALSE, dpi=200, fig.height=8, fig.width=8, preview=TRUE}
 library(ggraph)
 # Label nodes
 V(rt_g)$node_label <- unname(names(V(rt_g)))

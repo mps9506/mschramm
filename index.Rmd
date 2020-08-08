@@ -1,5 +1,5 @@
 ---
-title: "Michael Paul Schramm"
+title: "Exploring open source water science and management"
 site: distill::distill_website
 listing: posts
 ---

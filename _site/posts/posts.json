@@ -2,7 +2,7 @@
   {
     "path": "posts/introducing_echor/",
     "title": "Introducing echor",
-    "description": "A new article created using the Distill format.",
+    "description": "Download EPA data with R",
     "author": [
       {
         "name": "Michael Schramm",
@@ -11,8 +11,8 @@
     ],
     "date": "2018-09-24",
     "categories": [],
-    "preview": "posts/introducing_echor/distill-preview.png",
-    "last_modified": "2020-08-07T16:06:53-05:00",
+    "preview": "posts/introducing_echor/introducing_echor_files/figure-html5/finalplot1-1.png",
+    "last_modified": "2020-08-07T21:55:20-05:00",
     "input_file": {},
     "preview_width": 1248,
     "preview_height": 768
@@ -30,7 +30,7 @@
     "date": "2018-04-26",
     "categories": [],
     "preview": "posts/binomial_water_quality/binomial_water_quality_files/figure-html5/output-1.png",
-    "last_modified": "2020-08-07T16:06:52-05:00",
+    "last_modified": "2020-08-07T20:51:22-05:00",
     "input_file": {},
     "preview_width": 1536,
     "preview_height": 768
@@ -47,9 +47,11 @@
     ],
     "date": "2018-04-04",
     "categories": [],
-    "preview": {},
-    "last_modified": "2020-08-07T17:27:04-05:00",
-    "input_file": {}
+    "preview": "posts/date_based_rolling/date_based_rolling_files/figure-html5/unnamed-chunk-5-1.png",
+    "last_modified": "2020-08-07T22:15:33-05:00",
+    "input_file": {},
+    "preview_width": 1248,
+    "preview_height": 768
   },
   {
     "path": "posts/txwater_retweets/",
@@ -63,14 +65,16 @@
     ],
     "date": "2018-02-21",
     "categories": [],
-    "preview": {},
-    "last_modified": "2020-08-07T16:06:53-05:00",
-    "input_file": {}
+    "preview": "posts/txwater_retweets/txwater_retweets_files/figure-html5/unnamed-chunk-4-1.png",
+    "last_modified": "2020-08-07T21:33:56-05:00",
+    "input_file": {},
+    "preview_width": 3200,
+    "preview_height": 3200
   },
   {
     "path": "posts/time-series-python/",
     "title": "Time-series decomposition and trend analysis in Python",
-    "description": "A new article created using the Distill format.",
+    "description": "Decompose time series in Python and a function for the Mann-Kendall test for trend.",
     "author": [
       {
         "name": "Michael Schramm",
@@ -80,7 +84,7 @@
     "date": "2015-08-01",
     "categories": [],
     "preview": {},
-    "last_modified": "2020-08-07T16:06:53-05:00",
+    "last_modified": "2020-08-07T21:43:25-05:00",
     "input_file": {}
   }
 ]
