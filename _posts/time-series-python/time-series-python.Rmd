@@ -1,14 +1,18 @@
 ---
 title: "Time-series decomposition and trend analysis in Python"
 description: |
-  A new article created using the Distill format.
+  Decompose time series in Python and a function for the Mann-Kendall test for trend.
+base_url: https://michaelpaulschramm.com
+preview: posts/time-series-python/decomposed.png
 author:
   - name: Michael Schramm 
     url: https://michaelpaulschramm.com
     affiliation: Texas Water Resources Institute
     affiliation_url: https://twri.tamu.edu
 date: August 1, 2015
-output: distill::distill_article
+output: 
+  distill::distill_article:
+    self_contained: false
 ---
 
 ```{r setup, include=FALSE}

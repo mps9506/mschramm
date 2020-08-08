@@ -1,16 +1,18 @@
 name: "mschramm"
-title: "Michael Paul Schramm"
 base_url: https://michaelpaulschramm.com
 repository_url: https://github.com/mps9506/mschramm
 description: |
-  Michael Paul Schramm
+  Exploring open source water research.
 output_dir: "_site"
 navbar:
+  title: "Michael Schramm"
   right:
     - text: "Home"
       href: index.html
     - text: "About"
       href: about.html
+    - icon: fa fa-rss
+      href: index.xml
 output: distill::distill_article
 creative_commons: CC BY
 collections:

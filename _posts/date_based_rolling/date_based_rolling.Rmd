@@ -8,7 +8,9 @@ author:
     affiliation: Texas Water Resources Insitute
     affiliation_url: https://twri.tamu.edu
 date: April 4, 2018
-output: distill::distill_article
+output: 
+  distill::distill_article:
+    self_contained: false
 ---
 
 ```{r setup, include=FALSE}
@@ -98,7 +100,7 @@ head(df2)
 
 Visualize this with ggplot:
 
-```{r echo=TRUE, message=FALSE, warning=FALSE, paged.print=FALSE}
+```{r echo=TRUE, message=FALSE, warning=FALSE, paged.print=FALSE, preview=TRUE}
 library(hrbrthemes)
 ggplot(df2) +
   geom_point(aes(`End Date`, Value), alpha = 0.25) +

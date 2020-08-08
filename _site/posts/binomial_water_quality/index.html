@@ -19,7 +19,7 @@
  <!--/radix_placeholder_import_source-->
 
   <!--radix_placeholder_meta_tags-->
-<title>Michael Paul Schramm: Binomial Test for Water Quality Compliance</title>
+<title>Michael Schramm: Binomial Test for Water Quality Compliance</title>
 
 <meta property="description" itemprop="description" content="Use the binomial test to evaluate water quality compliance."/>
 
@@ -32,7 +32,7 @@
 <meta name="article:author" content="Michael Schramm"/>
 
 <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-<meta property="og:title" content="Michael Paul Schramm: Binomial Test for Water Quality Compliance"/>
+<meta property="og:title" content="Michael Schramm: Binomial Test for Water Quality Compliance"/>
 <meta property="og:type" content="article"/>
 <meta property="og:description" content="Use the binomial test to evaluate water quality compliance."/>
 <meta property="og:url" content="https://michaelpaulschramm.com/posts/binomial_water_quality/"/>
@@ -40,11 +40,11 @@
 <meta property="og:image:width" content="1536"/>
 <meta property="og:image:height" content="768"/>
 <meta property="og:locale" content="en_US"/>
-<meta property="og:site_name" content="Michael Paul Schramm"/>
+<meta property="og:site_name" content="Michael Schramm"/>
 
 <!--  https://dev.twitter.com/cards/types/summary -->
 <meta property="twitter:card" content="summary_large_image"/>
-<meta property="twitter:title" content="Michael Paul Schramm: Binomial Test for Water Quality Compliance"/>
+<meta property="twitter:title" content="Michael Schramm: Binomial Test for Water Quality Compliance"/>
 <meta property="twitter:description" content="Use the binomial test to evaluate water quality compliance."/>
 <meta property="twitter:url" content="https://michaelpaulschramm.com/posts/binomial_water_quality/"/>
 <meta property="twitter:image" content="https://michaelpaulschramm.com/posts/binomial_water_quality/binomial_water_quality_files/figure-html5/output-1.png"/>
@@ -52,7 +52,7 @@
 <meta property="twitter:image:height" content="768"/>
 
 <!--  https://scholar.google.com/intl/en/scholar/inclusion.html#indexing -->
-<meta name="citation_title" content="Michael Paul Schramm: Binomial Test for Water Quality Compliance"/>
+<meta name="citation_title" content="Michael Schramm: Binomial Test for Water Quality Compliance"/>
 <meta name="citation_fulltext_html_url" content="https://michaelpaulschramm.com/posts/binomial_water_quality/"/>
 <meta name="citation_fulltext_world_readable" content=""/>
 <meta name="citation_online_date" content="2018/04/26"/>
@@ -1318,11 +1318,14 @@ document.addEventListener('DOMContentLoaded', function() {
 <header class="header header--fixed" role="banner">
 <nav class="distill-site-nav distill-site-header">
 <div class="nav-left">
-<a href="../../index.html" class="title">Michael Paul Schramm</a>
+<a href="../../index.html" class="title">Michael Schramm</a>
 </div>
 <div class="nav-right">
 <a href="../../index.html">Home</a>
 <a href="../../about.html">About</a>
+<a href="../../index.xml">
+<i class="fa fa-rss" aria-hidden="true"></i>
+</a>
 <a href="javascript:void(0);" class="nav-toggle">&#9776;</a>
 </div>
 </nav>
@@ -1377,7 +1380,7 @@ n    number of trials; ignored if x has length 2.
 p    hypothesized probability of success.
 alternative    indicates the alternative hypothesis and must be one of &quot;two.sided&quot;, &quot;greater&quot; or &quot;less&quot;. You can specify just the initial letter.
 conf.level    confidence level for the returned confidence interval.</code></pre>
-<p>So we need to first count the total number of â€œsuccesses,â€ which in this case means water quality exceedances (DO value less than 4 mg/L). Note, that this is slightly different than worded above since we typically think of exceedance as above a water quality standard. We also need to count the total number of trials. Both of these are accomplished using dplyr and the <code>mutate</code>, <code>case_when</code>, and <code>summarise</code> functions.</p>
+<p>So we need to first count the total number of “successes,” which in this case means water quality exceedances (DO value less than 4 mg/L). Note, that this is slightly different than worded above since we typically think of exceedance as above a water quality standard. We also need to count the total number of trials. Both of these are accomplished using dplyr and the <code>mutate</code>, <code>case_when</code>, and <code>summarise</code> functions.</p>
 <div class="layout-chunk" data-layout="l-body">
 <pre class="r"><code>
 binomial_df &lt;- df %&gt;%
@@ -1419,7 +1422,7 @@ probability of success
 <p>Under this scenario, we accept reject the null hypothesis. The water body is listed as impaired for depressed dissolved oxygen according to water quality standards.</p>
 <p>We can simplify this test by creating a table or graph depicting the number of exceedances required for a listing based on the number of samples collected. In fact, this table is provided in the TCEQ assessment guide. Using <code>qbinom</code> we can create a table listing the number of exceedances leading to an impairment listing:</p>
 <aside>
-The maximum Type 1 error rate specified in the State of Texasâ€™s assessment guidance is currently 20% for impairment listings.
+The maximum Type 1 error rate specified in the State of Texas’s assessment guidance is currently 20% for impairment listings.
 </aside>
 <div class="layout-chunk" data-layout="l-body">
 <pre class="r"><code>
@@ -1506,7 +1509,7 @@ ggplot(df2) +
 </div>
 <div id="refs" class="references" role="doc-bibliography">
 <div id="ref-smith2001statistical">
-<p>Smith, Eric P, Keying Ye, Chris Hughes, and Leonard Shabman. 2001. â€œStatistical Assessment of Violations of Water Quality Standards Under Section 303 (d) of the Clean Water Act.â€ <em>Environmental Science &amp; Technology</em> 35 (3): 606â€“12. <a href="https://doi.org/10.1021/es001159e">https://doi.org/10.1021/es001159e</a>.</p>
+<p>Smith, Eric P, Keying Ye, Chris Hughes, and Leonard Shabman. 2001. “Statistical Assessment of Violations of Water Quality Standards Under Section 303 (d) of the Clean Water Act.” <em>Environmental Science &amp; Technology</em> 35 (3): 606–12. <a href="https://doi.org/10.1021/es001159e">https://doi.org/10.1021/es001159e</a>.</p>
 </div>
 </div>
 <!--radix_placeholder_article_footer-->
@@ -1549,11 +1552,11 @@ ggplot(df2) +
   <p>Text and figures are licensed under Creative Commons Attribution <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Source code is available at <a href="https://github.com/mps9506/mschramm">https://github.com/mps9506/mschramm</a>, unless otherwise noted. The figures that have been reused from other sources don't fall under this license and can be recognized by a note in their caption: "Figure from ...".</p>
   <h3 id="citation">Citation</h3>
   <p>For attribution, please cite this work as</p>
-  <pre class="citation-appendix short">Schramm (2018, April 26). Michael Paul Schramm: Binomial Test for Water Quality Compliance. Retrieved from https://michaelpaulschramm.com/posts/binomial_water_quality/</pre>
+  <pre class="citation-appendix short">Schramm (2018, April 26). Michael Schramm: Binomial Test for Water Quality Compliance. Retrieved from https://michaelpaulschramm.com/posts/binomial_water_quality/</pre>
   <p>BibTeX citation</p>
   <pre class="citation-appendix long">@misc{schramm2018binomial,
   author = {Schramm, Michael},
-  title = {Michael Paul Schramm: Binomial Test for Water Quality Compliance},
+  title = {Michael Schramm: Binomial Test for Water Quality Compliance},
   url = {https://michaelpaulschramm.com/posts/binomial_water_quality/},
   year = {2018}
 }</pre>
