@@ -7,7 +7,16 @@
     <description>Exploring open source water research.
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Mon, 24 Sep 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 08 Aug 2020 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Plotting flood probability</title>
+      <dc:creator>Michael Schramm</dc:creator>
+      <link>https://michaelpaulschramm.com/posts/2020-08-07-plotting-flood-frequency</link>
+      <description>Communicate flood probability in relatable terms.</description>
+      <guid>https://michaelpaulschramm.com/posts/2020-08-07-plotting-flood-frequency</guid>
+      <pubDate>Sat, 08 Aug 2020 00:00:00 +0000</pubDate>
+      <media:content url="https://michaelpaulschramm.com/posts/2020-08-07-plotting-flood-frequency/2020-08-07-plotting-flood-frequency_files/figure-html5/plot-1.png" medium="image" type="image/png" width="1248" height="768"/>
+    </item>
     <item>
       <title>Introducing echor</title>
       <dc:creator>Michael Schramm</dc:creator>
