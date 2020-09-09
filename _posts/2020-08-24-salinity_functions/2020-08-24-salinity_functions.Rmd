@@ -1,0 +1,259 @@
+---
+title: "Predicting estuarine salinity using simple statistical models part 1"
+description: |
+  Part one of some statistical approaches for estimating estuarine salinity using freshwater inflow.
+author:
+  - name: Michael Schramm
+    url: https://michaelpaulschramm.com
+    affiliation: Texas Water Resources Institute
+    affiliation_url: https://twri.tamu.edu
+date: "`r Sys.Date()`"
+output:
+  distill::distill_article:
+    self_contained: false
+bibliography: bibliography.bib
+---
+
+```{r setup, include=FALSE}
+ragg_png = function(..., res = 192) {
+  ragg::agg_png(..., res = res, units = "in")
+}
+
+knitr::opts_chunk$set(echo = TRUE,
+                      dev = "ragg_png",
+                      fig.ext = "png",
+                      fig.width = 8,
+                      fig.height = 4)
+library(dataRetrieval)
+library(hrbrthemes)
+library(tidyverse)
+library(patchwork)
+library(minpack.lm)
+
+theme_ipsum_pub <- function(...) {
+  hrbrthemes::theme_ipsum_pub(plot_margin = margin(10, 10, 10, 10),
+                          ...)
+}
+
+extrafont::loadfonts()
+
+```
+
+
+For some of my projects I need to predict daily mean salinity in tidal rivers/estuaries. There are process models that are capable of doing this at daily and sub-daily time steps but require a lot of information. I rely on simple statistical methods for identifying the relationship between freshwater inflow and salinity. This article will demonstrate nonlinear least squares. The data used in this example is from USGS and the Texas Water Development Board. The `dataRetrieval` is a must have package if you routinely retrieve USGS stream gage data. TWDB provides a robust web API for calling data they have collated in the [Water Data for Texas](https://www.waterdatafortexas.org/coastal) dashboard. `minpack.lm` is used for fitting nonlinear least squares. I use the tidyverse set of packages for data wrangling and plotting. 
+
+```{r load, eval=FALSE}
+library(dataRetrieval)
+library(hrbrthemes)
+library(tidyverse)
+library(patchwork)
+library(minpack.lm)
+```
+
+
+
+```{r getdata, message=FALSE}
+## downloads mean daily discharge stream gage data from USGS
+flow <- readNWISdv(siteNumbers = "08041780",
+                   parameterCd = "72137", # technically this is tidally filtered discharge
+                                          # 00060 is discharge
+                   startDate = "2008-01-01",
+                   endDate = "2020-07-31") %>%
+  dplyr::select(Date, X_72137_00003) %>%
+  dplyr::rename(date = Date, 
+                discharge = X_72137_00003)
+
+
+## downloads hourly salinity data from TWDB
+## and summarizes it to mean daily salinity
+salinity <- read_csv("https://waterdatafortexas.org/coastal/api/stations/SAB1/data/seawater_salinity?start_date=2008-01-01&end_date=2020-07-31&binning=hour&output_format=csv",
+                     comment = "#",
+                     col_types = list(col_datetime(),
+                                      col_number())) %>%
+  mutate(datetime = as.Date(datetime)) %>%
+  group_by(datetime) %>%
+  summarize(salinity = mean(value))
+
+df <- left_join(flow, salinity, by = c("date" = "datetime")) %>%
+  dplyr::filter(!is.na(salinity))
+```
+
+With the data downloaded, a quick visualization of the data below shows the expected relationship. Increased salinity with decreased freshwater inflow and possible long term trends in flow and salinity. The salinity-flow relationship appears to be a logistic function. This makes sense since, we know salinity (at least for most estuaries under normal conditions) will have a maximum value (typically around 36 psu) and a minimum value (maybe at or above zero).
+
+```{r dataexplore, message=FALSE, layout="l-body-outset", fig.cap="Flow and salinity scatterplots", preview=TRUE}
+## a little data exploration
+
+p1 <- ggplot(df) +
+  geom_point(aes(date, log1p(discharge), color = "mean daily discharge (cfs)"), alpha = 0.25, shape = 16) +
+  geom_point(aes(date, salinity, color = "mean daily salinity (psu)"), alpha = 0.25, shape = 16) +
+  geom_smooth(aes(date, log1p(discharge), color = "mean daily discharge (cfs)"), method = "lm", se = FALSE) +
+  geom_smooth(aes(date, salinity, color = "mean daily salinity (psu)"), method = "lm", se = FALSE) +
+  scale_color_ipsum() +
+  theme_ipsum_pub() +
+  labs(y = "") +
+  theme(legend.position = "bottom")
+
+p2 <- ggplot(df) +
+  geom_point(aes(log1p(discharge), salinity), alpha = 0.25, shape = 16) +
+  scale_color_ipsum() +
+  theme_ipsum_pub()
+
+p1 + p2
+```
+
+## Linear regression
+
+Since we observe the logistic function in the streamflow salinity relationship, a linear regression probably isn't the best choice. But let's fit one anyways.
+
+```{r lm}
+## Go ahead a transform the predictor variable
+## I am also going to add a tiny amount to the single zero value
+df <- df %>%
+  mutate(discharge = case_when(
+    discharge <= 0 ~ 0.0001,
+    discharge > 0 ~ discharge),
+    log_discharge = log(discharge))
+
+m.lm <- lm(salinity ~ log_discharge,
+           data = df)
+summary(m.lm)
+```
+
+The model summary indicates a fairly low adjusted r squared. I know I don't want to use this model, but we can plot the model residuals and predictions to see where the issue is. Basically we observe over-predictions at low flows and potential under predictions at higher flows. We will move on to a nonlinear least square approach.
+
+```{r lmplots, message=FALSE}
+df_lm <- df %>%
+  mutate(residuals = resid(m.lm),
+         fits = predict(m.lm, type = "response"))
+
+p1 <- ggplot(df_lm) +
+  geom_histogram(aes(residuals)) +
+  scale_fill_ipsum() +
+  theme_ipsum_pub() +
+  labs(subtitle = "histogram of residuals")
+
+p2 <- ggplot(df_lm) +
+  geom_point(aes(log_discharge, residuals), alpha = 0.25) +
+  geom_hline(yintercept = 0) +
+  scale_color_ipsum() +
+  theme_ipsum_pub() +
+  labs(subtitle = "residuals vs predictor")
+
+p3 <- ggplot(df_lm) +
+  geom_point(aes(salinity, fits), alpha = 0.2) +
+  geom_abline(slope = 1) +
+  labs(x = "measured", y = "predicted",
+       subtitle = "predicted vs measured") +
+  scale_color_ipsum() +
+  theme_ipsum_pub()
+
+
+p4 <- ggplot(df_lm) +
+  geom_point(aes(log_discharge, salinity), alpha = 0.2) +
+  geom_line(aes(log_discharge, fits)) +
+  scale_color_ipsum() +
+  theme_ipsum_pub() +
+  labs(subtitle = "measured and fit")
+
+
+(p1 + p2) / (p3 + p4)
+```
+
+
+## Nonlinear Least Squares
+
+A clear sigmoid curve or logistic function is evident in figure...
+The logistic function is defined by the formula:
+
+$$
+f(x) = \frac{L}{1 + e^{-k(x-x_0)}}
+$$
+
+where $L$ = the maximum value of the curve, $x_0$ = the midpoint of the curve, and $k$ is the logistic growth rate. Nonlinear least squares can be used to parameterize the model. The starting values in the list are eyeballed from figure. Instead of `nls`, I am using the [propagate](https://cran.r-project.org/web/packages/propagate/index.html) package and the `predictNLS` function to also obtain the 95% confidence intervals.
+
+```{r logfunction, message=FALSE}
+f_S <- formula(salinity ~ L / (1 + exp(-k * (log_discharge - x_0))))
+
+m.ls <- nls(f_S,
+              data = df,
+              start = list(L = 20, k = -3, x_0 = 2))
+
+summary(m.ls)
+
+df_ls <- propagate::predictNLS(model = m.ls, 
+                      newdata = data.frame(log_discharge = seq(min(df$log_discharge),max(df$log_discharge), by = .1)),
+                      interval = "confidence", nsim = 10000, alpha = 0.05)
+```
+
+
+```{r nlsresults, message=FALSE}
+
+df_predict <- tibble(
+  log_discharge = seq(min(df$log_discharge),max(df$log_discharge), by = .1),
+  fit = df_ls$summary$Prop.Mean.1,
+  upr = df_ls$summary$`Prop.97.5%`,
+  lwr = df_ls$summary$`Prop.2.5%`)
+
+
+ggplot() +
+  geom_point(data = df, aes(log_discharge, salinity, color = "Measured Values"), alpha = 0.25) +
+  geom_line(data = df_predict, aes(log_discharge, fit, color = "Least Squares Fit"), color = "black") +
+  geom_ribbon(data = df_predict, aes(x = log_discharge, ymin = lwr, ymax = upr), alpha = 0.5) +
+  scale_color_ipsum() +
+  theme_ipsum_pub()
+```
+
+
+```{r, echo=FALSE}
+m.ls.coef <- coef(m.ls)
+L <- m.ls.coef[1]
+k <- m.ls.coef[2]
+x_0 <- m.ls.coef[3]
+```
+
+
+The model summary provides the parameter estimates, $f(x) = \frac{`r round(L,3)`}{1 + e^{-`r round(k, 3)`(x-`r round(x_0, 3)`)}}$
+The plot generally appears to follow reality. However, when we look at the model residuals below, it is evident that as salinity approaches zero, the model over predicts. If you prefer a numeric model metric, `hydroGOF` provides a range of model metrics to choose from below. Additional model terms to account for covariates such as season or long term trends might result in a better model. In future posts I will look at fitting this data with beta regression and generalized additive models. The NLS approach is appealing because it provides a simple model with relatively good fit. However, if we want better predictive performance I suspect a multiple regression approach would offer some advantages.
+
+```{r nlsresiduals, echo=FALSE}
+df_ls <- df %>%
+  mutate(residuals = resid(m.ls),
+         fits = fitted(m.ls))
+
+p1 <- ggplot(df_ls) +
+  geom_histogram(aes(residuals)) +
+  scale_fill_ipsum() +
+  theme_ipsum_pub() +
+  labs(subtitle = "histogram of residuals")
+
+p2 <- ggplot(df_ls) +
+  geom_point(aes(log_discharge, residuals), alpha = 0.05) +
+  geom_hline(yintercept = 0) +
+  scale_color_ipsum() +
+  theme_ipsum_pub() +
+  labs(subtitle = "residuals vs predictor")
+
+p3 <- ggplot(df_ls) +
+  geom_point(aes(salinity, fits), alpha = 0.05) +
+  geom_abline(slope = 1) +
+  labs(x = "measured", y = "predicted",
+       subtitle = "predicted vs measured") +
+  scale_color_ipsum() +
+  theme_ipsum_pub()
+
+
+p4 <- ggplot(df_ls) +
+  geom_point(aes(log_discharge, salinity), alpha = 0.05) +
+  geom_line(aes(log_discharge, fits)) +
+  scale_color_ipsum() +
+  theme_ipsum_pub() +
+  labs(subtitle = "measured and fit")
+
+
+(p1 + p2) / (p3 + p4)
+```
+
+```{r metrics}
+hydroGOF::gof(df_ls$salinity, df_ls$fits)
+```
+
