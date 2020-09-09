@@ -5,7 +5,7 @@ description: |
   Exploring open source water research.
 output_dir: "_site"
 navbar:
-  title: "Michael Schramm"
+  title: "@mpschramm"
   right:
     - text: "Home"
       href: index.html
