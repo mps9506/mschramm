@@ -1,14 +1,17 @@
 ---
-title: "About this blog"
+title: "Hi."
 description: |
-  Some additional details about the blog
+  A little about \@mpschramm
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
+I'm a researcher at the [Texas Water Resources Institute](http://twri.tamu.edu/) and Texas A&M AgriLife where I work on watershed planning and various water quality issues with stakeholders throughout the state of Texas.
 
-I am an early career research professional specializing in water science and policy. I leverage spatial and data analytic tools that provide effective visual and written communication to bridge gaps between policy, science, and the public. Currently as a researcher at the [Texas Water Resources Institute](http://twri.tamu.edu/), I primarily lead projects aimed at improving surface water quality in coordination with state and local stakeholders. Primary research interests include (1) watershed based planning and sustainability, (2) environmental data visualization and communication, and (3) local and regional water and energy planning.
+I like using R and working with spatial GIS data to better understand the environmental outcomes of policy and management decisions.
 
-When I am not nerding out about water issues, you will find me fly fishing or dreaming about surfing back in North Carolina.
+[Resume](https://raw.githubusercontent.com/mps9506/CV-RMD/master/Resume/Schramm_Resume.pdf)
+
+[CV](https://raw.githubusercontent.com/mps9506/CV-RMD/master/CVR/schramm-cv-long.pdf)
