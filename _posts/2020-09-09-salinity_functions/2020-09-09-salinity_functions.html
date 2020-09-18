@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+  <meta name="generator" content="distill" />
+
+  <style type="text/css">
+  /* Hide doc at startup (prevent jankiness while JS renders/transforms) */
+  body {
+    visibility: hidden;
+  }
+  </style>
+
+ <!--radix_placeholder_import_source-->
+ <!--/radix_placeholder_import_source-->
+
+  <!--radix_placeholder_meta_tags-->
+  <title>Predicting estuarine salinity using simple statistical models part 2</title>
+  
+  <meta property="description" itemprop="description" content="Part one of some statistical approaches for estimating estuarine salinity using freshwater inflow."/>
+  
+  
+  <!--  https://schema.org/Article -->
+  <meta property="article:published" itemprop="datePublished" content="2020-09-17"/>
+  <meta property="article:created" itemprop="dateCreated" content="2020-09-17"/>
+  <meta name="article:author" content="Michael Schramm"/>
+  
+  <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
+  <meta property="og:title" content="Predicting estuarine salinity using simple statistical models part 2"/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:description" content="Part one of some statistical approaches for estimating estuarine salinity using freshwater inflow."/>
+  <meta property="og:locale" content="en_US"/>
+  
+  <!--  https://dev.twitter.com/cards/types/summary -->
+  <meta property="twitter:card" content="summary"/>
+  <meta property="twitter:title" content="Predicting estuarine salinity using simple statistical models part 2"/>
+  <meta property="twitter:description" content="Part one of some statistical approaches for estimating estuarine salinity using freshwater inflow."/>
+  
+  <!--/radix_placeholder_meta_tags-->
+  
+  <meta name="citation_reference" content="citation_title=Analysing continuous proportions in ecology and evolution: A practical introduction to beta and dirichlet regression;citation_publication_date=2019;citation_volume=10;citation_doi=10.1111/2041-210X.13234;citation_author=Jacob C. Douma;citation_author=James T. Weedon"/>
+  <!--radix_placeholder_rmarkdown_metadata-->
+  
+  <script type="text/json" id="radix-rmarkdown-metadata">
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","bibliography"]}},"value":[{"type":"character","attributes":{},"value":["Predicting estuarine salinity using simple statistical models part 2"]},{"type":"character","attributes":{},"value":["Part one of some statistical approaches for estimating estuarine salinity using freshwater inflow.\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url"]}},"value":[{"type":"character","attributes":{},"value":["Michael Schramm"]},{"type":"character","attributes":{},"value":["https://michaelpaulschramm.com"]},{"type":"character","attributes":{},"value":["Texas Water Resources Institute"]},{"type":"character","attributes":{},"value":["https://twri.tamu.edu"]}]}]},{"type":"character","attributes":{},"value":["2020-09-17"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]},{"type":"character","attributes":{},"value":["bibliography.bib"]}]}
+  </script>
+  <!--/radix_placeholder_rmarkdown_metadata-->
+  
+  <script type="text/json" id="radix-resource-manifest">
+  {"type":"character","attributes":{},"value":["2020-09-09-salinity_functions_files/bowser-1.9.3/bowser.min.js","2020-09-09-salinity_functions_files/distill-2.2.21/template.v2.js","2020-09-09-salinity_functions_files/figure-html5/finalfit-1.png","2020-09-09-salinity_functions_files/figure-html5/m1fit-1.png","2020-09-09-salinity_functions_files/figure-html5/m1resid-1.png","2020-09-09-salinity_functions_files/figure-html5/m1resid-2.png","2020-09-09-salinity_functions_files/figure-html5/m1resid-3.png","2020-09-09-salinity_functions_files/figure-html5/m1resid-4.png","2020-09-09-salinity_functions_files/figure-html5/salinitydist-1.png","2020-09-09-salinity_functions_files/figure-html5/unnamed-chunk-2-1.png","2020-09-09-salinity_functions_files/figure-html5/unnamed-chunk-2-2.png","2020-09-09-salinity_functions_files/figure-html5/unnamed-chunk-2-3.png","2020-09-09-salinity_functions_files/figure-html5/unnamed-chunk-2-4.png","2020-09-09-salinity_functions_files/figure-html5/unnamed-chunk-2-5.png","2020-09-09-salinity_functions_files/figure-html5/unnamed-chunk-2-6.png","2020-09-09-salinity_functions_files/figure-html5/unnamed-chunk-4-1.png","2020-09-09-salinity_functions_files/figure-html5/unnamed-chunk-4-2.png","2020-09-09-salinity_functions_files/figure-html5/unnamed-chunk-4-3.png","2020-09-09-salinity_functions_files/figure-html5/unnamed-chunk-4-4.png","2020-09-09-salinity_functions_files/figure-html5/unnamed-chunk-4-5.png","2020-09-09-salinity_functions_files/figure-html5/unnamed-chunk-4-6.png","2020-09-09-salinity_functions_files/figure-html5/unnamed-chunk-6-1.png","2020-09-09-salinity_functions_files/figure-html5/unnamed-chunk-6-2.png","2020-09-09-salinity_functions_files/figure-html5/unnamed-chunk-6-3.png","2020-09-09-salinity_functions_files/figure-html5/unnamed-chunk-6-4.png","2020-09-09-salinity_functions_files/figure-html5/unnamed-chunk-6-5.png","2020-09-09-salinity_functions_files/figure-html5/unnamed-chunk-6-6.png","2020-09-09-salinity_functions_files/jquery-1.11.3/jquery.min.js","2020-09-09-salinity_functions_files/webcomponents-2.0.0/webcomponents.js","bibliography.bib"]}
+  </script>
+  <!--radix_placeholder_navigation_in_header-->
+  <!--/radix_placeholder_navigation_in_header-->
+  <!--radix_placeholder_distill-->
+  
+  <style type="text/css">
+  
+  body {
+    background-color: white;
+  }
+  
+  .pandoc-table {
+    width: 100%;
+  }
+  
+  .pandoc-table>caption {
+    margin-bottom: 10px;
+  }
+  
+  .pandoc-table th:not([align]) {
+    text-align: left;
+  }
+  
+  .pagedtable-footer {
+    font-size: 15px;
+  }
+  
+  .html-widget {
+    margin-bottom: 2.0em;
+  }
+  
+  .l-screen-inset {
+    padding-right: 16px;
+  }
+  
+  .l-screen .caption {
+    margin-left: 10px;
+  }
+  
+  .shaded {
+    background: rgb(247, 247, 247);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  
+  .shaded .html-widget {
+    margin-bottom: 0;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  
+  .shaded .shaded-content {
+    background: white;
+  }
+  
+  .text-output {
+    margin-top: 0;
+    line-height: 1.5em;
+  }
+  
+  .hidden {
+    display: none !important;
+  }
+  
+  d-article {
+    padding-bottom: 30px;
+  }
+  
+  d-appendix {
+    padding-top: 30px;
+  }
+  
+  d-article>p>img {
+    width: 100%;
+  }
+  
+  d-article iframe {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 2.0em;
+    width: 100%;
+  }
+  
+  figure img.external {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    box-sizing: border-box;
+  }
+  
+  /* CSS for table of contents */
+  
+  .d-toc {
+    color: rgba(0,0,0,0.8);
+    font-size: 0.8em;
+    line-height: 1em;
+  }
+  
+  .d-toc-header {
+    font-size: 0.6rem;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.5);
+    text-transform: uppercase;
+    margin-top: 0;
+    margin-bottom: 1.3em;
+  }
+  
+  .d-toc a {
+    border-bottom: none;
+  }
+  
+  .d-toc ul {
+    padding-left: 0;
+  }
+  
+  .d-toc li>ul {
+    padding-top: 0.8em;
+    padding-left: 16px;
+    margin-bottom: 0.6em;
+  }
+  
+  .d-toc ul,
+  .d-toc li {
+    list-style-type: none;
+  }
+  
+  .d-toc li {
+    margin-bottom: 0.9em;
+  }
+  
+  .d-toc-separator {
+    margin-top: 20px;
+    margin-bottom: 2em;
+  }
+  
+  .d-article-with-toc {
+    border-top: none;
+    padding-top: 0;
+  }
+  
+  
+  
+  /* Tweak code blocks (note that this CSS is repeated above in an injection
+     into the d-code shadow dom) */
+  
+  d-code {
+    overflow-x: auto !important;
+  }
+  
+  pre.d-code code.d-code {
+    padding-left: 10px;
+    font-size: 12px;
+    border-left: 2px solid rgba(0,0,0,0.1);
+  }
+  
+  pre.text-output {
+  
+    font-size: 12px;
+    color: black;
+    background: none;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+  
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+  
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+  
+  @media(min-width: 768px) {
+  
+  d-code {
+    overflow-x: visible !important;
+  }
+  
+  pre.d-code code.d-code  {
+      padding-left: 18px;
+      font-size: 14px;
+  }
+  pre.text-output {
+    font-size: 14px;
+  }
+  }
+  
+  /* Figure */
+  
+  .figure {
+    position: relative;
+    margin-bottom: 2.5em;
+    margin-top: 1.5em;
+  }
+  
+  .figure img {
+    width: 100%;
+  }
+  
+  .figure .caption {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 12px;
+    line-height: 1.5em;
+  }
+  
+  .figure img.external {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    box-sizing: border-box;
+  }
+  
+  .figure .caption a {
+    color: rgba(0, 0, 0, 0.6);
+  }
+  
+  .figure .caption b,
+  .figure .caption strong, {
+    font-weight: 600;
+    color: rgba(0, 0, 0, 1.0);
+  }
+  
+  
+  
+  /* Tweak 1000px media break to show more text */
+  
+  @media(min-width: 1000px) {
+    .base-grid,
+    distill-header,
+    d-title,
+    d-abstract,
+    d-article,
+    d-appendix,
+    distill-appendix,
+    d-byline,
+    d-footnote-list,
+    d-citation-list,
+    distill-footer {
+      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 80px [middle-start] 50px [text-start kicker-end] 65px 65px 65px 65px 65px 65px 65px 65px [text-end gutter-start] 65px [middle-end] 65px [page-end gutter-end] 1fr [screen-end];
+      grid-column-gap: 16px;
+    }
+  
+    .grid {
+      grid-column-gap: 16px;
+    }
+  
+    d-article {
+      font-size: 1.06rem;
+      line-height: 1.7em;
+    }
+    figure .caption, .figure .caption, figure figcaption {
+      font-size: 13px;
+    }
+  }
+  
+  @media(min-width: 1180px) {
+    .base-grid,
+    distill-header,
+    d-title,
+    d-abstract,
+    d-article,
+    d-appendix,
+    distill-appendix,
+    d-byline,
+    d-footnote-list,
+    d-citation-list,
+    distill-footer {
+      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 60px [middle-start] 60px [text-start kicker-end] 60px 60px 60px 60px 60px 60px 60px 60px [text-end gutter-start] 60px [middle-end] 60px [page-end gutter-end] 1fr [screen-end];
+      grid-column-gap: 32px;
+    }
+  
+    .grid {
+      grid-column-gap: 32px;
+    }
+  }
+  
+  
+  /* Get the citation styles for the appendix (not auto-injected on render since
+     we do our own rendering of the citation appendix) */
+  
+  d-appendix .citation-appendix,
+  .d-appendix .citation-appendix {
+    font-size: 11px;
+    line-height: 15px;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    padding-left: 18px;
+    border: 1px solid rgba(0,0,0,0.1);
+    background: rgba(0, 0, 0, 0.02);
+    padding: 10px 18px;
+    border-radius: 3px;
+    color: rgba(150, 150, 150, 1);
+    overflow: hidden;
+    margin-top: -12px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+  
+  
+  /* Social footer */
+  
+  .social_footer {
+    margin-top: 30px;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.67);
+  }
+  
+  .disqus-comments {
+    margin-right: 30px;
+  }
+  
+  .disqus-comment-count {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+  }
+  
+  #disqus_thread {
+    margin-top: 30px;
+  }
+  
+  .article-sharing a {
+    border-bottom: none;
+    margin-right: 8px;
+  }
+  
+  .article-sharing a:hover {
+    border-bottom: none;
+  }
+  
+  .sidebar-section.subscribe {
+    font-size: 12px;
+    line-height: 1.6em;
+  }
+  
+  .subscribe p {
+    margin-bottom: 0.5em;
+  }
+  
+  
+  .article-footer .subscribe {
+    font-size: 15px;
+    margin-top: 45px;
+  }
+  
+  
+  .sidebar-section.custom {
+    font-size: 12px;
+    line-height: 1.6em;
+  }
+  
+  .custom p {
+    margin-bottom: 0.5em;
+  }
+  
+  
+  /* Improve display for browsers without grid (IE/Edge <= 15) */
+  
+  .downlevel {
+    line-height: 1.6em;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+    margin: 0;
+  }
+  
+  .downlevel .d-title {
+    padding-top: 6rem;
+    padding-bottom: 1.5rem;
+  }
+  
+  .downlevel .d-title h1 {
+    font-size: 50px;
+    font-weight: 700;
+    line-height: 1.1em;
+    margin: 0 0 0.5rem;
+  }
+  
+  .downlevel .d-title p {
+    font-weight: 300;
+    font-size: 1.2rem;
+    line-height: 1.55em;
+    margin-top: 0;
+  }
+  
+  .downlevel .d-byline {
+    padding-top: 0.8em;
+    padding-bottom: 0.8em;
+    font-size: 0.8rem;
+    line-height: 1.8em;
+  }
+  
+  .downlevel .section-separator {
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  
+  .downlevel .d-article {
+    font-size: 1.06rem;
+    line-height: 1.7em;
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+  }
+  
+  
+  .downlevel .d-appendix {
+    padding-left: 0;
+    padding-right: 0;
+    max-width: none;
+    font-size: 0.8em;
+    line-height: 1.7em;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.5);
+    padding-top: 40px;
+    padding-bottom: 48px;
+  }
+  
+  .downlevel .footnotes ol {
+    padding-left: 13px;
+  }
+  
+  .downlevel .base-grid,
+  .downlevel .distill-header,
+  .downlevel .d-title,
+  .downlevel .d-abstract,
+  .downlevel .d-article,
+  .downlevel .d-appendix,
+  .downlevel .distill-appendix,
+  .downlevel .d-byline,
+  .downlevel .d-footnote-list,
+  .downlevel .d-citation-list,
+  .downlevel .distill-footer,
+  .downlevel .appendix-bottom,
+  .downlevel .posts-container {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+  
+  @media(min-width: 768px) {
+    .downlevel .base-grid,
+    .downlevel .distill-header,
+    .downlevel .d-title,
+    .downlevel .d-abstract,
+    .downlevel .d-article,
+    .downlevel .d-appendix,
+    .downlevel .distill-appendix,
+    .downlevel .d-byline,
+    .downlevel .d-footnote-list,
+    .downlevel .d-citation-list,
+    .downlevel .distill-footer,
+    .downlevel .appendix-bottom,
+    .downlevel .posts-container {
+    padding-left: 150px;
+    padding-right: 150px;
+    max-width: 900px;
+  }
+  }
+  
+  .downlevel pre code {
+    display: block;
+    border-left: 2px solid rgba(0, 0, 0, .1);
+    padding: 0 0 0 20px;
+    font-size: 14px;
+  }
+  
+  .downlevel code, .downlevel pre {
+    color: black;
+    background: none;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+  
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+  
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+  
+  </style>
+  
+  <script type="application/javascript">
+  
+  function is_downlevel_browser() {
+    if (bowser.isUnsupportedBrowser({ msie: "12", msedge: "16"},
+                                   window.navigator.userAgent)) {
+      return true;
+    } else {
+      return window.load_distill_framework === undefined;
+    }
+  }
+  
+  // show body when load is complete
+  function on_load_complete() {
+  
+    // set body to visible
+    document.body.style.visibility = 'visible';
+  
+    // force redraw for leaflet widgets
+    if (window.HTMLWidgets) {
+      var maps = window.HTMLWidgets.findAll(".leaflet");
+      $.each(maps, function(i, el) {
+        var map = this.getMap();
+        map.invalidateSize();
+        map.eachLayer(function(layer) {
+          if (layer instanceof L.TileLayer)
+            layer.redraw();
+        });
+      });
+    }
+  
+    // trigger 'shown' so htmlwidgets resize
+    $('d-article').trigger('shown');
+  }
+  
+  function init_distill() {
+  
+    init_common();
+  
+    // create front matter
+    var front_matter = $('<d-front-matter></d-front-matter>');
+    $('#distill-front-matter').wrap(front_matter);
+  
+    // create d-title
+    $('.d-title').changeElementType('d-title');
+  
+    // create d-byline
+    var byline = $('<d-byline></d-byline>');
+    $('.d-byline').replaceWith(byline);
+  
+    // create d-article
+    var article = $('<d-article></d-article>');
+    $('.d-article').wrap(article).children().unwrap();
+  
+    // move posts container into article
+    $('.posts-container').appendTo($('d-article'));
+  
+    // create d-appendix
+    $('.d-appendix').changeElementType('d-appendix');
+  
+    // create d-bibliography
+    var bibliography = $('<d-bibliography></d-bibliography>');
+    $('#distill-bibliography').wrap(bibliography);
+  
+    // flag indicating that we have appendix items
+    var appendix = $('.appendix-bottom').children('h3').length > 0;
+  
+    // replace citations with <d-cite>
+    $('.citation').each(function(i, val) {
+      appendix = true;
+      var cites = $(this).attr('data-cites').split(" ");
+      var dt_cite = $('<d-cite></d-cite>');
+      dt_cite.attr('key', cites.join());
+      $(this).replaceWith(dt_cite);
+    });
+    // remove refs
+    $('#refs').remove();
+  
+    // replace footnotes with <d-footnote>
+    $('.footnote-ref').each(function(i, val) {
+      appendix = true;
+      var href = $(this).attr('href');
+      var id = href.replace('#', '');
+      var fn = $('#' + id);
+      var fn_p = $('#' + id + '>p');
+      fn_p.find('.footnote-back').remove();
+      var text = fn_p.html();
+      var dtfn = $('<d-footnote></d-footnote>');
+      dtfn.html(text);
+      $(this).replaceWith(dtfn);
+    });
+    // remove footnotes
+    $('.footnotes').remove();
+  
+    $('h1.appendix, h2.appendix').each(function(i, val) {
+      $(this).changeElementType('h3');
+    });
+    $('h3.appendix').each(function(i, val) {
+      var id = $(this).attr('id');
+      $('.d-toc a[href="#' + id + '"]').parent().remove();
+      appendix = true;
+      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('d-appendix'));
+    });
+  
+    // show d-appendix if we have appendix content
+    $("d-appendix").css('display', appendix ? 'grid' : 'none');
+  
+    // replace code blocks with d-code
+    $('pre>code').each(function(i, val) {
+      var code = $(this);
+      var pre = code.parent();
+      var clz = "";
+      var language = pre.attr('class');
+      if (language) {
+        // map unknown languages to "clike" (without this they just dissapear)
+        if ($.inArray(language, ["bash", "clike", "css", "go", "html",
+                                 "javascript", "js", "julia", "lua", "markdown",
+                                 "markup", "mathml", "python", "svg", "xml"]) == -1)
+          language = "clike";
+        language = ' language="' + language + '"';
+        var dt_code = $('<d-code block' + language + clz + '></d-code>');
+        dt_code.text(code.text());
+        pre.replaceWith(dt_code);
+      } else {
+        code.addClass('text-output').unwrap().changeElementType('pre');
+      }
+    });
+  
+    // localize layout chunks to just output
+    $('.layout-chunk').each(function(i, val) {
+  
+      // capture layout
+      var layout = $(this).attr('data-layout');
+  
+      // apply layout to markdown level block elements
+      var elements = $(this).children().not('d-code, pre.text-output, script');
+      elements.each(function(i, el) {
+        var layout_div = $('<div class="' + layout + '"></div>');
+        if (layout_div.hasClass('shaded')) {
+          var shaded_content = $('<div class="shaded-content"></div>');
+          $(this).wrap(shaded_content);
+          $(this).parent().wrap(layout_div);
+        } else {
+          $(this).wrap(layout_div);
+        }
+      });
+  
+  
+      // unwrap the layout-chunk div
+      $(this).children().unwrap();
+    });
+  
+    // load distill framework
+    load_distill_framework();
+  
+    // wait for window.distillRunlevel == 4 to do post processing
+    function distill_post_process() {
+  
+      if (!window.distillRunlevel || window.distillRunlevel < 4)
+        return;
+  
+      // hide author/affiliations entirely if we have no authors
+      var front_matter = JSON.parse($("#distill-front-matter").html());
+      var have_authors = front_matter.authors && front_matter.authors.length > 0;
+      if (!have_authors)
+        $('d-byline').addClass('hidden');
+  
+      // table of contents
+      if (have_authors) // adjust border if we are in authors
+        $('.d-toc').parent().addClass('d-article-with-toc');
+  
+      // strip links that point to #
+      $('.authors-affiliations').find('a[href="#"]').removeAttr('href');
+  
+      // hide elements of author/affiliations grid that have no value
+      function hide_byline_column(caption) {
+        $('d-byline').find('h3:contains("' + caption + '")').parent().css('visibility', 'hidden');
+      }
+  
+      // affiliations
+      var have_affiliations = false;
+      for (var i = 0; i<front_matter.authors.length; ++i) {
+        var author = front_matter.authors[i];
+        if (author.affiliation !== "&nbsp;") {
+          have_affiliations = true;
+          break;
+        }
+      }
+      if (!have_affiliations)
+        $('d-byline').find('h3:contains("Affiliations")').css('visibility', 'hidden');
+  
+      // published date
+      if (!front_matter.publishedDate)
+        hide_byline_column("Published");
+  
+      // document object identifier
+      var doi = $('d-byline').find('h3:contains("DOI")');
+      var doi_p = doi.next().empty();
+      if (!front_matter.doi) {
+        // if we have a citation and valid citationText then link to that
+        if ($('#citation').length > 0 && front_matter.citationText) {
+          doi.html('Citation');
+          $('<a href="#citation"></a>')
+            .text(front_matter.citationText)
+            .appendTo(doi_p);
+        } else {
+          hide_byline_column("DOI");
+        }
+      } else {
+        $('<a></a>')
+           .attr('href', "https://doi.org/" + front_matter.doi)
+           .html(front_matter.doi)
+           .appendTo(doi_p);
+      }
+  
+       // change plural form of authors/affiliations
+      if (front_matter.authors.length === 1) {
+        var grid = $('.authors-affiliations');
+        grid.children('h3:contains("Authors")').text('Author');
+        grid.children('h3:contains("Affiliations")').text('Affiliation');
+      }
+  
+      // inject pre code styles (can't do this with a global stylesheet b/c a shadow root is used)
+      $('d-code').each(function(i, val) {
+        var style = document.createElement('style');
+        style.innerHTML = 'pre code { padding-left: 10px; font-size: 12px; border-left: 2px solid rgba(0,0,0,0.1); } ' +
+                          '@media(min-width: 768px) { pre code { padding-left: 18px; font-size: 14px; } }';
+        if (this.shadowRoot)
+          this.shadowRoot.appendChild(style);
+      });
+  
+      // move appendix-bottom entries to the bottom
+      $('.appendix-bottom').appendTo('d-appendix').children().unwrap();
+      $('.appendix-bottom').remove();
+  
+      // clear polling timer
+      clearInterval(tid);
+  
+      // show body now that everything is ready
+      on_load_complete();
+    }
+  
+    var tid = setInterval(distill_post_process, 50);
+    distill_post_process();
+  
+  }
+  
+  function init_downlevel() {
+  
+    init_common();
+  
+     // insert hr after d-title
+    $('.d-title').after($('<hr class="section-separator"/>'));
+  
+    // check if we have authors
+    var front_matter = JSON.parse($("#distill-front-matter").html());
+    var have_authors = front_matter.authors && front_matter.authors.length > 0;
+  
+    // manage byline/border
+    if (!have_authors)
+      $('.d-byline').remove();
+    $('.d-byline').after($('<hr class="section-separator"/>'));
+    $('.d-byline a').remove();
+  
+    // remove toc
+    $('.d-toc-header').remove();
+    $('.d-toc').remove();
+    $('.d-toc-separator').remove();
+  
+    // move appendix elements
+    $('h1.appendix, h2.appendix').each(function(i, val) {
+      $(this).changeElementType('h3');
+    });
+    $('h3.appendix').each(function(i, val) {
+      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('.d-appendix'));
+    });
+  
+  
+    // inject headers into references and footnotes
+    var refs_header = $('<h3></h3>');
+    refs_header.text('References');
+    $('#refs').prepend(refs_header);
+  
+    var footnotes_header = $('<h3></h3');
+    footnotes_header.text('Footnotes');
+    $('.footnotes').children('hr').first().replaceWith(footnotes_header);
+  
+    // move appendix-bottom entries to the bottom
+    $('.appendix-bottom').appendTo('.d-appendix').children().unwrap();
+    $('.appendix-bottom').remove();
+  
+    // remove appendix if it's empty
+    if ($('.d-appendix').children().length === 0)
+      $('.d-appendix').remove();
+  
+    // prepend separator above appendix
+    $('.d-appendix').before($('<hr class="section-separator" style="clear: both"/>'));
+  
+    // trim code
+    $('pre>code').each(function(i, val) {
+      $(this).html($.trim($(this).html()));
+    });
+  
+    // move posts-container right before article
+    $('.posts-container').insertBefore($('.d-article'));
+  
+    $('body').addClass('downlevel');
+  
+    on_load_complete();
+  }
+  
+  
+  function init_common() {
+  
+    // jquery plugin to change element types
+    (function($) {
+      $.fn.changeElementType = function(newType) {
+        var attrs = {};
+  
+        $.each(this[0].attributes, function(idx, attr) {
+          attrs[attr.nodeName] = attr.nodeValue;
+        });
+  
+        this.replaceWith(function() {
+          return $("<" + newType + "/>", attrs).append($(this).contents());
+        });
+      };
+    })(jQuery);
+  
+    // prevent underline for linked images
+    $('a > img').parent().css({'border-bottom' : 'none'});
+  
+    // mark non-body figures created by knitr chunks as 100% width
+    $('.layout-chunk').each(function(i, val) {
+      var figures = $(this).find('img, .html-widget');
+      if ($(this).attr('data-layout') !== "l-body") {
+        figures.css('width', '100%');
+      } else {
+        figures.css('max-width', '100%');
+        figures.filter("[width]").each(function(i, val) {
+          var fig = $(this);
+          fig.css('width', fig.attr('width') + 'px');
+        });
+  
+      }
+    });
+  
+    // auto-append index.html to post-preview links in file: protocol
+    // and in rstudio ide preview
+    $('.post-preview').each(function(i, val) {
+      if (window.location.protocol === "file:")
+        $(this).attr('href', $(this).attr('href') + "index.html");
+    });
+  
+    // get rid of index.html references in header
+    if (window.location.protocol !== "file:") {
+      $('.distill-site-header a[href]').each(function(i,val) {
+        $(this).attr('href', $(this).attr('href').replace("index.html", "./"));
+      });
+    }
+  
+    // add class to pandoc style tables
+    $('tr.header').parent('thead').parent('table').addClass('pandoc-table');
+    $('.kable-table').children('table').addClass('pandoc-table');
+  
+    // add figcaption style to table captions
+    $('caption').parent('table').addClass("figcaption");
+  
+    // initialize posts list
+    if (window.init_posts_list)
+      window.init_posts_list();
+  
+    // implmement disqus comment link
+    $('.disqus-comment-count').click(function() {
+      window.headroom_prevent_pin = true;
+      $('#disqus_thread').toggleClass('hidden');
+      if (!$('#disqus_thread').hasClass('hidden')) {
+        var offset = $(this).offset();
+        $(window).resize();
+        $('html, body').animate({
+          scrollTop: offset.top - 35
+        });
+      }
+    });
+  }
+  
+  document.addEventListener('DOMContentLoaded', function() {
+    if (is_downlevel_browser())
+      init_downlevel();
+    else
+      window.addEventListener('WebComponentsReady', init_distill);
+  });
+  
+  </script>
+  
+  <!--/radix_placeholder_distill-->
+  <script src="2020-09-09-salinity_functions_files/jquery-1.11.3/jquery.min.js"></script>
+  <script src="2020-09-09-salinity_functions_files/bowser-1.9.3/bowser.min.js"></script>
+  <script src="2020-09-09-salinity_functions_files/webcomponents-2.0.0/webcomponents.js"></script>
+  <script src="2020-09-09-salinity_functions_files/distill-2.2.21/template.v2.js"></script>
+  <!--radix_placeholder_site_in_header-->
+  <!--/radix_placeholder_site_in_header-->
+
+
+</head>
+
+<body>
+
+<!--radix_placeholder_front_matter-->
+
+<script id="distill-front-matter" type="text/json">
+{"title":"Predicting estuarine salinity using simple statistical models part 2","description":"Part one of some statistical approaches for estimating estuarine salinity using freshwater inflow.","authors":[{"author":"Michael Schramm","authorURL":"https://michaelpaulschramm.com","affiliation":"Texas Water Resources Institute","affiliationURL":"https://twri.tamu.edu"}],"publishedDate":"2020-09-17T00:00:00.000-05:00","citationText":"Schramm, 2020"}
+</script>
+
+<!--/radix_placeholder_front_matter-->
+<!--radix_placeholder_navigation_before_body-->
+<!--/radix_placeholder_navigation_before_body-->
+<!--radix_placeholder_site_before_body-->
+<!--/radix_placeholder_site_before_body-->
+
+<div class="d-title">
+<h1>Predicting estuarine salinity using simple statistical models part 2</h1>
+<p><p>Part one of some statistical approaches for estimating estuarine salinity using freshwater inflow.</p></p>
+</div>
+
+<div class="d-byline">
+  Michael Schramm <a href="https://michaelpaulschramm.com" class="uri">https://michaelpaulschramm.com</a> (Texas Water Resources Institute)<a href="https://twri.tamu.edu" class="uri">https://twri.tamu.edu</a>
+  
+<br/>2020-09-17
+</div>
+
+<div class="d-article">
+<p><a href="https://michaelpaulschramm.com/posts/2020-08-24-salinity_functions/">In the previous post</a> I used nonlinear least squares to fit a logistic function to some salinity data. Here I explore using beta regression. Beta regression is appropriate for inherently proportional data (as opposed to proportion of success/failure or rates with shifting denominators, both covered by logistic and Poisson regression). Douma and Weedon <span class="citation" data-cites="doi:10.1111/2041-210X.13234">Douma and Weedon (<a href="#ref-doi:10.1111/2041-210X.13234" role="doc-biblioref">2019</a>)</span> provide a great flow chart for determining the type of model to use with proportional data. Of course, the salinity data we use comes reported in practical salinity units (psu). We can make an assumption that the estuary has some maximum salinity and ceate a response variable that is in a proportion unit. More on that in a bit. I will be using the same salinity and flow dataset loaded in the previous post.</p>
+<p>Beta regression is appropriate when the response variable continuous and restricted to <span class="math inline">\((0,1)\)</span>. In this dataset, salinity approaches zero but never reaches zero. The maximum value is 28.74. First we need to transform the response variable to a proportion. I will apply <span class="math inline">\(y = \frac{salinity}{salinity_{max} + 1}\)</span> to prevent <span class="math inline">\(y=1\)</span>. It might also be reasonable to use <span class="math inline">\(y = \frac{salinity}{35}\)</span> if we assume oceanic salinity is 35 psu. This will depend on the data and in some cases (along the South Texas coast for example) estuaries become hypersaline and this would not be appropriate. Figure <a href="#fig:salinitydist">1</a> depicts the density distribution of the response variable. The distribution looks a little wonky and tells me that we may get a poor model fit.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="figure"><span id="fig:salinitydist"></span>
+<img src="2020-09-09-salinity_functions_files/figure-html5/salinitydist-1.png" alt="Distribution of salinity values" width="768" />
+<p class="caption">
+Figure 1: Distribution of salinity values
+</p>
+</div>
+</div>
+<p>I am using the <a href="https://cran.r-project.org/web/packages/betareg/index.html"><code>betareg</code></a> package to fit the beta regression models <span class="citation" data-cites="cribari2009beta">(Cribari-Neto and Zeileis <a href="#ref-cribari2009beta" role="doc-biblioref">2009</a>)</span>. First, a simple model using log discharge as a predictor variable is fit. <code>betareg</code> uses the standard formula interface of <code>y ~ x1 + x2</code>. The <code>type</code> argument indicates the estimator used (readers are referred to Simas <span class="citation" data-cites="simas2010improved">Simas, Barreto-Souza, and Rocha (<a href="#ref-simas2010improved" role="doc-biblioref">2010</a>)</span>). The model summary provides a psuedo R2 measure of fit, parameter estimates, precision parameter estimate, <span class="math inline">\(\phi\)</span>.</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+df &lt;- df %&gt;%
+  mutate(
+    discharge = case_when(
+      discharge &lt;= 0 ~ 0.0001,
+      discharge &gt; 0 ~ discharge),
+    log_discharge = log(discharge),
+    y = (salinity/(max(salinity)+1)))
+
+m1 &lt;- betareg(y ~ log_discharge,
+              data = df,
+              type = &quot;ML&quot;)
+
+
+summary(m1)</code></pre>
+<pre><code>
+Call:
+betareg(formula = y ~ log_discharge, data = df, type = &quot;ML&quot;)
+
+Standardized weighted residuals 2:
+    Min      1Q  Median      3Q     Max 
+-6.4420 -0.6784  0.0746  0.6357  3.7678 
+
+Coefficients (mean model with logit link):
+               Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)    5.124797   0.067252    76.2   &lt;2e-16 ***
+log_discharge -0.740014   0.008342   -88.7   &lt;2e-16 ***
+
+Phi coefficients (precision model with identity link):
+      Estimate Std. Error z value Pr(&gt;|z|)    
+(phi)   8.8408     0.2042    43.3   &lt;2e-16 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1 
+
+Type of estimator: ML (maximum likelihood)
+Log-likelihood:  2865 on 3 Df
+Pseudo R-squared: 0.3581
+Number of iterations: 13 (BFGS) + 3 (Fisher scoring) </code></pre>
+</div>
+<p>A quick peak at the regression residuals should tell us a little about the model (Fig. <a href="#fig:m1resid">2</a>). It appears the residuals are slightly biased. The data at low discharge/high salinity conditions is sparse. There are some possible patterns in the plots which suggests missing covariates. The resulting discharge-salinity plot shows the model struggling to incorporate the extreme values. I should note, that the raw data wasn’t cleaned or validated. If I were doing this for a real project I’d have to inspect if those are real values or not. In this case, I have no idea so I am leaving them in.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="figure"><span id="fig:m1resid"></span>
+<img src="2020-09-09-salinity_functions_files/figure-html5/m1resid-1.png" alt="Inspection of model residuals for simple regression model." width="768" />
+<p class="caption">
+Figure 2: Inspection of model residuals for simple regression model.
+</p>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+df %&gt;%
+  mutate(fits = fitted(m1)) %&gt;%
+  ggplot() +
+  geom_point(aes(date, y, color = &quot;Observed&quot;), alpha = 0.2) +
+  geom_step(aes(date, fits, color = &quot;Model Fit&quot;), na.rm = TRUE) +
+  labs(x = &quot;log discharge&quot;, y = &quot;Salinity (proportion)&quot;)  +
+  scale_color_ipsum() +
+  theme_ipsum_pub()</code></pre>
+<p><img src="2020-09-09-salinity_functions_files/figure-html5/m1fit-1.png" width="768" /></p>
+</div>
+<p>One reason I am exploring this approach is that we can easliy add additional covariates to the model. I suspect seasonal and long term predictors might improve the model. So I am adding terms for day of year as a seasonal predictor and decimal date as a long-term predictor.</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+df &lt;- df %&gt;%
+  mutate(doy = lubridate::yday(date),
+         decdate = lubridate::decimal_date(date))
+
+m2 &lt;- betareg(y ~ log_discharge + doy + decdate + decdate:doy,
+              data = df,
+              type = &quot;ML&quot;)
+
+summary(m2)</code></pre>
+<pre><code>
+Call:
+betareg(formula = y ~ log_discharge + doy + decdate + decdate:doy, 
+    data = df, type = &quot;ML&quot;)
+
+Standardized weighted residuals 2:
+    Min      1Q  Median      3Q     Max 
+-6.8393 -0.6458  0.0730  0.6027  3.4820 
+
+Coefficients (mean model with logit link):
+                Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)    3.308e+01  1.633e+01   2.026   0.0428 *  
+log_discharge -6.721e-01  8.559e-03 -78.528   &lt;2e-16 ***
+doy            1.411e-01  7.140e-02   1.976   0.0482 *  
+decdate       -1.439e-02  8.116e-03  -1.774   0.0761 .  
+doy:decdate   -6.887e-05  3.546e-05  -1.942   0.0521 .  
+
+Phi coefficients (precision model with identity link):
+      Estimate Std. Error z value Pr(&gt;|z|)    
+(phi)   9.8168     0.2282   43.02   &lt;2e-16 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1 
+
+Type of estimator: ML (maximum likelihood)
+Log-likelihood:  3058 on 6 Df
+Pseudo R-squared: 0.4166
+Number of iterations: 55 (BFGS) + 16 (Fisher scoring) </code></pre>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+df_beta &lt;- df %&gt;%
+  mutate(fits = fitted(m2),
+         resid = resid(m2))
+
+
+df %&gt;%
+  mutate(fits = fitted(m2)) %&gt;%
+  ggplot() +
+  geom_point(aes(date, y, color = &quot;Observed&quot;), alpha = 0.2) +
+  geom_step(aes(date, fits, color = &quot;Model Fit&quot;)) +
+  labs(x = &quot;log discharge&quot;, y = &quot;Salinity (proportion)&quot;)  +
+  scale_color_ipsum() +
+  theme_ipsum_pub()</code></pre>
+<p><img src="2020-09-09-salinity_functions_files/figure-html5/finalfit-1.png" width="768" data-distill-preview=1 /></p>
+</div>
+<p>I skipped over inspecting the model residuals here as I just wanted to demonstrate the benefit of using beta regression over the NLS method described in the previous post. In the next post I’ll take a look at fitting a flexible generalized additve model to the data.</p>
+<div id="refs" class="references" role="doc-bibliography">
+<div id="ref-cribari2009beta">
+<p>Cribari-Neto, Francisco, and Achim Zeileis. 2009. “Beta Regression in R.”</p>
+</div>
+<div id="ref-doi:10.1111/2041-210X.13234">
+<p>Douma, Jacob C., and James T. Weedon. 2019. “Analysing Continuous Proportions in Ecology and Evolution: A Practical Introduction to Beta and Dirichlet Regression.” <em>Methods in Ecology and Evolution</em> 10 (9): 1412–30. <a href="https://doi.org/10.1111/2041-210X.13234">https://doi.org/10.1111/2041-210X.13234</a>.</p>
+</div>
+<div id="ref-simas2010improved">
+<p>Simas, Alexandre B, Wagner Barreto-Souza, and Andréa V Rocha. 2010. “Improved Estimators for a General Class of Beta Regression Models.” <em>Computational Statistics &amp; Data Analysis</em> 54 (2): 348–66.</p>
+</div>
+</div>
+<!--radix_placeholder_article_footer-->
+<!--/radix_placeholder_article_footer-->
+</div>
+
+<div class="d-appendix">
+</div>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+<!--radix_placeholder_site_after_body-->
+<!--/radix_placeholder_site_after_body-->
+<!--radix_placeholder_appendices-->
+<div class="appendix-bottom"></div>
+<script id="distill-bibliography" type="text/bibtex">
+@article{cribari2009beta,
+  title={Beta regression in R},
+  author={Cribari-Neto, Francisco and Zeileis, Achim},
+  year={2009},
+  publisher={Department of Statistics and Mathematics x, WU Vienna University of~â€¦}
+}
+
+@article{doi:10.1111/2041-210X.13234,
+author = {Douma, Jacob C. and Weedon, James T.},
+title = {Analysing continuous proportions in ecology and evolution: A practical introduction to beta and Dirichlet regression},
+journal = {Methods in Ecology and Evolution},
+volume = {10},
+number = {9},
+pages = {1412-1430},
+keywords = {beta regression, Dirichlet regression, fractions, non-count proportions, one augmented, proportions, transformations, zero augmented},
+doi = {10.1111/2041-210X.13234},
+url = {https://besjournals.onlinelibrary.wiley.com/doi/abs/10.1111/2041-210X.13234},
+eprint = {https://besjournals.onlinelibrary.wiley.com/doi/pdf/10.1111/2041-210X.13234},
+abstract = {Abstract Proportional data, in which response variables are expressed as percentages or fractions of a whole, are analysed in many subfields of ecology and evolution. The scale-independence of proportions makes them appropriate to analyse many biological phenomena, but statistical analyses are not straightforward, since proportions can only take values from zero to one and their variance is usually not constant across the range of the predictor. Transformations to overcome these problems are often applied, but can lead to biased estimates and difficulties in interpretation. In this paper, we provide an overview of the different types of proportional data and discuss the different analysis strategies available. In particular, we review and discuss the use of promising, but little used, techniques for analysing continuous (also called non-count-based or non-binomial) proportions (e.g. percent cover, fraction time spent on an activity): beta and Dirichlet regression, and some of their most important extensions. A major distinction can be made between proportions arising from counts and those arising from continuous measurements. For proportions consisting of two categories, count-based data are best analysed using well-developed techniques such as logistic regression, while continuous proportions can be analysed with beta regression models. In the case of >2 categories, multinomial logistic regression or Dirichlet regression can be applied. Both beta and Dirichlet regression techniques model proportions at their original scale, which makes statistical inference more straightforward and produce less biased estimates relative to transformation-based solutions. Extensions to beta regression, such as models for variable dispersion, zero-one augmented data and mixed effects designs have been developed and are reviewed and applied to case studies. Finally, we briefly discuss some issues regarding model fitting, inference, and reporting that are particularly relevant to beta and Dirichlet regression. Beta regression and Dirichlet regression overcome some problems inherent in applying classic statistical approaches to proportional data. To facilitate the adoption of these techniques by practitioners in ecology and evolution, we present detailed, annotated demonstration scripts covering all variations of beta and Dirichlet regression discussed in the article, implemented in the freely available language for statistical computing, r.},
+year = {2019}
+}
+
+@article{simas2010improved,
+  title={Improved estimators for a general class of beta regression models},
+  author={Simas, Alexandre B and Barreto-Souza, Wagner and Rocha, Andr{\'e}a V},
+  journal={Computational Statistics \& Data Analysis},
+  volume={54},
+  number={2},
+  pages={348--366},
+  year={2010},
+  publisher={Elsevier}
+}
+</script>
+<!--/radix_placeholder_appendices-->
+<!--radix_placeholder_navigation_after_body-->
+<!--/radix_placeholder_navigation_after_body-->
+
+</body>
+
+</html>
