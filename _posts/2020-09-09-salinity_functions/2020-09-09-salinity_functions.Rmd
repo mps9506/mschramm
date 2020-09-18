@@ -1,0 +1,182 @@
+---
+title: "Predicting estuarine salinity using simple statistical models part 2"
+description: |
+  Part one of some statistical approaches for estimating estuarine salinity using freshwater inflow.
+author:
+  - name: Michael Schramm 
+    url: https://michaelpaulschramm.com
+    affiliation: Texas Water Resources Institute
+    affiliation_url: https://twri.tamu.edu
+date: "`r Sys.Date()`"
+output:
+  distill::distill_article:
+    self_contained: false
+bibliography: bibliography.bib
+---
+
+```{r setup, include=FALSE}
+ragg_png = function(..., res = 192) {
+  ragg::agg_png(..., res = res, units = "in")
+}
+
+knitr::opts_chunk$set(echo = TRUE,
+                      dev = "ragg_png",
+                      fig.ext = "png",
+                      fig.width = 8,
+                      fig.height = 4)
+library(dataRetrieval)
+library(hrbrthemes)
+library(tidyverse)
+library(patchwork)
+library(betareg)
+
+theme_ipsum_pub <- function(...) {
+  hrbrthemes::theme_ipsum_pub(plot_margin = margin(10, 10, 10, 10),
+                          ...)
+}
+
+extrafont::loadfonts()
+```
+
+
+```{r getdata, message=FALSE, include=FALSE}
+## downloads mean daily discharge stream gage data from USGS
+flow <- readNWISdv(siteNumbers = "08041780",
+                   parameterCd = "72137", # technically this is tidally filtered discharge
+                                          # 00060 is discharge
+                   startDate = "2008-01-01",
+                   endDate = "2020-07-31") %>%
+  dplyr::select(Date, X_72137_00003) %>%
+  dplyr::rename(date = Date, 
+                discharge = X_72137_00003)
+
+
+## downloads hourly salinity data from TWDB
+## and summarizes it to mean daily salinity
+salinity <- read_csv("https://waterdatafortexas.org/coastal/api/stations/SAB1/data/seawater_salinity?start_date=2008-01-01&end_date=2020-07-31&binning=hour&output_format=csv",
+                     comment = "#",
+                     col_types = list(col_datetime(),
+                                      col_number())) %>%
+  mutate(datetime = as.Date(datetime)) %>%
+  group_by(datetime) %>%
+  summarize(salinity = mean(value))
+
+df <- left_join(flow, salinity, by = c("date" = "datetime")) %>%
+  dplyr::filter(!is.na(salinity))
+```
+
+[In the previous post](https://michaelpaulschramm.com/posts/2020-08-24-salinity_functions/) I used nonlinear least squares to fit a logistic function to some salinity data. Here I explore using beta regression. Beta regression is appropriate for inherently proportional data (as opposed to proportion of success/failure or rates with shifting denominators, both covered by logistic and Poisson regression). Douma and Weedon @doi:10.1111/2041-210X.13234 provide a great flow chart for determining the type of model to use with proportional data.
+Of course, the salinity data we use comes reported in practical salinity units (psu). We can make an assumption that the estuary has some maximum salinity and ceate a response variable that is in a proportion unit. More on that in a bit. I will be using the same salinity and flow dataset loaded in the previous post.
+
+Beta regression is appropriate when the response variable continuous and restricted to $(0,1)$. In this dataset, salinity approaches zero but never reaches zero. The maximum value is `r round(max(df$salinity),2)`. First we need to transform the response variable to a proportion. I will apply $y = \frac{salinity}{salinity_{max} + 1}$ to prevent $y=1$. It might also be reasonable to use $y = \frac{salinity}{35}$ if we assume oceanic salinity is 35 psu. This will depend on the data and in some cases (along the South Texas coast for example) estuaries become hypersaline and this would not be appropriate. Figure \@ref(fig:salinitydist) depicts the density distribution of the response variable. The distribution looks a little wonky and tells me that we may get a poor model fit. 
+
+```{r salinitydist, echo=FALSE, fig.cap="Distribution of salinity values"}
+p1 <- ggplot(df) +
+  geom_density(aes(salinity))  +
+  scale_color_ipsum() +
+  theme_ipsum_pub() +
+  labs(x = "salinity (psu)")
+
+df <- df %>%
+  mutate(y = (salinity/(max(salinity)+1)))
+
+p2 <- ggplot(df) +
+  geom_density(aes(y))  +
+  scale_color_ipsum() +
+  theme_ipsum_pub() +
+  labs(x = "salinity proportion")
+
+p1 + p2
+```
+
+I am using the [`betareg`](https://cran.r-project.org/web/packages/betareg/index.html) package to fit the beta regression models [@cribari2009beta]. First, a simple model using log discharge as a predictor variable is fit. `betareg` uses the standard formula interface of `y ~ x1 + x2`. The `type` argument indicates the estimator used (readers are referred to Simas @simas2010improved). The model summary provides a psuedo R2 measure of fit, parameter estimates, precision parameter estimate, $\phi$.
+
+```{r m1}
+df <- df %>%
+  mutate(
+    discharge = case_when(
+      discharge <= 0 ~ 0.0001,
+      discharge > 0 ~ discharge),
+    log_discharge = log(discharge),
+    y = (salinity/(max(salinity)+1)))
+
+m1 <- betareg(y ~ log_discharge,
+              data = df,
+              type = "ML")
+
+
+summary(m1)
+```
+
+A quick peak at the regression residuals should tell us a little about the model (Fig. \@ref(fig:m1resid)). It appears the residuals are slightly biased. The data at low discharge/high salinity conditions is sparse. There are some possible patterns in the plots which suggests missing covariates. The resulting discharge-salinity plot shows the model struggling to incorporate the extreme values. I should note, that the raw data wasn't cleaned or validated. If I were doing this for a real project I'd have to inspect if those are real values or not. In this case, I have no idea so I am leaving them in.
+
+```{r m1resid, fig.cap="Inspection of model residuals for simple regression model.", echo=FALSE}
+df_beta <- df %>%
+  mutate(fits = fitted(m1),
+         resid = resid(m1))
+
+p1 <- ggplot(df_beta) +
+  geom_histogram(aes(resid), bins = 100) +
+  labs(x = "residuals", subtitle = "Residuals histogram") +
+  theme_ipsum_pub()
+
+p2 <- ggplot(df_beta) +
+  geom_point(aes(log_discharge, resid), alpha = 0.5) +
+  labs(x = "log discharge", y = "residuals", subtitle = "Residuals vs. predictor") +
+  theme_ipsum_pub()
+
+p3 <- ggplot(df_beta) +
+  geom_point(aes(fits, resid), alpha = 0.5) +
+  labs(x = "fits", y = "residuals", subtitle = "Residuals vs. fits") +
+  theme_ipsum_pub()
+
+p4 <- ggplot(df_beta) +
+  geom_point(aes(y, fits), alpha = 0.5) +
+  labs(x = "measured", y = "fits", subtitle = "Measured vs. fit") +
+  theme_ipsum_pub()
+
+(p1 +p2) / (p3 + p4)
+```
+
+```{r m1fit}
+df %>%
+  mutate(fits = fitted(m1)) %>%
+  ggplot() +
+  geom_point(aes(date, y, color = "Observed"), alpha = 0.2) +
+  geom_step(aes(date, fits, color = "Model Fit"), na.rm = TRUE) +
+  labs(x = "log discharge", y = "Salinity (proportion)")  +
+  scale_color_ipsum() +
+  theme_ipsum_pub()
+```
+
+One reason I am exploring this approach is that we can easliy add additional covariates to the model. I suspect seasonal and long term predictors might improve the model. So I am adding terms for day of year as a seasonal predictor and decimal date as a long-term predictor. 
+
+```{r}
+df <- df %>%
+  mutate(doy = lubridate::yday(date),
+         decdate = lubridate::decimal_date(date))
+
+m2 <- betareg(y ~ log_discharge + doy + decdate + decdate:doy,
+              data = df,
+              type = "ML")
+
+summary(m2)
+```
+
+```{r finalfit, preview=TRUE}
+df_beta <- df %>%
+  mutate(fits = fitted(m2),
+         resid = resid(m2))
+
+
+df %>%
+  mutate(fits = fitted(m2)) %>%
+  ggplot() +
+  geom_point(aes(date, y, color = "Observed"), alpha = 0.2) +
+  geom_step(aes(date, fits, color = "Model Fit")) +
+  labs(x = "log discharge", y = "Salinity (proportion)")  +
+  scale_color_ipsum() +
+  theme_ipsum_pub()
+```
+
+I skipped over inspecting the model residuals here as I just wanted to demonstrate the benefit of using beta regression over the NLS method described in the previous post. In the next post I'll take a look at fitting a flexible generalized additve model to the data.

@@ -7,7 +7,16 @@
     <description>Exploring open source water research.
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Wed, 09 Sep 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 17 Sep 2020 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Predicting estuarine salinity using simple statistical models part 2</title>
+      <dc:creator>Michael Schramm</dc:creator>
+      <link>https://michaelpaulschramm.com/posts/2020-09-09-salinity_functions</link>
+      <description>Part one of some statistical approaches for estimating estuarine salinity using freshwater inflow.</description>
+      <guid>https://michaelpaulschramm.com/posts/2020-09-09-salinity_functions</guid>
+      <pubDate>Thu, 17 Sep 2020 00:00:00 +0000</pubDate>
+      <media:content url="https://michaelpaulschramm.com/posts/2020-09-09-salinity_functions/2020-09-09-salinity_functions_files/figure-html5/finalfit-1.png" medium="image" type="image/png" width="1536" height="768"/>
+    </item>
     <item>
       <title>Predicting estuarine salinity using simple statistical models part 1</title>
       <dc:creator>Michael Schramm</dc:creator>

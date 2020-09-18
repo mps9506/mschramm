@@ -1,5 +1,23 @@
 [
   {
+    "path": "posts/2020-09-09-salinity_functions/",
+    "title": "Predicting estuarine salinity using simple statistical models part 2",
+    "description": "Part one of some statistical approaches for estimating estuarine salinity using freshwater inflow.",
+    "author": [
+      {
+        "name": "Michael Schramm",
+        "url": "https://michaelpaulschramm.com"
+      }
+    ],
+    "date": "2020-09-17",
+    "categories": [],
+    "preview": "posts/2020-09-09-salinity_functions/2020-09-09-salinity_functions_files/figure-html5/finalfit-1.png",
+    "last_modified": "2020-09-17T23:07:18-05:00",
+    "input_file": {},
+    "preview_width": 1536,
+    "preview_height": 768
+  },
+  {
     "path": "posts/2020-08-24-salinity_functions/",
     "title": "Predicting estuarine salinity using simple statistical models part 1",
     "description": "Part one of some statistical approaches for estimating estuarine salinity using freshwater inflow.",
