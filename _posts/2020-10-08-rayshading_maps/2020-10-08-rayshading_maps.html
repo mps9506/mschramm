@@ -975,20 +975,14 @@
 
 <div class="d-article">
 <p>I stumbled onto the wonderful <a href="https://github.com/tylermorganwall/rayshader"><code>rayshader</code></a> while trying to beef up my R spatial skills <span class="citation" data-cites="rayshader">(Morgan-Wall <a href="#ref-rayshader" role="doc-biblioref">2020</a>)</span>. Experimenting with rayshading is a wonderful rabbit hole. Inspired by (but certainly not capable of replicating) the re-rendering of historic maps by numerous folks on Twitter I decided to take a go at it.</p>
+
 <blockquote class="twitter-tweet">
-<p lang="en" dir="ltr">
-State of Virginia- Department of the Interior - 1957<br><br>3D terrain render<a href="https://twitter.com/hashtag/arcgispro?src=hash&amp;ref_src=twsrc%5Etfw">#arcgispro</a> <a href="https://twitter.com/hashtag/blender?src=hash&amp;ref_src=twsrc%5Etfw">#blender</a> <a href="https://twitter.com/hashtag/Virginia?src=hash&amp;ref_src=twsrc%5Etfw">#Virginia</a> <a href="https://twitter.com/hashtag/GIS?src=hash&amp;ref_src=twsrc%5Etfw">#GIS</a> <a href="https://twitter.com/hashtag/geospatial?src=hash&amp;ref_src=twsrc%5Etfw">#geospatial</a> <a href="https://twitter.com/hashtag/dataviz?src=hash&amp;ref_src=twsrc%5Etfw">#dataviz</a> <a href="https://twitter.com/hashtag/3dart?src=hash&amp;ref_src=twsrc%5Etfw">#3dart</a> <a href="https://t.co/2OINJdYo0F">pic.twitter.com/2OINJdYo0F</a>
-</p>
-— Sean Conway (<span class="citation" data-cites="geo_spatialist">(<span class="citeproc-not-found" data-reference-id="geo_spatialist"><strong>???</strong></span>)</span>) <a href="https://twitter.com/geo_spatialist/status/1288109141999984640?ref_src=twsrc%5Etfw">July 28, 2020</a>
-</blockquote>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-<blockquote class="twitter-tweet">
-<p lang="en" dir="ltr">
-Beautiful Amami Ōshima, an island in southwest Japan, Kagoshima-ken. Part of the Geological Map of Japan Series, by the Geological Survey of Japan, 1994. Used bathymetry data this time.<a href="https://twitter.com/hashtag/rayshader?src=hash&amp;ref_src=twsrc%5Etfw">#rayshader</a> adventures, an <a href="https://twitter.com/hashtag/rstats?src=hash&amp;ref_src=twsrc%5Etfw">#rstats</a> tale <a href="https://t.co/A7qvnKmtPx">pic.twitter.com/A7qvnKmtPx</a>
-</p>
-— flotsam (<span class="citation" data-cites="researchremora">(<span class="citeproc-not-found" data-reference-id="researchremora"><strong>???</strong></span>)</span>) <a href="https://twitter.com/researchremora/status/1309133794713239555?ref_src=twsrc%5Etfw">September 24, 2020</a>
-</blockquote>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<p lang="en" dir="ltr">State of Virginia- Department of the Interior - 1957<br><br>3D terrain render<a href="https://twitter.com/hashtag/arcgispro?src=hash&amp;ref_src=twsrc%5Etfw">#arcgispro</a> <a href="https://twitter.com/hashtag/blender?src=hash&amp;ref_src=twsrc%5Etfw">#blender</a> <a href="https://twitter.com/hashtag/Virginia?src=hash&amp;ref_src=twsrc%5Etfw">#Virginia</a> <a href="https://twitter.com/hashtag/GIS?src=hash&amp;ref_src=twsrc%5Etfw">#GIS</a> <a href="https://twitter.com/hashtag/geospatial?src=hash&amp;ref_src=twsrc%5Etfw">#geospatial</a> <a href="https://twitter.com/hashtag/dataviz?src=hash&amp;ref_src=twsrc%5Etfw">#dataviz</a> <a href="https://twitter.com/hashtag/3dart?src=hash&amp;ref_src=twsrc%5Etfw">#3dart</a> <a href="https://t.co/2OINJdYo0F">pic.twitter.com/2OINJdYo0F</a></p>&mdash; Sean Conway (@geo_spatialist) <a href="https://twitter.com/geo_spatialist/status/1288109141999984640?ref_src=twsrc%5Etfw">July 28, 2020</a>
+</blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Beautiful Amami Ōshima, an island in southwest Japan, Kagoshima-ken. Part of the Geological Map of Japan Series, by the Geological Survey of Japan, 1994. Used bathymetry data this time.<a href="https://twitter.com/hashtag/rayshader?src=hash&amp;ref_src=twsrc%5Etfw">#rayshader</a> adventures, an <a href="https://twitter.com/hashtag/rstats?src=hash&amp;ref_src=twsrc%5Etfw">#rstats</a> tale <a href="https://t.co/A7qvnKmtPx">pic.twitter.com/A7qvnKmtPx</a></p>&mdash; flotsam (@researchremora) <a href="https://twitter.com/researchremora/status/1309133794713239555?ref_src=twsrc%5Etfw">September 24, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
+
 <h1 id="get-started">Get started</h1>
 <p>I’m going to preface this with, <em>I have no idea what I’m doing!</em> The code my be ugly and the outputs are not perfect, certainly not on the level of a skilled designer using ArcPro and Blender. But this is for fun. I thought it would be neat to apply a rayshader to a topo map of the Big Bend area of Texas. It has a lot of relief and some interesting features, I also know USGS has some cool maps of the region. <a href="https://www.tylermw.com/a-step-by-step-guide-to-making-3d-maps-with-satellite-imagery-in-r/">Finally, this is heavily based on the tutorial provided by the package author</a>.</p>
 <h2 id="data">Data</h2>

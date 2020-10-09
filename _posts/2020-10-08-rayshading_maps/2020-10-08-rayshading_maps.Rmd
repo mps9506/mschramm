@@ -30,10 +30,15 @@ knitr::opts_chunk$set(echo = TRUE,
 I stumbled onto the wonderful [`rayshader`](https://github.com/tylermorganwall/rayshader) while trying to beef up my R spatial skills [@rayshader]. Experimenting with rayshading is a wonderful rabbit hole. Inspired by (but certainly not capable of replicating) the re-rendering of historic maps by numerous folks on Twitter I decided to take a go at it.
 
 
-<blockquote class="twitter-tweet"><p lang="en" dir="ltr">State of Virginia- Department of the Interior - 1957<br><br>3D terrain render<a href="https://twitter.com/hashtag/arcgispro?src=hash&amp;ref_src=twsrc%5Etfw">#arcgispro</a> <a href="https://twitter.com/hashtag/blender?src=hash&amp;ref_src=twsrc%5Etfw">#blender</a> <a href="https://twitter.com/hashtag/Virginia?src=hash&amp;ref_src=twsrc%5Etfw">#Virginia</a> <a href="https://twitter.com/hashtag/GIS?src=hash&amp;ref_src=twsrc%5Etfw">#GIS</a> <a href="https://twitter.com/hashtag/geospatial?src=hash&amp;ref_src=twsrc%5Etfw">#geospatial</a> <a href="https://twitter.com/hashtag/dataviz?src=hash&amp;ref_src=twsrc%5Etfw">#dataviz</a> <a href="https://twitter.com/hashtag/3dart?src=hash&amp;ref_src=twsrc%5Etfw">#3dart</a> <a href="https://t.co/2OINJdYo0F">pic.twitter.com/2OINJdYo0F</a></p>&mdash; Sean Conway (@geo_spatialist) <a href="https://twitter.com/geo_spatialist/status/1288109141999984640?ref_src=twsrc%5Etfw">July 28, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
+<!--html_preserve-->
+<blockquote class="twitter-tweet">
+<p lang="en" dir="ltr">State of Virginia- Department of the Interior - 1957<br><br>3D terrain render<a href="https://twitter.com/hashtag/arcgispro?src=hash&amp;ref_src=twsrc%5Etfw">#arcgispro</a> <a href="https://twitter.com/hashtag/blender?src=hash&amp;ref_src=twsrc%5Etfw">#blender</a> <a href="https://twitter.com/hashtag/Virginia?src=hash&amp;ref_src=twsrc%5Etfw">#Virginia</a> <a href="https://twitter.com/hashtag/GIS?src=hash&amp;ref_src=twsrc%5Etfw">#GIS</a> <a href="https://twitter.com/hashtag/geospatial?src=hash&amp;ref_src=twsrc%5Etfw">#geospatial</a> <a href="https://twitter.com/hashtag/dataviz?src=hash&amp;ref_src=twsrc%5Etfw">#dataviz</a> <a href="https://twitter.com/hashtag/3dart?src=hash&amp;ref_src=twsrc%5Etfw">#3dart</a> <a href="https://t.co/2OINJdYo0F">pic.twitter.com/2OINJdYo0F</a></p>&mdash; Sean Conway (@geo_spatialist) <a href="https://twitter.com/geo_spatialist/status/1288109141999984640?ref_src=twsrc%5Etfw">July 28, 2020</a>
+</blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<!--/html_preserve-->
 
+<!--html_preserve-->
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Beautiful Amami Ōshima, an island in southwest Japan, Kagoshima-ken. Part of the Geological Map of Japan Series, by the Geological Survey of Japan, 1994. Used bathymetry data this time.<a href="https://twitter.com/hashtag/rayshader?src=hash&amp;ref_src=twsrc%5Etfw">#rayshader</a> adventures, an <a href="https://twitter.com/hashtag/rstats?src=hash&amp;ref_src=twsrc%5Etfw">#rstats</a> tale <a href="https://t.co/A7qvnKmtPx">pic.twitter.com/A7qvnKmtPx</a></p>&mdash; flotsam (@researchremora) <a href="https://twitter.com/researchremora/status/1309133794713239555?ref_src=twsrc%5Etfw">September 24, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
-
+<!--/html_preserve-->
 
 # Get started
 
