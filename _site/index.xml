@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0">
   <channel>
-    <title>@mpschramm</title>
     <link>https://michaelpaulschramm.com</link>
     <atom:link href="https://michaelpaulschramm.com/index.xml" rel="self" type="application/rss+xml"/>
     <description>Exploring open source water research.
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Thu, 17 Sep 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 09 Oct 2020 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Rayshading maps</title>
+      <dc:creator>Michael Schramm</dc:creator>
+      <link>https://michaelpaulschramm.com/posts/2020-10-08-rayshading_maps</link>
+      <description>An adventure in using rayshader.</description>
+      <guid>https://michaelpaulschramm.com/posts/2020-10-08-rayshading_maps</guid>
+      <pubDate>Fri, 09 Oct 2020 00:00:00 +0000</pubDate>
+      <media:content url="https://michaelpaulschramm.com/posts/2020-10-08-rayshading_maps/2020-10-08-rayshading_maps_files/figure-html5/finalmap-1.png" medium="image" type="image/png" width="1536" height="768"/>
+    </item>
     <item>
       <title>Predicting estuarine salinity using simple statistical models part 2</title>
       <dc:creator>Michael Schramm</dc:creator>

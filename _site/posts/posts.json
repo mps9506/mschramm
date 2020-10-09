@@ -1,5 +1,23 @@
 [
   {
+    "path": "posts/2020-10-08-rayshading_maps/",
+    "title": "Rayshading maps",
+    "description": "An adventure in using rayshader.",
+    "author": [
+      {
+        "name": "Michael Schramm",
+        "url": "https://michaelpaulschramm.com"
+      }
+    ],
+    "date": "2020-10-09",
+    "categories": [],
+    "preview": "posts/2020-10-08-rayshading_maps/2020-10-08-rayshading_maps_files/figure-html5/finalmap-1.png",
+    "last_modified": "2020-10-09T13:33:26-05:00",
+    "input_file": "2020-10-08-rayshading_maps.utf8.md",
+    "preview_width": 1536,
+    "preview_height": 768
+  },
+  {
     "path": "posts/2020-09-09-salinity_functions/",
     "title": "Predicting estuarine salinity using simple statistical models part 2",
     "description": "Part one of some statistical approaches for estimating estuarine salinity using freshwater inflow.",
