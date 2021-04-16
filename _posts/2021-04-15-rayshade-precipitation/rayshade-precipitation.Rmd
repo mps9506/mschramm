@@ -1,0 +1,272 @@
+---
+title: "Rayshading Precipitation Maps"
+description: |
+  I rendered some preciptiation maps of the contiguous US with rayshader.
+author:
+  - name: Michael Schramm
+    url: https://michaelpaulschramm.com
+    affiliation: Texas Water Resources Institute
+    affiliation_url: https://twri.tamu.edu
+date: "2021-04-15"
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+```{r setup, include=FALSE}
+ragg_png = function(..., res = 192) {
+  ragg::agg_png(..., res = res, units = "in")
+}
+
+knitr::opts_chunk$set(echo = TRUE,
+                      dev = "ragg_png",
+                      fig.ext = "png",
+                      fig.width = 8,
+                      fig.height = 4,
+                      dpi = 200)
+library(hrbrthemes)
+library(tidyverse)
+
+theme_ipsum_pub <- function(...) {
+  hrbrthemes::theme_ipsum_pub(plot_margin = margin(10, 10, 10, 10),
+                          ...)
+}
+
+extrafont::loadfonts()
+```
+
+Recently, I've been exploring some different gridded daily precipitation datasets and evaluating how they impact watershed models I've been working on. Let's explore using the [`rayshader`](https://github.com/tylermorganwall/rayshader) to make some three-dimensional maps.
+
+First, obtain the gridded precipitation data. I will use the 30-yr mean annual precipitation from [PRISM](https://prism.oregonstate.edu/normals/). Luckily, there is an R package so we can easily script the data download.
+
+Second, I will smooth the data a little bit by summarizing into tiles. There is a lot of variation at the nation-wide scale by spatially-binning and averaging the data, the map is just a little more aesthetically pleasing to my eye. This can be done using `base` and `sp` or with `ggplot`. I am going to demonstrate both workflows. 
+
+Third, I will render a three-dimensional map with `rayshader`. So, load the necessary packages before we start. I'm using the development version of `rayshader` and `rayrender` because of some massive speed improvements, I recommend installing if you can (`remotes::install_github(tylermorganwall/rayshader)`; `remotes::install_github(tylermorganwall/rayrender)`). [`statesRcontiguous`](https://github.com/charliejhadley/statesRcontiguous) is only on Github, so install as follows: `remotes::install_github(charliejhadley/statesRcontiguous)`.
+
+```{r loadpackages, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(rayshader) ## using v0.24.6 from Github
+library(prism) ## to download PRISM data
+library(raster)
+library(statesRcontiguous) ## shapefiles for clipping data
+library(sf)
+```
+
+## Download Data
+
+The [`prism`](https://github.com/ropensci/prism) package downloads the gridded precipitation datasets we request, then stores the path so we can read with the `raster` function. I'm downloading the 4km resolution data, if you were doing this at the state or local level, consider downloading the 800m dataset for better resolution.
+
+I also need to do some data cropping/clipping. The `statesRcontigous` package has some handy shapefiles of the US and states to facilitate the process. It is only on github, so head over and download it. 
+
+```{r download, message=FALSE, warning=FALSE}
+## PRISM data
+tmpdir <- tempdir()
+prism_set_dl_dir(tmpdir)
+prism <- get_prism_normals("ppt", "4km", annual = TRUE, keepZip = FALSE)
+prism_rast <- prism_archive_subset("ppt", "annual normals", resolution = "4km")
+prism_rast <- pd_to_file(prism_rast)
+prism_rast <- raster(prism_rast)
+
+# Lower 48 boundaries
+shp_contiguous_states <- shp_all_us_states %>%
+  dplyr::filter(contiguous.united.states) %>%
+  dplyr::filter(!is.na(affgeoid)) %>%
+  as_Spatial() %>%
+  aggregate()
+```
+
+
+## Tile rasters
+
+There are two possible workflows here. I originally used functions from the `sp` package to spatially summarize data. However [@cstats1](https://twitter.com/cstats1) posted an efficient workflow using ggplot that I will replicate here.
+
+<!--html_preserve-->
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Since several people have asked and I have no idea when I will actually get around to writing this process up, here are the steps to making elevation tiles in <a href="https://twitter.com/hashtag/rayshader?src=hash&amp;ref_src=twsrc%5Etfw">#rayshader</a> sans pulling in the shapefiles and elevation data directly from <a href="https://twitter.com/hashtag/rstats?src=hash&amp;ref_src=twsrc%5Etfw">#rstats</a> using the Monterey Bay elevation file <a href="https://t.co/0aeXnCEIk0">pic.twitter.com/0aeXnCEIk0</a></p>&mdash; newishtodc (@cstats1) <a href="https://twitter.com/cstats1/status/1363973970068967430?ref_src=twsrc%5Etfw">February 22, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
+<!--/html_preserve-->
+
+- The `ggplot2` workflow: Convert the raster to a data frame, then use `stat_summary_2d()` to spatially bin a calculate the mean precip per bin. I originally wanted hexagons (using `stat_summary_hex()`), but kept getting weird artifacts in the plots. So square tiles it is.
+
+- The `base`/`sp` workflow: Using `sp`, create a hexagonal spatial polygons object that covers our raster area. Then extract the mean precipitation in each hexagon and convert the hexagons into a raster with the mean precipitation as the value. 
+
+You will notice the first workflow is much faster. The `raster::extract` function run particularly slow. I suspect that the new `terra` package would do this much faster, but I haven't switched my workflows over to it yet.
+
+**ggplot:**
+
+```{r ggplot-flow1, message=FALSE, warning=FALSE, out.width="100%"}
+df <- as.data.frame(as(prism_rast, "SpatialPixelsDataFrame"))
+colnames(df) <- c("value", "x", "y")
+p1 <- ggplot(df, aes(x, y, z = value)) +
+  stat_summary_2d(binwidth = c(.2,.2)) +
+  scale_fill_viridis_c("Mean Annual Precipitation [mm]", direction = -1) +
+  labs(x = "Longitude", y = "Latitude", caption = "@mpschramm") +
+  theme(text = element_text(family = "Source Sans Pro"),
+        legend.position = "bottom",
+        legend.title = element_text(size = 8),
+        legend.text = element_text(size = 7),
+        legend.key.height = unit(0.25, "cm"),
+        panel.background = element_rect(fill = "white", color = "white"),
+        panel.grid = element_blank(),
+        axis.title.x = element_text(size = 6, hjust = 0),
+        axis.title.y = element_text(size = 6, hjust = 0),
+        axis.text.x = element_text(size = 6),
+        axis.text.y = element_text(size = 6))
+  
+p1
+```
+
+
+**base/sp:**
+
+```{r base-flow1, message=FALSE, warning=FALSE}
+hexagons <- sp::spsample(x =  shp_contiguous_states,
+                         n = 10000,
+                         type = "hexagonal")
+
+hexagons <- sp::HexPoints2SpatialPolygons(hexagons)
+
+row.names(hexagons) <- as.character(1:length(hexagons))
+
+hexagons <- st_intersection(st_as_sf(hexagons),
+                            st_as_sf(shp_contiguous_states))
+
+hexagons <- as_Spatial(hexagons)
+
+prism_summary <- raster::extract(x = prism_rast,
+                                     y = as(hexagons, 'SpatialPolygons'),
+                                     fun = mean,
+                                     na.rm = TRUE,
+                                 sp = TRUE)
+
+ppt_raster <- rasterize(prism_summary,
+                        prism_rast,
+                        field = "PRISM_ppt_30yr_normal_4kmM2_annual_bil")
+pal <- hcl.colors(100, palette = "viridis", rev = TRUE)
+plot(ppt_raster, col = pal)
+  
+
+```
+
+## Rayshade
+
+Time to make the computer go bananas. I usually render a low res version first to make sure I like the colors, scaling, etc. These can take quite some time to render. Play with the settings to get what you like and share on [Twitter with #rayshader](https://twitter.com/search?q=%23rayshader).
+
+**ggplot2**
+
+```{r ggplot-out, eval=FALSE}
+plot_gg(p1, 
+        multicore = TRUE, 
+        width = 4*1.777, 
+        height = 4,
+        solidcolor = "white",
+        theta = 0,
+        phi = 80,
+        fov = 0,
+        zoom = .5,
+        background = "grey80",
+        windowsize = c(1920,1080))
+
+render_highquality(lightdirection = 45, 
+                   lightaltitude = 60,
+                   lightintensity = 1000,
+                   samples = 2000,
+                   sample_method = "sobol",
+                   parallel = TRUE,
+                   width = 1920,
+                   height = 1080,
+                   ground_material = rayrender::diffuse(color = "grey40"),
+                   clear = TRUE)
+```
+
+```{r ggplot-run, message=FALSE, warning=FALSE, echo = FALSE, width="100%", layout="l-body-outset", preview=TRUE}
+plot_gg(p1, 
+        multicore = TRUE, 
+        width = 4*1.777, 
+        height = 4,
+        solidcolor = "white",
+        theta = 0,
+        phi = 80,
+        fov = 45,
+        zoom = .5,
+        background = "grey80",
+        windowsize = c(1920,1080))
+
+render_highquality(file = here::here("_posts/2021-04-15-rayshade-precipitation/ggplot-rayshade.png"),
+                   lightdirection = 45, 
+                   lightaltitude = 60,
+                   lightintensity = 1000,
+                   samples = 3000,
+                   sample_method = "sobol",
+                   parallel = TRUE,
+                   width = 1920,
+                   height = 1080,
+                   ground_material = rayrender::diffuse(color = "grey40"),
+                   clear = TRUE)
+knitr::include_graphics(here::here("_posts/2021-04-15-rayshade-precipitation/ggplot-rayshade.png"),
+                        dpi = NA)
+```
+
+
+**base/sp**
+
+```{r sp-out, eval=FALSE}
+## convert ras to a matrix:
+elmat = raster_to_matrix(ppt_raster)
+elmat %>%
+  height_shade(texture = hcl.colors(100, palette = "viridis", rev = TRUE)) %>%
+  plot_3d(elmat,
+          zscale = 16,
+          solidcolor = "white",
+          theta = 0,
+          phi = 80,
+          fov = 45,
+          zoom = .5,
+          background = "grey80",
+          windowsize = c(1920,1080))
+render_highquality(lightdirection = 45, 
+                   lightaltitude = 60,
+                   lightintensity = 900,
+                   samples = 3000,
+                   sample_method = "sobol",
+                   parallel = TRUE,
+                   width = 1920,
+                   height = 1080,
+                   ground_material = rayrender::diffuse(color = "grey40"),
+                   clear = TRUE)
+```
+
+
+
+```{r sp-run, message=FALSE, warning=FALSE, echo = FALSE, width="100%", layout="l-body-outset"}
+## convert ras to a matrix:
+elmat = raster_to_matrix(ppt_raster)
+elmat %>%
+  height_shade(texture = hcl.colors(100, palette = "viridis", rev = TRUE)) %>%
+  plot_3d(elmat,
+          zscale = 16,
+          solidcolor = "white",
+          theta = 0,
+          phi = 80,
+          fov = 45,
+          zoom = .5,
+          background = "grey80",
+          windowsize = c(1920,1080))
+render_highquality(file = here::here("_posts/2021-04-15-rayshade-precipitation/sp-rayshade.png"),
+                   lightdirection = 45, 
+                   lightaltitude = 60,
+                   lightintensity = 900,
+                   samples = 3000,
+                   sample_method = "sobol",
+                   parallel = TRUE,
+                   width = 1920,
+                   height = 1080,
+                   ground_material = rayrender::diffuse(color = "grey40"),
+                   title_text = "@mpschramm",
+                   title_color = "grey20",
+                   title_font = "Source Sans Pro",
+                   title_size = 20,
+                   title_offset = c(1600,1000),
+                   clear = TRUE)
+knitr::include_graphics(here::here("_posts/2021-04-15-rayshade-precipitation/sp-rayshade.png"),
+                        dpi = NA)
+```
+
