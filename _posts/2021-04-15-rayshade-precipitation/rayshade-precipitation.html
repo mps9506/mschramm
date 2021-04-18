@@ -99,23 +99,29 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <meta property="og:title" content="Rayshading Precipitation Maps"/>
   <meta property="og:type" content="article"/>
   <meta property="og:description" content="I rendered some preciptiation maps of the contiguous US with rayshader."/>
+  <meta property="og:image" content="https://michaelpaulschramm.com/rayshade-precipitation_files/figure-html5/extract-1.png"/>
+  <meta property="og:image:width" content="3200"/>
+  <meta property="og:image:height" content="1600"/>
   <meta property="og:locale" content="en_US"/>
 
   <!--  https://dev.twitter.com/cards/types/summary -->
-  <meta property="twitter:card" content="summary"/>
+  <meta property="twitter:card" content="summary_large_image"/>
   <meta property="twitter:title" content="Rayshading Precipitation Maps"/>
   <meta property="twitter:description" content="I rendered some preciptiation maps of the contiguous US with rayshader."/>
+  <meta property="twitter:image" content="https://michaelpaulschramm.com/rayshade-precipitation_files/figure-html5/extract-1.png"/>
+  <meta property="twitter:image:width" content="3200"/>
+  <meta property="twitter:image:height" content="1600"/>
 
   <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Rayshading Precipitation Maps"]},{"type":"character","attributes":{},"value":["I rendered some preciptiation maps of the contiguous US with rayshader.\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url"]}},"value":[{"type":"character","attributes":{},"value":["Michael Schramm"]},{"type":"character","attributes":{},"value":["https://michaelpaulschramm.com"]},{"type":"character","attributes":{},"value":["Texas Water Resources Institute"]},{"type":"character","attributes":{},"value":["https://twri.tamu.edu"]}]}]},{"type":"character","attributes":{},"value":["2021-04-15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","base_url"]}},"value":[{"type":"character","attributes":{},"value":["Rayshading Precipitation Maps"]},{"type":"character","attributes":{},"value":["I rendered some preciptiation maps of the contiguous US with rayshader.\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url"]}},"value":[{"type":"character","attributes":{},"value":["Michael Schramm"]},{"type":"character","attributes":{},"value":["https://michaelpaulschramm.com"]},{"type":"character","attributes":{},"value":["Texas Water Resources Institute"]},{"type":"character","attributes":{},"value":["https://twri.tamu.edu"]}]}]},{"type":"character","attributes":{},"value":["2021-04-15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]},{"type":"character","attributes":{},"value":["https://michaelpaulschramm.com/"]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["ggplot-rayshade.png","rayshade-precipitation_files/anchor-4.2.2/anchor.min.js","rayshade-precipitation_files/bowser-1.9.3/bowser.min.js","rayshade-precipitation_files/distill-2.2.21/template.v2.js","rayshade-precipitation_files/figure-html5/base-flow1-1.png","rayshade-precipitation_files/figure-html5/ggplot-flow1-1.png","rayshade-precipitation_files/figure-html5/ggplot-out-1.png","rayshade-precipitation_files/header-attrs-2.7/header-attrs.js","rayshade-precipitation_files/jquery-1.11.3/jquery.min.js","rayshade-precipitation_files/popper-2.6.0/popper.min.js","rayshade-precipitation_files/tippy-6.2.7/tippy-bundle.umd.min.js","rayshade-precipitation_files/tippy-6.2.7/tippy-light-border.css","rayshade-precipitation_files/tippy-6.2.7/tippy.css","rayshade-precipitation_files/tippy-6.2.7/tippy.umd.min.js","rayshade-precipitation_files/webcomponents-2.0.0/webcomponents.js","sp-rayshade.png"]}
+  {"type":"character","attributes":{},"value":["ggplot-rayshade.png","rayshade-precipitation_files/anchor-4.2.2/anchor.min.js","rayshade-precipitation_files/bowser-1.9.3/bowser.min.js","rayshade-precipitation_files/distill-2.2.21/template.v2.js","rayshade-precipitation_files/figure-html5/base-flow1-1.png","rayshade-precipitation_files/figure-html5/extract-1.png","rayshade-precipitation_files/figure-html5/ggplot-flow1-1.png","rayshade-precipitation_files/figure-html5/ggplot-out-1.png","rayshade-precipitation_files/header-attrs-2.7/header-attrs.js","rayshade-precipitation_files/jquery-1.11.3/jquery.min.js","rayshade-precipitation_files/popper-2.6.0/popper.min.js","rayshade-precipitation_files/tippy-6.2.7/tippy-bundle.umd.min.js","rayshade-precipitation_files/tippy-6.2.7/tippy-light-border.css","rayshade-precipitation_files/tippy-6.2.7/tippy.css","rayshade-precipitation_files/tippy-6.2.7/tippy.umd.min.js","rayshade-precipitation_files/webcomponents-2.0.0/webcomponents.js","sp-rayshade.png"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1479,22 +1485,20 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <div class="d-article">
 <p>Recently, I’ve been exploring some different gridded daily precipitation datasets and evaluating how they impact watershed models I’ve been working on. Let’s explore using the <a href="https://github.com/tylermorganwall/rayshader"><code>rayshader</code></a> to make some three-dimensional maps.</p>
 <p>First, obtain the gridded precipitation data. I will use the 30-yr mean annual precipitation from <a href="https://prism.oregonstate.edu/normals/">PRISM</a>. Luckily, there is an R package so we can easily script the data download.</p>
-<p>Second, I will smooth the data a little bit by summarizing into tiles. There is a lot of variation at the nation-wide scale by spatially-binning and averaging the data, the map is just a little more aesthetically pleasing to my eye. This can be done using <code>base</code> and <code>sp</code> or with <code>ggplot</code>. I am going to demonstrate both workflows.</p>
+<p>Second, I will smooth the data a little bit by summarizing into tiles. There is a lot of variation at the nation-wide scale by spatially-binning and averaging the data, the map is just a little more aesthetically pleasing to my eye. This can be done a bunch of different ways. Here, I will use the <code>sf</code> and <code>terra</code> packages to create and populate the hexagons with mean annual precipitation data.</p>
 <p>Third, I will render a three-dimensional map with <code>rayshader</code>. So, load the necessary packages before we start. I’m using the development version of <code>rayshader</code> and <code>rayrender</code> because of some massive speed improvements, I recommend installing if you can (<code>remotes::install_github(tylermorganwall/rayshader)</code>; <code>remotes::install_github(tylermorganwall/rayrender)</code>). <a href="https://github.com/charliejhadley/statesRcontiguous"><code>statesRcontiguous</code></a> is only on Github, so install as follows: <code>remotes::install_github(charliejhadley/statesRcontiguous)</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/tylermorganwall/rayshader'>rayshader</a></span><span class='op'>)</span> <span class='co'>## using v0.24.6 from Github</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://docs.ropensci.org/prism/'>prism</a></span><span class='op'>)</span> <span class='co'>## to download PRISM data</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://rspatial.org/raster'>raster</a></span><span class='op'>)</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/martinjhnhadley/statesRcontiguous'>statesRcontiguous</a></span><span class='op'>)</span> <span class='co'>## shapefiles for clipping data</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://rspatial.org/terra'>terra</a></span><span class='op'>)</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://r-spatial.github.io/sf/'>sf</a></span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
 <h2 id="download-data">Download Data</h2>
-<p>The <a href="https://github.com/ropensci/prism"><code>prism</code></a> package downloads the gridded precipitation datasets we request, then stores the path so we can read with the <code>raster</code> function. I’m downloading the 4km resolution data, if you were doing this at the state or local level, consider downloading the 800m dataset for better resolution.</p>
-<p>I also need to do some data cropping/clipping. The <code>statesRcontigous</code> package has some handy shapefiles of the US and states to facilitate the process. It is only on github, so head over and download it.</p>
+<p>The <a href="https://github.com/ropensci/prism"><code>prism</code></a> package downloads the gridded precipitation datasets we request, then stores the path so we can read with the <code>rast</code> function. I’m downloading the 4km resolution data, if you were doing this at the state or local level, consider downloading the 800m dataset for better resolution.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'>## PRISM data</span>
@@ -1511,35 +1515,65 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>prism_rast</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://docs.ropensci.org/prism/reference/prism_archive_subset.html'>prism_archive_subset</a></span><span class='op'>(</span><span class='st'>"ppt"</span>, <span class='st'>"annual normals"</span>, resolution <span class='op'>=</span> <span class='st'>"4km"</span><span class='op'>)</span>
 <span class='va'>prism_rast</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://docs.ropensci.org/prism/reference/pd_get.html'>pd_to_file</a></span><span class='op'>(</span><span class='va'>prism_rast</span><span class='op'>)</span>
-<span class='va'>prism_rast</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/raster/man/raster.html'>raster</a></span><span class='op'>(</span><span class='va'>prism_rast</span><span class='op'>)</span>
-
-<span class='co'># Lower 48 boundaries</span>
-<span class='va'>shp_contiguous_states</span> <span class='op'>&lt;-</span> <span class='va'>shp_all_us_states</span> <span class='op'>%&gt;%</span>
-  <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>contiguous.united.states</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>affgeoid</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://r-spatial.github.io/sf/reference/coerce-methods.html'>as_Spatial</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/pkg/raster/man/aggregate.html'>aggregate</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>prism_rast</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/terra/man/rast.html'>rast</a></span><span class='op'>(</span><span class='va'>prism_rast</span><span class='op'>)</span>
+<span class='va'>prism_rast</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/terra/man/project.html'>project</a></span><span class='op'>(</span><span class='va'>prism_rast</span>, <span class='st'>"+proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +a=6370997 +b=6370997 +units=m +no_defs "</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
 <h2 id="tile-rasters">Tile rasters</h2>
-<p>There are two possible workflows here. I originally used functions from the <code>sp</code> package to spatially summarize data. However <span class="citation" data-cites="cstats1">[@cstats1]</span>(<a href="https://twitter.com/cstats1" class="uri">https://twitter.com/cstats1</a>) posted an efficient workflow using ggplot that I will replicate here.</p>
+<p>As I mentioned, there are various ways to make the tiles.<span class="citation" data-cites="cstats1">[@cstats1]</span>(<a href="https://twitter.com/cstats1" class="uri">https://twitter.com/cstats1</a>) posted an efficient workflow using the <code>summary_stat</code> function in <code>ggplot</code>. I wanted to project the data and utilize the new <code>terra</code> package to summarize the data. It take a bit longer, but I like the results.</p>
 
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Since several people have asked and I have no idea when I will actually get around to writing this process up, here are the steps to making elevation tiles in <a href="https://twitter.com/hashtag/rayshader?src=hash&amp;ref_src=twsrc%5Etfw">#rayshader</a> sans pulling in the shapefiles and elevation data directly from <a href="https://twitter.com/hashtag/rstats?src=hash&amp;ref_src=twsrc%5Etfw">#rstats</a> using the Monterey Bay elevation file <a href="https://t.co/0aeXnCEIk0">pic.twitter.com/0aeXnCEIk0</a></p>&mdash; newishtodc (@cstats1) <a href="https://twitter.com/cstats1/status/1363973970068967430?ref_src=twsrc%5Etfw">February 22, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
 
-<ul>
-<li><p>The <code>ggplot2</code> workflow: Convert the raster to a data frame, then use <code>stat_summary_2d()</code> to spatially bin a calculate the mean precip per bin. I originally wanted hexagons (using <code>stat_summary_hex()</code>), but kept getting weird artifacts in the plots. So square tiles it is.</p></li>
-<li><p>The <code>base</code>/<code>sp</code> workflow: Using <code>sp</code>, create a hexagonal spatial polygons object that covers our raster area. Then extract the mean precipitation in each hexagon and convert the hexagons into a raster with the mean precipitation as the value.</p></li>
-</ul>
-<p>You will notice the first workflow is much faster. The <code>raster::extract</code> function run particularly slow. I suspect that the new <code>terra</code> package would do this much faster, but I haven’t switched my workflows over to it yet.</p>
-<p><strong>ggplot:</strong></p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/raster/man/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='fu'><a href='https://r-spatial.github.io/sf/reference/coerce-methods.html'>as</a></span><span class='op'>(</span><span class='va'>prism_rast</span>, <span class='st'>"SpatialPixelsDataFrame"</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span><span class='op'>(</span><span class='va'>df</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"value"</span>, <span class='st'>"x"</span>, <span class='st'>"y"</span><span class='op'>)</span>
-<span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='fu'>ggplot</span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'>aes</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, z <span class='op'>=</span> <span class='va'>value</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>stat_summary_2d</span><span class='op'>(</span>binwidth <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>.2</span>,<span class='fl'>.2</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>scale_fill_viridis_c</span><span class='op'>(</span><span class='st'>"Mean Annual Precipitation [mm]"</span>, direction <span class='op'>=</span> <span class='op'>-</span><span class='fl'>1</span><span class='op'>)</span> <span class='op'>+</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'>## create and extent polygon</span>
+<span class='va'>prism_ext</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/terra/man/as.spatvector.html'>as.polygons</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/terra/man/ext.html'>ext</a></span><span class='op'>(</span><span class='va'>prism_rast</span><span class='op'>)</span>, crs<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/pkg/terra/man/crs.html'>crs</a></span><span class='op'>(</span><span class='va'>prism_rast</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>prism_ext</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://r-spatial.github.io/sf/reference/st_as_sf.html'>st_as_sf</a></span><span class='op'>(</span><span class='va'>prism_ext</span><span class='op'>)</span>
+
+<span class='co'>## create a hexagon grid in the extent polygon</span>
+<span class='va'>hexagons</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://r-spatial.github.io/sf/reference/st_make_grid.html'>st_make_grid</a></span><span class='op'>(</span><span class='va'>prism_ext</span>,
+                         n <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/terra/man/c.html'>c</a></span><span class='op'>(</span><span class='fl'>150</span>,<span class='fl'>150</span><span class='op'>)</span>,
+                         square <span class='op'>=</span> <span class='cn'>FALSE</span>,
+                         crs <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/terra/man/crs.html'>crs</a></span><span class='op'>(</span><span class='va'>prism_ext</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='co'>## convert from sf back to terra,</span>
+<span class='co'>## we lose the crs def along the way</span>
+<span class='co'>## so set the crs again</span>
+<span class='va'>hexagons</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/terra/man/vect.html'>vect</a></span><span class='op'>(</span><span class='va'>hexagons</span><span class='op'>)</span>  
+<span class='fu'><a href='https://rdrr.io/pkg/terra/man/crs.html'>crs</a></span><span class='op'>(</span><span class='va'>hexagons</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/terra/man/crs.html'>crs</a></span><span class='op'>(</span><span class='va'>prism_rast</span><span class='op'>)</span>
+
+<span class='co'>## calculate the mean raster values in each polygon</span>
+<span class='va'>prism_summary</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/terra/man/extract.html'>extract</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>prism_rast</span>,
+                         y <span class='op'>=</span> <span class='va'>hexagons</span>,
+                         fun <span class='op'>=</span> <span class='va'>mean</span>,
+                         na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+
+<span class='co'>## extract returns a matrix, need to get the data back</span>
+<span class='co'>## into hexagons </span>
+<span class='fu'><a href='https://rdrr.io/pkg/terra/man/values.html'>values</a></span><span class='op'>(</span><span class='va'>hexagons</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>ID <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fu'><a href='https://rdrr.io/pkg/terra/man/dimensions.html'>nrow</a></span><span class='op'>(</span><span class='va'>hexagons</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>hexagons</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/terra/man/merge.html'>merge</a></span><span class='op'>(</span><span class='va'>hexagons</span>, <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span><span class='va'>prism_summary</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/pkg/terra/man/values.html'>values</a></span><span class='op'>(</span><span class='va'>hexagons</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span><span class='va'>prism_summary</span><span class='op'>)</span>
+
+<span class='co'>## what does it look like?</span>
+<span class='fu'><a href='https://rdrr.io/pkg/terra/man/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>hexagons</span>, <span class='st'>"PRISM_ppt_30yr_normal_4kmM2_annual_bil"</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="rayshade-precipitation_files/figure-html5/extract-1.png" width="1600" /></p>
+</div>
+<h2 id="rayshade">Rayshade</h2>
+<p>Time to make the computer go bananas. First, convert <code>hexagons</code> to <code>sf</code> and plot with <code>ggplot2</code>. Then we can easily generate a rayshaded plot. If you want to forgo, <code>ggplot2</code>, convert to a raster and run through <code>rayshader</code>. I usually render a low res version first to make sure I like the colors, scaling, etc. These can take quite some time to render. Play with the settings to get what you like and share on <a href="https://twitter.com/search?q=%23rayshader">Twitter with #rayshader</a>.</p>
+<p><strong>ggplot2</strong></p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'>## convert to sf and features with NA values</span>
+<span class='va'>hexagons</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://r-spatial.github.io/sf/reference/st_as_sf.html'>st_as_sf</a></span><span class='op'>(</span><span class='va'>hexagons</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>PRISM_ppt_30yr_normal_4kmM2_annual_bil</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='co'>## make your ggplot, customize as needed</span>
+<span class='fu'>ggplot</span><span class='op'>(</span><span class='va'>hexagons</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_sf</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>PRISM_ppt_30yr_normal_4kmM2_annual_bil</span><span class='op'>)</span>, color <span class='op'>=</span> <span class='cn'>NA</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>scale_fill_viridis_c</span><span class='op'>(</span><span class='st'>"Annual Precipition [mm]"</span>, direction <span class='op'>=</span> <span class='op'>-</span><span class='fl'>1</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'>labs</span><span class='op'>(</span>x <span class='op'>=</span> <span class='st'>"Longitude"</span>, y <span class='op'>=</span> <span class='st'>"Latitude"</span>, caption <span class='op'>=</span> <span class='st'>"@mpschramm"</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'>theme</span><span class='op'>(</span>text <span class='op'>=</span> <span class='fu'>element_text</span><span class='op'>(</span>family <span class='op'>=</span> <span class='st'>"Source Sans Pro"</span><span class='op'>)</span>,
         legend.position <span class='op'>=</span> <span class='st'>"bottom"</span>,
@@ -1547,54 +1581,17 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
         legend.text <span class='op'>=</span> <span class='fu'>element_text</span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>7</span><span class='op'>)</span>,
         legend.key.height <span class='op'>=</span> <span class='fu'>unit</span><span class='op'>(</span><span class='fl'>0.25</span>, <span class='st'>"cm"</span><span class='op'>)</span>,
         panel.background <span class='op'>=</span> <span class='fu'>element_rect</span><span class='op'>(</span>fill <span class='op'>=</span> <span class='st'>"white"</span>, color <span class='op'>=</span> <span class='st'>"white"</span><span class='op'>)</span>,
-        panel.grid <span class='op'>=</span> <span class='fu'>element_blank</span><span class='op'>(</span><span class='op'>)</span>,
+        panel.grid <span class='op'>=</span> <span class='fu'>element_line</span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"grey10"</span>,
+                                  size <span class='op'>=</span> <span class='fl'>.1</span><span class='op'>)</span>,
         axis.title.x <span class='op'>=</span> <span class='fu'>element_text</span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>6</span>, hjust <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>,
         axis.title.y <span class='op'>=</span> <span class='fu'>element_text</span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>6</span>, hjust <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>,
         axis.text.x <span class='op'>=</span> <span class='fu'>element_text</span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>6</span><span class='op'>)</span>,
-        axis.text.y <span class='op'>=</span> <span class='fu'>element_text</span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>6</span><span class='op'>)</span><span class='op'>)</span>
-  
-<span class='va'>p1</span>
-</code></pre>
-</div>
-<p><img src="rayshade-precipitation_files/figure-html5/ggplot-flow1-1.png" width="100%" /></p>
-</div>
-<p><strong>base/sp:</strong></p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>hexagons</span> <span class='op'>&lt;-</span> <span class='fu'>sp</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sp/man/spsample.html'>spsample</a></span><span class='op'>(</span>x <span class='op'>=</span>  <span class='va'>shp_contiguous_states</span>,
-                         n <span class='op'>=</span> <span class='fl'>10000</span>,
-                         type <span class='op'>=</span> <span class='st'>"hexagonal"</span><span class='op'>)</span>
+        axis.text.y <span class='op'>=</span> <span class='fu'>element_text</span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>6</span><span class='op'>)</span>,
+        axis.ticks.x <span class='op'>=</span> <span class='fu'>element_blank</span><span class='op'>(</span><span class='op'>)</span>,
+        axis.ticks.y <span class='op'>=</span> <span class='fu'>element_blank</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>-&gt;</span> <span class='va'>p1</span>
 
-<span class='va'>hexagons</span> <span class='op'>&lt;-</span> <span class='fu'>sp</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sp/man/as.SpatialPolygons.GridTopology.html'>HexPoints2SpatialPolygons</a></span><span class='op'>(</span><span class='va'>hexagons</span><span class='op'>)</span>
-
-<span class='fu'><a href='https://rdrr.io/r/base/row.names.html'>row.names</a></span><span class='op'>(</span><span class='va'>hexagons</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/raster/man/as.character.html'>as.character</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>hexagons</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='va'>hexagons</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://r-spatial.github.io/sf/reference/geos_binary_ops.html'>st_intersection</a></span><span class='op'>(</span><span class='fu'><a href='https://r-spatial.github.io/sf/reference/st_as_sf.html'>st_as_sf</a></span><span class='op'>(</span><span class='va'>hexagons</span><span class='op'>)</span>,
-                            <span class='fu'><a href='https://r-spatial.github.io/sf/reference/st_as_sf.html'>st_as_sf</a></span><span class='op'>(</span><span class='va'>shp_contiguous_states</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='va'>hexagons</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://r-spatial.github.io/sf/reference/coerce-methods.html'>as_Spatial</a></span><span class='op'>(</span><span class='va'>hexagons</span><span class='op'>)</span>
-
-<span class='va'>prism_summary</span> <span class='op'>&lt;-</span> <span class='fu'>raster</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/raster/man/extract.html'>extract</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>prism_rast</span>,
-                                     y <span class='op'>=</span> <span class='fu'><a href='https://r-spatial.github.io/sf/reference/coerce-methods.html'>as</a></span><span class='op'>(</span><span class='va'>hexagons</span>, <span class='st'>'SpatialPolygons'</span><span class='op'>)</span>,
-                                     fun <span class='op'>=</span> <span class='va'>mean</span>,
-                                     na.rm <span class='op'>=</span> <span class='cn'>TRUE</span>,
-                                 sp <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-
-<span class='va'>ppt_raster</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/raster/man/rasterize.html'>rasterize</a></span><span class='op'>(</span><span class='va'>prism_summary</span>,
-                        <span class='va'>prism_rast</span>,
-                        field <span class='op'>=</span> <span class='st'>"PRISM_ppt_30yr_normal_4kmM2_annual_bil"</span><span class='op'>)</span>
-<span class='va'>pal</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/grDevices/palettes.html'>hcl.colors</a></span><span class='op'>(</span><span class='fl'>100</span>, palette <span class='op'>=</span> <span class='st'>"viridis"</span>, rev <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>ppt_raster</span>, col <span class='op'>=</span> <span class='va'>pal</span><span class='op'>)</span>
-</code></pre>
-</div>
-<p><img src="rayshade-precipitation_files/figure-html5/base-flow1-1.png" width="1600" /></p>
-</div>
-<h2 id="rayshade">Rayshade</h2>
-<p>Time to make the computer go bananas. I usually render a low res version first to make sure I like the colors, scaling, etc. These can take quite some time to render. Play with the settings to get what you like and share on <a href="https://twitter.com/search?q=%23rayshader">Twitter with #rayshader</a>.</p>
-<p><strong>ggplot2</strong></p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://www.rayshader.com/reference/plot_gg.html'>plot_gg</a></span><span class='op'>(</span><span class='va'>p1</span>, 
+<span class='co'>## make 3D ggplot</span>
+<span class='fu'><a href='https://www.rayshader.com/reference/plot_gg.html'>plot_gg</a></span><span class='op'>(</span><span class='va'>p1</span>, 
         multicore <span class='op'>=</span> <span class='cn'>TRUE</span>, 
         width <span class='op'>=</span> <span class='fl'>4</span><span class='op'>*</span><span class='fl'>1.777</span>, 
         height <span class='op'>=</span> <span class='fl'>4</span>,
@@ -1604,12 +1601,13 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
         fov <span class='op'>=</span> <span class='fl'>0</span>,
         zoom <span class='op'>=</span> <span class='fl'>.5</span>,
         background <span class='op'>=</span> <span class='st'>"grey80"</span>,
-        windowsize <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1920</span>,<span class='fl'>1080</span><span class='op'>)</span><span class='op'>)</span>
+        windowsize <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/terra/man/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1920</span>,<span class='fl'>1080</span><span class='op'>)</span><span class='op'>)</span>
 
+<span class='co'>## brrrrrr</span>
 <span class='fu'><a href='https://www.rayshader.com/reference/render_highquality.html'>render_highquality</a></span><span class='op'>(</span>lightdirection <span class='op'>=</span> <span class='fl'>45</span>, 
                    lightaltitude <span class='op'>=</span> <span class='fl'>60</span>,
                    lightintensity <span class='op'>=</span> <span class='fl'>1000</span>,
-                   samples <span class='op'>=</span> <span class='fl'>2000</span>,
+                   samples <span class='op'>=</span> <span class='fl'>1000</span>, <span class='co'>#lower this to get faster rendering</span>
                    sample_method <span class='op'>=</span> <span class='st'>"sobol"</span>,
                    parallel <span class='op'>=</span> <span class='cn'>TRUE</span>,
                    width <span class='op'>=</span> <span class='fl'>1920</span>,
@@ -1625,11 +1623,16 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <p><strong>base/sp</strong></p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='co'>## convert ras to a matrix:</span>
-<span class='va'>elmat</span> <span class='op'>=</span> <span class='fu'><a href='https://www.rayshader.com/reference/raster_to_matrix.html'>raster_to_matrix</a></span><span class='op'>(</span><span class='va'>ppt_raster</span><span class='op'>)</span>
-<span class='va'>elmat</span> <span class='op'>%&gt;%</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'>## rasterize hexagons:</span>
+<span class='va'>hexagons</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/terra/man/vect.html'>vect</a></span><span class='op'>(</span><span class='va'>hexagons</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/pkg/terra/man/crs.html'>crs</a></span><span class='op'>(</span><span class='va'>hexagons</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/terra/man/crs.html'>crs</a></span><span class='op'>(</span><span class='va'>prism_rast</span><span class='op'>)</span>
+<span class='va'>hexagons</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/terra/man/rasterize.html'>rasterize</a></span><span class='op'>(</span><span class='va'>hexagons</span>, <span class='va'>prism_rast</span>,
+                      field <span class='op'>=</span> <span class='st'>"PRISM_ppt_30yr_normal_4kmM2_annual_bil"</span><span class='op'>)</span>
+<span class='co'># convert from SpatRast to Raster to matrix</span>
+<span class='va'>pptmat</span> <span class='op'>=</span> <span class='fu'><a href='https://www.rayshader.com/reference/raster_to_matrix.html'>raster_to_matrix</a></span><span class='op'>(</span><span class='fu'>raster</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/raster/man/raster.html'>raster</a></span><span class='op'>(</span><span class='va'>hexagons</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>pptmat</span> <span class='op'>%&gt;%</span>
   <span class='fu'><a href='https://www.rayshader.com/reference/height_shade.html'>height_shade</a></span><span class='op'>(</span>texture <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grDevices/palettes.html'>hcl.colors</a></span><span class='op'>(</span><span class='fl'>100</span>, palette <span class='op'>=</span> <span class='st'>"viridis"</span>, rev <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://www.rayshader.com/reference/plot_3d.html'>plot_3d</a></span><span class='op'>(</span><span class='va'>elmat</span>,
+  <span class='fu'><a href='https://www.rayshader.com/reference/plot_3d.html'>plot_3d</a></span><span class='op'>(</span><span class='va'>pptmat</span>,
           zscale <span class='op'>=</span> <span class='fl'>16</span>,
           solidcolor <span class='op'>=</span> <span class='st'>"white"</span>,
           theta <span class='op'>=</span> <span class='fl'>0</span>,
@@ -1637,7 +1640,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
           fov <span class='op'>=</span> <span class='fl'>45</span>,
           zoom <span class='op'>=</span> <span class='fl'>.5</span>,
           background <span class='op'>=</span> <span class='st'>"grey80"</span>,
-          windowsize <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1920</span>,<span class='fl'>1080</span><span class='op'>)</span><span class='op'>)</span>
+          windowsize <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/terra/man/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1920</span>,<span class='fl'>1080</span><span class='op'>)</span><span class='op'>)</span>
 <span class='fu'><a href='https://www.rayshader.com/reference/render_highquality.html'>render_highquality</a></span><span class='op'>(</span>lightdirection <span class='op'>=</span> <span class='fl'>45</span>, 
                    lightaltitude <span class='op'>=</span> <span class='fl'>60</span>,
                    lightintensity <span class='op'>=</span> <span class='fl'>900</span>,
