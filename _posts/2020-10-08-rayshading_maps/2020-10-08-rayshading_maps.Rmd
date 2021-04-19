@@ -7,7 +7,7 @@ author:
     url: https://michaelpaulschramm.com
     affiliation: Texas Water Resources Institute
     affiliation_url: https://twri.tamu.edu
-date: "`r Sys.Date()`"
+date: "`2020-10-08"
 output:
   distill::distill_article:
     self_contained: false
@@ -16,15 +16,12 @@ bibliography: bibliography.bib
 
 ```{r setup, include=FALSE}
 
-ragg_png = function(..., res = 192) {
-  ragg::agg_png(..., res = res, units = "in")
-}
-
 knitr::opts_chunk$set(echo = TRUE,
                       dev = "ragg_png",
                       fig.ext = "png",
                       fig.width = 8,
-                      fig.height = 4)
+                      fig.height = 4,
+                      dpi = 200)
 ```
 
 I stumbled onto the wonderful [`rayshader`](https://github.com/tylermorganwall/rayshader) while trying to beef up my R spatial skills [@rayshader]. Experimenting with rayshading is a wonderful rabbit hole. Inspired by (but certainly not capable of replicating) the re-rendering of historic maps by numerous folks on Twitter I decided to take a go at it.
@@ -135,7 +132,7 @@ ray_shadow <- ray_shade(elev_mat, sunaltitude = 40, zscale = 30, multicore = TRU
 ambient_shadow <- ambient_shade(elev_mat, zscale = 30)
 
 elev_mat %>%
-  sphere_shade(texture = "bw") %>%
+  sphere_shade() %>%
   add_overlay(topo_rgb_array) %>%
   add_shadow(ray_shadow, max_darken = 0.7) %>%
   add_shadow(ambient_shadow, 0.25) %>%
