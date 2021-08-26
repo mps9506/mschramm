@@ -7,10 +7,10 @@ author:
     url: https://michaelpaulschramm.com
     affiliation: Texas Water Resources Institute
     affiliation_url: https://twri.tamu.edu
-date: "`r Sys.Date()`"
+date: "2020-09-09"
 output:
   distill::distill_article:
-    self_contained: false
+    self_contained: true
 bibliography: bibliography.bib
 ---
 
@@ -65,7 +65,7 @@ df <- left_join(flow, salinity, by = c("date" = "datetime")) %>%
   dplyr::filter(!is.na(salinity))
 ```
 
-[In the previous post](https://michaelpaulschramm.com/posts/2020-08-24-salinity_functions/) I used nonlinear least squares to fit a logistic function to some salinity data. Here I explore using beta regression. Beta regression is appropriate for inherently proportional data (as opposed to proportion of success/failure or rates with shifting denominators, both covered by logistic and Poisson regression). Douma and Weedon @doi:10.1111/2041-210X.13234 provide a great flow chart for determining the type of model to use with proportional data.
+[In the previous post](https://michaelpaulschramm.com/posts/2020-08-24-salinity_functions/) I used nonlinear least squares to fit a logistic function to some salinity data. Here I explore using beta regression. Beta regression is appropriate for inherently proportional data (as opposed to proportion of success/failure or rates with shifting denominators, both covered by logistic and Poisson regression). @douma provide a great flow chart for determining the type of model to use with proportional data.
 Of course, the salinity data we use comes reported in practical salinity units (psu). We can make an assumption that the estuary has some maximum salinity and ceate a response variable that is in a proportion unit. More on that in a bit. I will be using the same salinity and flow dataset loaded in the previous post.
 
 Beta regression is appropriate when the response variable continuous and restricted to $(0,1)$. In this dataset, salinity approaches zero but never reaches zero. The maximum value is `r round(max(df$salinity),2)`. First we need to transform the response variable to a proportion. I will apply $y = \frac{salinity}{salinity_{max} + 1}$ to prevent $y=1$. It might also be reasonable to use $y = \frac{salinity}{35}$ if we assume oceanic salinity is 35 psu. This will depend on the data and in some cases (along the South Texas coast for example) estuaries become hypersaline and this would not be appropriate. Figure \@ref(fig:salinitydist) depicts the density distribution of the response variable. The distribution looks a little wonky and tells me that we may get a poor model fit. 
@@ -179,4 +179,4 @@ df %>%
   theme_ipsum_pub()
 ```
 
-I skipped over inspecting the model residuals here as I just wanted to demonstrate the benefit of using beta regression over the NLS method described in the previous post. In the next post I'll take a look at fitting a flexible generalized additve model to the data.
+I skipped over inspecting the model residuals here as I just wanted to demonstrate the benefit of using beta regression over the NLS method described in the previous post. In the next post I'll take a look at fitting a flexible generalized additive model to the data.

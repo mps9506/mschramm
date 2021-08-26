@@ -7,7 +7,7 @@ author:
     url: https://michaelpaulschramm.com
     affiliation: Texas Water Resources Institute
     affiliation_url: https://twri.tamu.edu
-date: "`r Sys.Date()`"
+date: "2020-08-24"
 output:
   distill::distill_article:
     self_contained: false
