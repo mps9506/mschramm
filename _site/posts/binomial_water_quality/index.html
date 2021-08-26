@@ -18,6 +18,72 @@
  <!--radix_placeholder_import_source-->
  <!--/radix_placeholder_import_source-->
 
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ad0000; } /* Alert */
+code span.an { color: #5e5e5e; } /* Annotation */
+code span.at { color: #20794d; } /* Attribute */
+code span.bn { color: #ad0000; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007ba5; } /* ControlFlow */
+code span.ch { color: #20794d; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #5e5e5e; } /* Comment */
+code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+code span.dt { color: #ad0000; } /* DataType */
+code span.dv { color: #ad0000; } /* DecVal */
+code span.er { color: #ad0000; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #ad0000; } /* Float */
+code span.fu { color: #4758ab; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #5e5e5e; } /* Information */
+code span.kw { color: #007ba5; } /* Keyword */
+code span.op { color: #5e5e5e; } /* Operator */
+code span.ot { color: #007ba5; } /* Other */
+code span.pp { color: #ad0000; } /* Preprocessor */
+code span.sc { color: #20794d; } /* SpecialChar */
+code span.ss { color: #20794d; } /* SpecialString */
+code span.st { color: #20794d; } /* String */
+code span.va { color: #111111; } /* Variable */
+code span.vs { color: #20794d; } /* VerbatimString */
+code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+</style>
+
   <!--radix_placeholder_meta_tags-->
 <title>@mpschramm: Binomial Test for Water Quality Compliance</title>
 
@@ -1994,7 +2060,13 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <!--/radix_placeholder_distill-->
+  <script src="../../site_libs/header-attrs-2.7/header-attrs.js"></script>
   <script src="../../site_libs/jquery-1.11.3/jquery.min.js"></script>
+  <script src="../../site_libs/popper-2.6.0/popper.min.js"></script>
+  <link href="../../site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
+  <link href="../../site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
+  <script src="../../site_libs/tippy-6.2.7/tippy.umd.min.js"></script>
+  <script src="../../site_libs/anchor-4.2.2/anchor.min.js"></script>
   <script src="../../site_libs/bowser-1.9.3/bowser.min.js"></script>
   <script src="../../site_libs/webcomponents-2.0.0/webcomponents.js"></script>
   <script src="../../site_libs/distill-2.2.21/template.v2.js"></script>
@@ -2036,6 +2108,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <div class="d-title">
 <h1>Binomial Test for Water Quality Compliance</h1>
+<!--radix_placeholder_categories-->
+<!--/radix_placeholder_categories-->
 <p><p>Use the binomial test to evaluate water quality compliance.</p></p>
 </div>
 
@@ -2048,31 +2122,32 @@ document.addEventListener('DOMContentLoaded', function() {
 <div class="d-article">
 <p>In the previous post, I used a geometric mean to assess water quality compliance. According to EPA guidance, this is appropriate for assessing bacteria levels in water bodies. For other conventional parameters, we can determine compliance when a standards violation is unlikely to occur more than 10% of the time. Using EPA guidance, we have both a test statistic (proportion of exceedances) and rejection region (&gt;10%). We assume that each water quality sample is a sample from the population that represents the water body with unknown probability (<span class="math inline">\(p\)</span>) of exceeding the criterion. Therefore, the null hypothesis:</p>
 <p><span class="math display">\[H_0 : \pi \le p_0\]</span></p>
-<p>where <span class="math inline">\(p_0\)</span> is the acceptable exceedance rate and equals 0.1. By transforming measurements below the criterion to 0 (failure), and measurements above the criterion as 1 (success) we can apply a simple binomial test to samples collected during the assessment period to evaluate current compliance. Smith et. al <span class="citation" data-cites="smith2001statistical">(Smith et al. <a href="#ref-smith2001statistical" role="doc-biblioref">2001</a>)</span> discuss the binomial approach in detail.</p>
+<p>where <span class="math inline">\(p_0\)</span> is the acceptable exceedance rate and equals 0.1. By transforming measurements below the criterion to 0 (failure), and measurements above the criterion as 1 (success) we can apply a simple binomial test to samples collected during the assessment period to evaluate current compliance. Smith et. al <span class="citation" data-cites="smith2001statistical">(<a href="#ref-smith2001statistical" role="doc-biblioref">Smith et al. 2001</a>)</span> discuss the binomial approach in detail.</p>
 <p>In the example below, I am importing grab dissolved oxygen at two stations on water body. Some events utilize two or more samples at varying depths, those samples are averaged to determine the event dissolved oxygen value.</p>
 <div class="layout-chunk" data-layout="l-body">
-<pre class="r"><code>
-library(readr)
-library(dplyr)
-library(ggplot2)
-file &lt;- url(&quot;https://gist.githubusercontent.com/mps9506/274e0debee7e7f1289dac3371ce05d1e/raw/284ff43565d03bd57c59c3151feaa739abd40f2e/1501_DO.txt&quot;)
-df &lt;- read_delim(file, &quot;|&quot;)
-df &lt;- df %&gt;%
-  #select(`RFA(Sample Set ID)/Tag_id`, Segment, `Parameter Code`, Value, `End Date`, `Monitoring Type`) %&gt;%
-  mutate(`End Date` = as.Date(`End Date`, &quot;%m/%d/%Y&quot;)) %&gt;%
-  filter(`Monitoring Type` == &quot;RT&quot;) %&gt;%
-  arrange(`End Date`) %&gt;%
-  group_by(`End Date`, `Station ID`) %&gt;%
-  summarise(Value = mean(Value))
-ggplot(df) +
-  geom_point(aes(x = `End Date`, y = Value)) +
-  geom_hline(aes(yintercept = 4)) +
-  xlab(&quot;Sample Date&quot;) + ylab(&quot;DO (mg/L)&quot;)</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://readr.tidyverse.org'>readr</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ggplot2.tidyverse.org'>ggplot2</a></span><span class='op'>)</span>
+<span class='va'>file</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/connections.html'>url</a></span><span class='op'>(</span><span class='st'>"https://gist.githubusercontent.com/mps9506/274e0debee7e7f1289dac3371ce05d1e/raw/284ff43565d03bd57c59c3151feaa739abd40f2e/1501_DO.txt"</span><span class='op'>)</span>
+<span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_delim</a></span><span class='op'>(</span><span class='va'>file</span>, <span class='st'>"|"</span><span class='op'>)</span>
+<span class='va'>df</span> <span class='op'>&lt;-</span> <span class='va'>df</span> <span class='op'>%&gt;%</span>
+  <span class='co'>#select(`RFA(Sample Set ID)/Tag_id`, Segment, `Parameter Code`, Value, `End Date`, `Monitoring Type`) %&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>`End Date` <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='va'>`End Date`</span>, <span class='st'>"%m/%d/%Y"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>`Monitoring Type`</span> <span class='op'>==</span> <span class='st'>"RT"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='va'>`End Date`</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>`End Date`</span>, <span class='va'>`Station ID`</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span>Value <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>Value</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>`End Date`</span>, y <span class='op'>=</span> <span class='va'>Value</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_abline.html'>geom_hline</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>yintercept <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>xlab</a></span><span class='op'>(</span><span class='st'>"Sample Date"</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>ylab</a></span><span class='op'>(</span><span class='st'>"DO (mg/L)"</span><span class='op'>)</span>
+</code></pre>
+</div>
 <p><img src="binomial_water_quality_files/figure-html5/unnamed-chunk-1-1.png" width="624" /></p>
 </div>
 <p>In order to determine if the waterbody meets the water quality criterion I select the water quality values during the assessment period and use the <code>binom.test</code> function in R. The arguments for <code>binom.test</code> are</p>
-<pre data-eval="FALSE"><code>
-binom.test(x, n, p = 0.5,
+<pre data-eval="FALSE"><code>binom.test(x, n, p = 0.5,
            alternative = c(&quot;two.sided&quot;, &quot;less&quot;, &quot;greater&quot;),
            conf.level = 0.95)
 x    number of successes, or a vector of length 2 giving the numbers of successes and failures, respectively.
@@ -2082,20 +2157,21 @@ alternative    indicates the alternative hypothesis and must be one of &quot;two
 conf.level    confidence level for the returned confidence interval.</code></pre>
 <p>So we need to first count the total number of “successes,” which in this case means water quality exceedances (DO value less than 4 mg/L). Note, that this is slightly different than worded above since we typically think of exceedance as above a water quality standard. We also need to count the total number of trials. Both of these are accomplished using dplyr and the <code>mutate</code>, <code>case_when</code>, and <code>summarise</code> functions.</p>
 <div class="layout-chunk" data-layout="l-body">
-<pre class="r"><code>
-binomial_df &lt;- df %&gt;%
-  filter(`End Date` &gt; as.Date(&quot;2005-11-30&quot;) &amp; `End Date` &lt; as.Date(&quot;2012-12-01&quot;)) %&gt;%
-  ungroup() %&gt;%
-  mutate(
-    success = case_when(
-      Value &lt; 4 ~ 1,
-      Value &gt;= 4 ~ 0
-      ))
-binomial_df &lt;- binomial_df %&gt;%
-  summarise(n = n(), x = sum(success))
-binomial_df</code></pre>
-<pre><code>
-# A tibble: 1 x 2
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>binomial_df</span> <span class='op'>&lt;-</span> <span class='va'>df</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>`End Date`</span> <span class='op'>&gt;</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='st'>"2005-11-30"</span><span class='op'>)</span> <span class='op'>&amp;</span> <span class='va'>`End Date`</span> <span class='op'>&lt;</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='st'>"2012-12-01"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>ungroup</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>
+    success <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span>
+      <span class='va'>Value</span> <span class='op'>&lt;</span> <span class='fl'>4</span> <span class='op'>~</span> <span class='fl'>1</span>,
+      <span class='va'>Value</span> <span class='op'>&gt;=</span> <span class='fl'>4</span> <span class='op'>~</span> <span class='fl'>0</span>
+      <span class='op'>)</span><span class='op'>)</span>
+<span class='va'>binomial_df</span> <span class='op'>&lt;-</span> <span class='va'>binomial_df</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/context.html'>n</a></span><span class='op'>(</span><span class='op'>)</span>, x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>success</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>binomial_df</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 1 x 2
       n     x
   &lt;int&gt; &lt;dbl&gt;
 1    67    15</code></pre>
@@ -2104,8 +2180,10 @@ binomial_df</code></pre>
 <p>The hypothesised rate of success is given to us by the water quality standard, 10%. Therefore the null and alternative hypothesis are:</p>
 <p><span class="math display">\[H_0 : \pi \le 0.10\]</span> <span class="math display">\[H_1 : \pi \gt 0.10\]</span></p>
 <div class="layout-chunk" data-layout="l-body">
-<pre class="r"><code>
-binom.test(x = binomial_df$x, n = binomial_df$n, p = 0.1, alternative = &quot;g&quot;)</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/stats/binom.test.html'>binom.test</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>binomial_df</span><span class='op'>$</span><span class='va'>x</span>, n <span class='op'>=</span> <span class='va'>binomial_df</span><span class='op'>$</span><span class='va'>n</span>, p <span class='op'>=</span> <span class='fl'>0.1</span>, alternative <span class='op'>=</span> <span class='st'>"g"</span><span class='op'>)</span>
+</code></pre>
+</div>
 <pre><code>
     Exact binomial test
 
@@ -2125,12 +2203,13 @@ probability of success
 The maximum Type 1 error rate specified in the State of Texas’s assessment guidance is currently 20% for impairment listings.
 </aside>
 <div class="layout-chunk" data-layout="l-body">
-<pre class="r"><code>
-binom_chart &lt;- tibble(n = 10:100,
-                       exceedances = qbinom(1-0.20, size = 10:100, prob = 0.1) + 1)
-binom_chart</code></pre>
-<pre><code>
-# A tibble: 91 x 2
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>binom_chart</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='fl'>10</span><span class='op'>:</span><span class='fl'>100</span>,
+                       exceedances <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Binomial.html'>qbinom</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>-</span><span class='fl'>0.20</span>, size <span class='op'>=</span> <span class='fl'>10</span><span class='op'>:</span><span class='fl'>100</span>, prob <span class='op'>=</span> <span class='fl'>0.1</span><span class='op'>)</span> <span class='op'>+</span> <span class='fl'>1</span><span class='op'>)</span>
+<span class='va'>binom_chart</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 91 x 2
        n exceedances
    &lt;int&gt;       &lt;dbl&gt;
  1    10           3
@@ -2150,33 +2229,34 @@ binom_chart</code></pre>
 </div>
 <p>I am also interested in visualizing the trends in exceedance probability. Using the same date-based rolling functions in the previous post, I will apply the binomal test to 7-yrs of the most recent data and plot the probability over sampling date.</p>
 <div class="layout-chunk" data-layout="l-body">
-<pre class="r"><code>
-library(purrr)
-library(lubridate) ## import lubridate for as.duration and dyears functions
-## This function will be applied to each sample,
-## return the estimated probability from the previous 7-yrs of data
-myfunc &lt;- function(dates, values, years, i){
-  temp &lt;- values[as.duration(dates[i] - dates)/dyears(1) &lt;= years &amp; as.duration(dates[i] - dates)/dyears(1) &gt;= 0]
-  df &lt;- data_frame(temp) %&gt;%
-    summarise(n = n(), successes = as.integer(sum(temp)))
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://purrr.tidyverse.org'>purrr</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://lubridate.tidyverse.org'>lubridate</a></span><span class='op'>)</span> <span class='co'>## import lubridate for as.duration and dyears functions</span>
+<span class='co'>## This function will be applied to each sample,</span>
+<span class='co'>## return the estimated probability from the previous 7-yrs of data</span>
+<span class='va'>myfunc</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>dates</span>, <span class='va'>values</span>, <span class='va'>years</span>, <span class='va'>i</span><span class='op'>)</span><span class='op'>{</span>
+  <span class='va'>temp</span> <span class='op'>&lt;-</span> <span class='va'>values</span><span class='op'>[</span><span class='fu'><a href='http://lubridate.tidyverse.org/reference/as.duration.html'>as.duration</a></span><span class='op'>(</span><span class='va'>dates</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span> <span class='op'>-</span> <span class='va'>dates</span><span class='op'>)</span><span class='op'>/</span><span class='fu'><a href='http://lubridate.tidyverse.org/reference/duration.html'>dyears</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span> <span class='op'>&lt;=</span> <span class='va'>years</span> <span class='op'>&amp;</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/as.duration.html'>as.duration</a></span><span class='op'>(</span><span class='va'>dates</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span> <span class='op'>-</span> <span class='va'>dates</span><span class='op'>)</span><span class='op'>/</span><span class='fu'><a href='http://lubridate.tidyverse.org/reference/duration.html'>dyears</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span> <span class='op'>&gt;=</span> <span class='fl'>0</span><span class='op'>]</span>
+  <span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/deprecated.html'>data_frame</a></span><span class='op'>(</span><span class='va'>temp</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/context.html'>n</a></span><span class='op'>(</span><span class='op'>)</span>, successes <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/integer.html'>as.integer</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>temp</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
   
-  results &lt;- binom.test(x = df$successes, n = df$n, p = 0.1, alternative = &quot;g&quot;)
+  <span class='va'>results</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/binom.test.html'>binom.test</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>df</span><span class='op'>$</span><span class='va'>successes</span>, n <span class='op'>=</span> <span class='va'>df</span><span class='op'>$</span><span class='va'>n</span>, p <span class='op'>=</span> <span class='fl'>0.1</span>, alternative <span class='op'>=</span> <span class='st'>"g"</span><span class='op'>)</span>
   
-  return(results$estimate)
-}
-df2 &lt;- df %&gt;%
-  ungroup() %&gt;%
-  arrange(`End Date`) %&gt;%
-  mutate(Success = as.integer(case_when(
-    Value &lt; 4 ~ 1,
-    Value &gt;= 4 ~ 0
-    )))
-df2 &lt;- df2 %&gt;%
-  mutate(ep = map_dbl(seq_along(.$`End Date`),
-                  ~myfunc(dates = `End Date`, values = Success, years = 7, i = .x)))
-df2</code></pre>
-<pre><code>
-# A tibble: 142 x 5
+  <span class='kw'><a href='https://rdrr.io/r/base/function.html'>return</a></span><span class='op'>(</span><span class='va'>results</span><span class='op'>$</span><span class='va'>estimate</span><span class='op'>)</span>
+<span class='op'>}</span>
+<span class='va'>df2</span> <span class='op'>&lt;-</span> <span class='va'>df</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>ungroup</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='va'>`End Date`</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>Success <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/integer.html'>as.integer</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span>
+    <span class='va'>Value</span> <span class='op'>&lt;</span> <span class='fl'>4</span> <span class='op'>~</span> <span class='fl'>1</span>,
+    <span class='va'>Value</span> <span class='op'>&gt;=</span> <span class='fl'>4</span> <span class='op'>~</span> <span class='fl'>0</span>
+    <span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>df2</span> <span class='op'>&lt;-</span> <span class='va'>df2</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>ep <span class='op'>=</span> <span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>map_dbl</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_along</a></span><span class='op'>(</span><span class='va'>.</span><span class='op'>$</span><span class='va'>`End Date`</span><span class='op'>)</span>,
+                  <span class='op'>~</span><span class='fu'>myfunc</span><span class='op'>(</span>dates <span class='op'>=</span> <span class='va'>`End Date`</span>, values <span class='op'>=</span> <span class='va'>Success</span>, years <span class='op'>=</span> <span class='fl'>7</span>, i <span class='op'>=</span> <span class='va'>.x</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>df2</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 142 x 5
    `End Date` `Station ID` Value Success    ep
    &lt;date&gt;            &lt;dbl&gt; &lt;dbl&gt;   &lt;int&gt; &lt;dbl&gt;
  1 2000-01-03        12515  6.19       0     0
@@ -2193,23 +2273,26 @@ df2</code></pre>
 </div>
 <p>A little ggplot to create the figure:</p>
 <div class="layout-chunk" data-layout="1-page">
-<pre class="r"><code>
-ggplot(df2) +
-  geom_step(aes(x = `End Date`, y = ep, color = &quot;7-yr estimated probability of exceedance&quot;)) +
-  geom_hline(aes(yintercept = 0.1, color = &quot;Allowable proportion of exceedances&quot;), size = .75) +
-  theme_ipsum_rc() +
-  scale_color_brewer(name = &quot;&quot;, type = &quot;qual&quot;, palette = &quot;Set2&quot;) +
-  labs(
-    title = &quot;Estimated probability of exceeding water quality standard&quot;,
-    subtitle = &quot;Based on dissolved oxygen samples in Tres Palacios Tidal&quot;,
-    caption = &quot;Source: TCEQ CRP Data Tool&quot;,
-    x = &quot;Sample date&quot;, y = &quot;Estimated probability&quot;
-    )</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df2</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_step</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>`End Date`</span>, y <span class='op'>=</span> <span class='va'>ep</span>, color <span class='op'>=</span> <span class='st'>"7-yr estimated probability of exceedance"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_abline.html'>geom_hline</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>yintercept <span class='op'>=</span> <span class='fl'>0.1</span>, color <span class='op'>=</span> <span class='st'>"Allowable proportion of exceedances"</span><span class='op'>)</span>, size <span class='op'>=</span> <span class='fl'>.75</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>theme_ipsum_rc</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_brewer.html'>scale_color_brewer</a></span><span class='op'>(</span>name <span class='op'>=</span> <span class='st'>""</span>, type <span class='op'>=</span> <span class='st'>"qual"</span>, palette <span class='op'>=</span> <span class='st'>"Set2"</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>
+    title <span class='op'>=</span> <span class='st'>"Estimated probability of exceeding water quality standard"</span>,
+    subtitle <span class='op'>=</span> <span class='st'>"Based on dissolved oxygen samples in Tres Palacios Tidal"</span>,
+    caption <span class='op'>=</span> <span class='st'>"Source: TCEQ CRP Data Tool"</span>,
+    x <span class='op'>=</span> <span class='st'>"Sample date"</span>, y <span class='op'>=</span> <span class='st'>"Estimated probability"</span>
+    <span class='op'>)</span>
+</code></pre>
+</div>
 <p><img src="binomial_water_quality_files/figure-html5/output-1.png" width="768" data-distill-preview=1 /></p>
 </div>
-<div id="refs" class="references" role="doc-bibliography">
-<div id="ref-smith2001statistical">
-<p>Smith, Eric P, Keying Ye, Chris Hughes, and Leonard Shabman. 2001. “Statistical Assessment of Violations of Water Quality Standards Under Section 303 (d) of the Clean Water Act.” <em>Environmental Science &amp; Technology</em> 35 (3): 606–12. <a href="https://doi.org/10.1021/es001159e">https://doi.org/10.1021/es001159e</a>.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-smith2001statistical" class="csl-entry" role="doc-biblioentry">
+Smith, Eric P, Keying Ye, Chris Hughes, and Leonard Shabman. 2001. <span>“Statistical Assessment of Violations of Water Quality Standards Under Section 303 (d) of the Clean Water Act.”</span> <em>Environmental Science &amp; Technology</em> 35 (3): 606–12. <a href="https://doi.org/10.1021/es001159e">https://doi.org/10.1021/es001159e</a>.
 </div>
 </div>
 <!--radix_placeholder_article_footer-->

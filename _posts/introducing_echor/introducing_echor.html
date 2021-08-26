@@ -18,79 +18,190 @@
  <!--radix_placeholder_import_source-->
  <!--/radix_placeholder_import_source-->
 
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ad0000; } /* Alert */
+code span.an { color: #5e5e5e; } /* Annotation */
+code span.at { color: #20794d; } /* Attribute */
+code span.bn { color: #ad0000; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007ba5; } /* ControlFlow */
+code span.ch { color: #20794d; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #5e5e5e; } /* Comment */
+code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+code span.dt { color: #ad0000; } /* DataType */
+code span.dv { color: #ad0000; } /* DecVal */
+code span.er { color: #ad0000; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #ad0000; } /* Float */
+code span.fu { color: #4758ab; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #5e5e5e; } /* Information */
+code span.kw { color: #007ba5; } /* Keyword */
+code span.op { color: #5e5e5e; } /* Operator */
+code span.ot { color: #007ba5; } /* Other */
+code span.pp { color: #ad0000; } /* Preprocessor */
+code span.sc { color: #20794d; } /* SpecialChar */
+code span.ss { color: #20794d; } /* SpecialString */
+code span.st { color: #20794d; } /* String */
+code span.va { color: #111111; } /* Variable */
+code span.vs { color: #20794d; } /* VerbatimString */
+code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+</style>
+
   <!--radix_placeholder_meta_tags-->
   <title>Introducing echor</title>
-  
+
   <meta property="description" itemprop="description" content="Download EPA data with R"/>
-  
-  
+
+
   <!--  https://schema.org/Article -->
   <meta property="article:published" itemprop="datePublished" content="2018-09-24"/>
   <meta property="article:created" itemprop="dateCreated" content="2018-09-24"/>
   <meta name="article:author" content="Michael Schramm"/>
-  
+
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
   <meta property="og:title" content="Introducing echor"/>
   <meta property="og:type" content="article"/>
   <meta property="og:description" content="Download EPA data with R"/>
   <meta property="og:locale" content="en_US"/>
-  
+
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
   <meta property="twitter:title" content="Introducing echor"/>
   <meta property="twitter:description" content="Download EPA data with R"/>
-  
+
   <!--/radix_placeholder_meta_tags-->
   
   <meta name="citation_reference" content="citation_title=Measuring corporate environmental crime rates: Progress and problems;citation_publication_date=2009;citation_volume=51;citation_doi=10.1007/s10611-008-9145-1;citation_issn=1573-0751;citation_author=Carole Gibbs;citation_author=Sally S. Simpson"/>
   <!--radix_placeholder_rmarkdown_metadata-->
-  
+
   <script type="text/json" id="radix-rmarkdown-metadata">
   {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","bibliography"]}},"value":[{"type":"character","attributes":{},"value":["Introducing echor"]},{"type":"character","attributes":{},"value":["Download EPA data with R\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url"]}},"value":[{"type":"character","attributes":{},"value":["Michael Schramm"]},{"type":"character","attributes":{},"value":["https://michaelpaulschramm.com"]},{"type":"character","attributes":{},"value":["Texas Water Resources Institute"]},{"type":"character","attributes":{},"value":["https://twri.tamu.edu"]}]}]},{"type":"character","attributes":{},"value":["September 24, 2018"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]},{"type":"character","attributes":{},"value":["bibliography.bib"]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["bibliography.bib","introducing_echor_files/figure-html5/finalplot1-1.png","introducing_echor_files/figure-html5/finalplot2-1.png","introducing_echor_files/figure-html5/plotone-1.png"]}
+  {"type":"character","attributes":{},"value":["bibliography.bib","introducing_echor_files/bowser-1.9.3/bowser.min.js","introducing_echor_files/distill-2.2.21/template.v2.js","introducing_echor_files/figure-html5/finalplot1-1.png","introducing_echor_files/figure-html5/finalplot2-1.png","introducing_echor_files/figure-html5/plotone-1.png","introducing_echor_files/jquery-1.11.3/jquery.min.js","introducing_echor_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
   <!--radix_placeholder_distill-->
-  
+
   <style type="text/css">
-  
+
   body {
     background-color: white;
   }
-  
+
   .pandoc-table {
     width: 100%;
   }
-  
+
   .pandoc-table>caption {
     margin-bottom: 10px;
   }
-  
+
   .pandoc-table th:not([align]) {
     text-align: left;
   }
-  
+
   .pagedtable-footer {
     font-size: 15px;
   }
-  
+
+  d-byline .byline {
+    grid-template-columns: 2fr 2fr;
+  }
+
+  d-byline .byline h3 {
+    margin-block-start: 1.5em;
+  }
+
+  d-byline .byline .authors-affiliations h3 {
+    margin-block-start: 0.5em;
+  }
+
+  .authors-affiliations .orcid-id {
+    width: 16px;
+    height:16px;
+    margin-left: 4px;
+    margin-right: 4px;
+    vertical-align: middle;
+    padding-bottom: 2px;
+  }
+
+  d-title .dt-tags {
+    margin-top: 1em;
+    grid-column: text;
+  }
+
+  .dt-tags .dt-tag {
+    text-decoration: none;
+    display: inline-block;
+    color: rgba(0,0,0,0.6);
+    padding: 0em 0.4em;
+    margin-right: 0.5em;
+    margin-bottom: 0.4em;
+    font-size: 70%;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  d-article table.gt_table td,
+  d-article table.gt_table th {
+    border-bottom: none;
+  }
+
   .html-widget {
     margin-bottom: 2.0em;
   }
-  
+
   .l-screen-inset {
     padding-right: 16px;
   }
-  
+
   .l-screen .caption {
     margin-left: 10px;
   }
-  
+
   .shaded {
     background: rgb(247, 247, 247);
     padding-top: 20px;
@@ -98,43 +209,130 @@
     border-top: 1px solid rgba(0, 0, 0, 0.1);
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   }
-  
+
   .shaded .html-widget {
     margin-bottom: 0;
     border: 1px solid rgba(0, 0, 0, 0.1);
   }
-  
+
   .shaded .shaded-content {
     background: white;
   }
-  
+
   .text-output {
     margin-top: 0;
     line-height: 1.5em;
   }
-  
+
   .hidden {
     display: none !important;
   }
-  
+
   d-article {
+    padding-top: 2.5rem;
     padding-bottom: 30px;
   }
-  
+
   d-appendix {
     padding-top: 30px;
   }
-  
+
   d-article>p>img {
     width: 100%;
   }
-  
+
+  d-article h2 {
+    margin: 1rem 0 1.5rem 0;
+  }
+
+  d-article h3 {
+    margin-top: 1.5rem;
+  }
+
   d-article iframe {
     border: 1px solid rgba(0, 0, 0, 0.1);
     margin-bottom: 2.0em;
     width: 100%;
   }
-  
+
+  /* Tweak code blocks */
+
+  d-article div.sourceCode code,
+  d-article pre code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  d-article pre,
+  d-article div.sourceCode,
+  d-article div.sourceCode pre {
+    overflow: auto;
+  }
+
+  d-article div.sourceCode {
+    background-color: white;
+  }
+
+  d-article div.sourceCode pre {
+    padding-left: 10px;
+    font-size: 12px;
+    border-left: 2px solid rgba(0,0,0,0.1);
+  }
+
+  d-article pre {
+    font-size: 12px;
+    color: black;
+    background: none;
+    margin-top: 0;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+
+  d-article pre a {
+    border-bottom: none;
+  }
+
+  d-article pre a:hover {
+    border-bottom: none;
+    text-decoration: underline;
+  }
+
+  d-article details {
+    grid-column: text;
+    margin-bottom: 0.8em;
+  }
+
+  @media(min-width: 768px) {
+
+  d-article pre,
+  d-article div.sourceCode,
+  d-article div.sourceCode pre {
+    overflow: visible !important;
+  }
+
+  d-article div.sourceCode pre {
+    padding-left: 18px;
+    font-size: 14px;
+  }
+
+  d-article pre {
+    font-size: 14px;
+  }
+
+  }
+
   figure img.external {
     background: white;
     border: 1px solid rgba(0, 0, 0, 0.1);
@@ -142,128 +340,107 @@
     padding: 18px;
     box-sizing: border-box;
   }
-  
-  /* CSS for table of contents */
-  
-  .d-toc {
+
+  /* CSS for d-contents */
+
+  .d-contents {
+    grid-column: text;
     color: rgba(0,0,0,0.8);
-    font-size: 0.8em;
-    line-height: 1em;
+    font-size: 0.9em;
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+    padding-bottom: 0.5em;
+    margin-bottom: 1em;
+    padding-left: 0.25em;
+    justify-self: start;
   }
-  
-  .d-toc-header {
-    font-size: 0.6rem;
-    font-weight: 400;
-    color: rgba(0, 0, 0, 0.5);
-    text-transform: uppercase;
+
+  @media(min-width: 1000px) {
+    .d-contents.d-contents-float {
+      height: 0;
+      grid-column-start: 1;
+      grid-column-end: 4;
+      justify-self: center;
+      padding-right: 3em;
+      padding-left: 2em;
+    }
+  }
+
+  .d-contents nav h3 {
+    font-size: 18px;
     margin-top: 0;
-    margin-bottom: 1.3em;
+    margin-bottom: 1em;
   }
-  
-  .d-toc a {
-    border-bottom: none;
+
+  .d-contents li {
+    list-style-type: none
   }
-  
-  .d-toc ul {
+
+  .d-contents nav > ul {
     padding-left: 0;
   }
-  
-  .d-toc li>ul {
-    padding-top: 0.8em;
-    padding-left: 16px;
-    margin-bottom: 0.6em;
+
+  .d-contents ul {
+    padding-left: 1em
   }
-  
-  .d-toc ul,
-  .d-toc li {
-    list-style-type: none;
+
+  .d-contents nav ul li {
+    margin-top: 0.6em;
+    margin-bottom: 0.2em;
   }
-  
-  .d-toc li {
-    margin-bottom: 0.9em;
+
+  .d-contents nav a {
+    font-size: 13px;
+    border-bottom: none;
+    text-decoration: none
+    color: rgba(0, 0, 0, 0.8);
   }
-  
-  .d-toc-separator {
-    margin-top: 20px;
-    margin-bottom: 2em;
+
+  .d-contents nav a:hover {
+    text-decoration: underline solid rgba(0, 0, 0, 0.6)
   }
-  
-  .d-article-with-toc {
-    border-top: none;
-    padding-top: 0;
+
+  .d-contents nav > ul > li > a {
+    font-weight: 600;
   }
-  
-  
-  
-  /* Tweak code blocks (note that this CSS is repeated above in an injection
-     into the d-code shadow dom) */
-  
-  d-code {
-    overflow-x: auto !important;
+
+  .d-contents nav > ul > li > ul {
+    font-weight: inherit;
   }
-  
-  pre.d-code code.d-code {
-    padding-left: 10px;
-    font-size: 12px;
-    border-left: 2px solid rgba(0,0,0,0.1);
+
+  .d-contents nav > ul > li > ul > li {
+    margin-top: 0.2em;
   }
-  
-  pre.text-output {
-  
-    font-size: 12px;
-    color: black;
-    background: none;
-    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
-    text-align: left;
-    white-space: pre;
-    word-spacing: normal;
-    word-break: normal;
-    word-wrap: normal;
-    line-height: 1.5;
-  
-    -moz-tab-size: 4;
-    -o-tab-size: 4;
-    tab-size: 4;
-  
-    -webkit-hyphens: none;
-    -moz-hyphens: none;
-    -ms-hyphens: none;
-    hyphens: none;
+
+
+  .d-contents nav ul {
+    margin-top: 0;
+    margin-bottom: 0.25em;
   }
-  
-  @media(min-width: 768px) {
-  
-  d-code {
-    overflow-x: visible !important;
+
+  .d-article-with-toc h2:nth-child(2) {
+    margin-top: 0;
   }
-  
-  pre.d-code code.d-code  {
-      padding-left: 18px;
-      font-size: 14px;
-  }
-  pre.text-output {
-    font-size: 14px;
-  }
-  }
-  
+
+
   /* Figure */
-  
+
   .figure {
     position: relative;
     margin-bottom: 2.5em;
     margin-top: 1.5em;
   }
-  
+
   .figure img {
     width: 100%;
   }
-  
+
   .figure .caption {
     color: rgba(0, 0, 0, 0.6);
     font-size: 12px;
     line-height: 1.5em;
   }
-  
+
   .figure img.external {
     background: white;
     border: 1px solid rgba(0, 0, 0, 0.1);
@@ -271,21 +448,42 @@
     padding: 18px;
     box-sizing: border-box;
   }
-  
+
   .figure .caption a {
     color: rgba(0, 0, 0, 0.6);
   }
-  
+
   .figure .caption b,
   .figure .caption strong, {
     font-weight: 600;
     color: rgba(0, 0, 0, 1.0);
   }
-  
-  
-  
+
+  /* Citations */
+
+  d-article .citation {
+    color: inherit;
+    cursor: inherit;
+  }
+
+  div.hanging-indent{
+    margin-left: 1em; text-indent: -1em;
+  }
+
+  /* Citation hover box */
+
+  .tippy-box[data-theme~=light-border] {
+    background-color: rgba(250, 250, 250, 0.95);
+  }
+
+  .tippy-content > p {
+    margin-bottom: 0;
+    padding: 2px;
+  }
+
+
   /* Tweak 1000px media break to show more text */
-  
+
   @media(min-width: 1000px) {
     .base-grid,
     distill-header,
@@ -301,11 +499,11 @@
       grid-template-columns: [screen-start] 1fr [page-start kicker-start] 80px [middle-start] 50px [text-start kicker-end] 65px 65px 65px 65px 65px 65px 65px 65px [text-end gutter-start] 65px [middle-end] 65px [page-end gutter-end] 1fr [screen-end];
       grid-column-gap: 16px;
     }
-  
+
     .grid {
       grid-column-gap: 16px;
     }
-  
+
     d-article {
       font-size: 1.06rem;
       line-height: 1.7em;
@@ -314,7 +512,7 @@
       font-size: 13px;
     }
   }
-  
+
   @media(min-width: 1180px) {
     .base-grid,
     distill-header,
@@ -330,16 +528,16 @@
       grid-template-columns: [screen-start] 1fr [page-start kicker-start] 60px [middle-start] 60px [text-start kicker-end] 60px 60px 60px 60px 60px 60px 60px 60px [text-end gutter-start] 60px [middle-end] 60px [page-end gutter-end] 1fr [screen-end];
       grid-column-gap: 32px;
     }
-  
+
     .grid {
       grid-column-gap: 32px;
     }
   }
-  
-  
+
+
   /* Get the citation styles for the appendix (not auto-injected on render since
      we do our own rendering of the citation appendix) */
-  
+
   d-appendix .citation-appendix,
   .d-appendix .citation-appendix {
     font-size: 11px;
@@ -356,111 +554,401 @@
     white-space: pre-wrap;
     word-wrap: break-word;
   }
-  
-  
+
+  /* Include appendix styles here so they can be overridden */
+
+  d-appendix {
+    contain: layout style;
+    font-size: 0.8em;
+    line-height: 1.7em;
+    margin-top: 60px;
+    margin-bottom: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    color: rgba(0,0,0,0.5);
+    padding-top: 60px;
+    padding-bottom: 48px;
+  }
+
+  d-appendix h3 {
+    grid-column: page-start / text-start;
+    font-size: 15px;
+    font-weight: 500;
+    margin-top: 1em;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.65);
+  }
+
+  d-appendix h3 + * {
+    margin-top: 1em;
+  }
+
+  d-appendix ol {
+    padding: 0 0 0 15px;
+  }
+
+  @media (min-width: 768px) {
+    d-appendix ol {
+      padding: 0 0 0 30px;
+      margin-left: -30px;
+    }
+  }
+
+  d-appendix li {
+    margin-bottom: 1em;
+  }
+
+  d-appendix a {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  d-appendix > * {
+    grid-column: text;
+  }
+
+  d-appendix > d-footnote-list,
+  d-appendix > d-citation-list,
+  d-appendix > distill-appendix {
+    grid-column: screen;
+  }
+
+  /* Include footnote styles here so they can be overridden */
+
+  d-footnote-list {
+    contain: layout style;
+  }
+
+  d-footnote-list > * {
+    grid-column: text;
+  }
+
+  d-footnote-list a.footnote-backlink {
+    color: rgba(0,0,0,0.3);
+    padding-left: 0.5em;
+  }
+
+
+
+  /* Anchor.js */
+
+  .anchorjs-link {
+    /*transition: all .25s linear; */
+    text-decoration: none;
+    border-bottom: none;
+  }
+  *:hover > .anchorjs-link {
+    margin-left: -1.125em !important;
+    text-decoration: none;
+    border-bottom: none;
+  }
+
   /* Social footer */
-  
+
   .social_footer {
     margin-top: 30px;
     margin-bottom: 0;
     color: rgba(0,0,0,0.67);
   }
-  
+
   .disqus-comments {
     margin-right: 30px;
   }
-  
+
   .disqus-comment-count {
     border-bottom: 1px solid rgba(0, 0, 0, 0.4);
     cursor: pointer;
   }
-  
+
   #disqus_thread {
     margin-top: 30px;
   }
-  
+
   .article-sharing a {
     border-bottom: none;
     margin-right: 8px;
   }
-  
+
   .article-sharing a:hover {
     border-bottom: none;
   }
-  
+
   .sidebar-section.subscribe {
     font-size: 12px;
     line-height: 1.6em;
   }
-  
+
   .subscribe p {
     margin-bottom: 0.5em;
   }
-  
-  
+
+
   .article-footer .subscribe {
     font-size: 15px;
     margin-top: 45px;
   }
-  
-  
+
+
   .sidebar-section.custom {
     font-size: 12px;
     line-height: 1.6em;
   }
-  
+
   .custom p {
     margin-bottom: 0.5em;
   }
-  
-  
+
+  /* Styles for listing layout (hide title) */
+  .layout-listing d-title, .layout-listing .d-title {
+    display: none;
+  }
+
+  /* Styles for posts lists (not auto-injected) */
+
+
+  .posts-with-sidebar {
+    padding-left: 45px;
+    padding-right: 45px;
+  }
+
+  .posts-list .description h2,
+  .posts-list .description p {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+  }
+
+  .posts-list .description h2 {
+    font-weight: 700;
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .posts-list h2.post-tag {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    padding-bottom: 12px;
+  }
+  .posts-list {
+    margin-top: 60px;
+    margin-bottom: 24px;
+  }
+
+  .posts-list .post-preview {
+    text-decoration: none;
+    overflow: hidden;
+    display: block;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 24px 0;
+  }
+
+  .post-preview-last {
+    border-bottom: none !important;
+  }
+
+  .posts-list .posts-list-caption {
+    grid-column: screen;
+    font-weight: 400;
+  }
+
+  .posts-list .post-preview h2 {
+    margin: 0 0 6px 0;
+    line-height: 1.2em;
+    font-style: normal;
+    font-size: 24px;
+  }
+
+  .posts-list .post-preview p {
+    margin: 0 0 12px 0;
+    line-height: 1.4em;
+    font-size: 16px;
+  }
+
+  .posts-list .post-preview .thumbnail {
+    box-sizing: border-box;
+    margin-bottom: 24px;
+    position: relative;
+    max-width: 500px;
+  }
+  .posts-list .post-preview img {
+    width: 100%;
+    display: block;
+  }
+
+  .posts-list .metadata {
+    font-size: 12px;
+    line-height: 1.4em;
+    margin-bottom: 18px;
+  }
+
+  .posts-list .metadata > * {
+    display: inline-block;
+  }
+
+  .posts-list .metadata .publishedDate {
+    margin-right: 2em;
+  }
+
+  .posts-list .metadata .dt-authors {
+    display: block;
+    margin-top: 0.3em;
+    margin-right: 2em;
+  }
+
+  .posts-list .dt-tags {
+    display: block;
+    line-height: 1em;
+  }
+
+  .posts-list .dt-tags .dt-tag {
+    display: inline-block;
+    color: rgba(0,0,0,0.6);
+    padding: 0.3em 0.4em;
+    margin-right: 0.2em;
+    margin-bottom: 0.4em;
+    font-size: 60%;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .posts-list img {
+    opacity: 1;
+  }
+
+  .posts-list img[data-src] {
+    opacity: 0;
+  }
+
+  .posts-more {
+    clear: both;
+  }
+
+
+  .posts-sidebar {
+    font-size: 16px;
+  }
+
+  .posts-sidebar h3 {
+    font-size: 16px;
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    font-weight: 400;
+    text-transform: uppercase;
+  }
+
+  .sidebar-section {
+    margin-bottom: 30px;
+  }
+
+  .categories ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .categories li {
+    color: rgba(0, 0, 0, 0.8);
+    margin-bottom: 0;
+  }
+
+  .categories li>a {
+    border-bottom: none;
+  }
+
+  .categories li>a:hover {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  }
+
+  .categories .active {
+    font-weight: 600;
+  }
+
+  .categories .category-count {
+    color: rgba(0, 0, 0, 0.4);
+  }
+
+
+  @media(min-width: 768px) {
+    .posts-list .post-preview h2 {
+      font-size: 26px;
+    }
+    .posts-list .post-preview .thumbnail {
+      float: right;
+      width: 30%;
+      margin-bottom: 0;
+    }
+    .posts-list .post-preview .description {
+      float: left;
+      width: 45%;
+    }
+    .posts-list .post-preview .metadata {
+      float: left;
+      width: 20%;
+      margin-top: 8px;
+    }
+    .posts-list .post-preview p {
+      margin: 0 0 12px 0;
+      line-height: 1.5em;
+      font-size: 16px;
+    }
+    .posts-with-sidebar .posts-list {
+      float: left;
+      width: 75%;
+    }
+    .posts-with-sidebar .posts-sidebar {
+      float: right;
+      width: 20%;
+      margin-top: 60px;
+      padding-top: 24px;
+      padding-bottom: 24px;
+    }
+  }
+
+
   /* Improve display for browsers without grid (IE/Edge <= 15) */
-  
+
   .downlevel {
     line-height: 1.6em;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
     margin: 0;
   }
-  
+
   .downlevel .d-title {
     padding-top: 6rem;
     padding-bottom: 1.5rem;
   }
-  
+
   .downlevel .d-title h1 {
     font-size: 50px;
     font-weight: 700;
     line-height: 1.1em;
     margin: 0 0 0.5rem;
   }
-  
+
   .downlevel .d-title p {
     font-weight: 300;
     font-size: 1.2rem;
     line-height: 1.55em;
     margin-top: 0;
   }
-  
+
   .downlevel .d-byline {
     padding-top: 0.8em;
     padding-bottom: 0.8em;
     font-size: 0.8rem;
     line-height: 1.8em;
   }
-  
+
   .downlevel .section-separator {
     border: none;
     border-top: 1px solid rgba(0, 0, 0, 0.1);
   }
-  
+
   .downlevel .d-article {
     font-size: 1.06rem;
     line-height: 1.7em;
     padding-top: 1rem;
     padding-bottom: 2rem;
   }
-  
-  
+
+
   .downlevel .d-appendix {
     padding-left: 0;
     padding-right: 0;
@@ -472,11 +960,11 @@
     padding-top: 40px;
     padding-bottom: 48px;
   }
-  
+
   .downlevel .footnotes ol {
     padding-left: 13px;
   }
-  
+
   .downlevel .base-grid,
   .downlevel .distill-header,
   .downlevel .d-title,
@@ -493,7 +981,7 @@
     padding-left: 40px;
     padding-right: 40px;
   }
-  
+
   @media(min-width: 768px) {
     .downlevel .base-grid,
     .downlevel .distill-header,
@@ -513,14 +1001,14 @@
     max-width: 900px;
   }
   }
-  
+
   .downlevel pre code {
     display: block;
     border-left: 2px solid rgba(0, 0, 0, .1);
     padding: 0 0 0 20px;
     font-size: 14px;
   }
-  
+
   .downlevel code, .downlevel pre {
     color: black;
     background: none;
@@ -531,21 +1019,27 @@
     word-break: normal;
     word-wrap: normal;
     line-height: 1.5;
-  
+
     -moz-tab-size: 4;
     -o-tab-size: 4;
     tab-size: 4;
-  
+
     -webkit-hyphens: none;
     -moz-hyphens: none;
     -ms-hyphens: none;
     hyphens: none;
   }
-  
+
+  .downlevel .posts-list .post-preview {
+    color: inherit;
+  }
+
+
+
   </style>
-  
+
   <script type="application/javascript">
-  
+
   function is_downlevel_browser() {
     if (bowser.isUnsupportedBrowser({ msie: "12", msedge: "16"},
                                    window.navigator.userAgent)) {
@@ -554,13 +1048,20 @@
       return window.load_distill_framework === undefined;
     }
   }
-  
+
   // show body when load is complete
   function on_load_complete() {
-  
+
+    // add anchors
+    if (window.anchors) {
+      window.anchors.options.placement = 'left';
+      window.anchors.add('d-article > h2, d-article > h3, d-article > h4, d-article > h5');
+    }
+
+
     // set body to visible
     document.body.style.visibility = 'visible';
-  
+
     // force redraw for leaflet widgets
     if (window.HTMLWidgets) {
       var maps = window.HTMLWidgets.findAll(".leaflet");
@@ -573,54 +1074,39 @@
         });
       });
     }
-  
+
     // trigger 'shown' so htmlwidgets resize
     $('d-article').trigger('shown');
   }
-  
+
   function init_distill() {
-  
+
     init_common();
-  
+
     // create front matter
     var front_matter = $('<d-front-matter></d-front-matter>');
     $('#distill-front-matter').wrap(front_matter);
-  
+
     // create d-title
     $('.d-title').changeElementType('d-title');
-  
+
     // create d-byline
     var byline = $('<d-byline></d-byline>');
     $('.d-byline').replaceWith(byline);
-  
+
     // create d-article
     var article = $('<d-article></d-article>');
     $('.d-article').wrap(article).children().unwrap();
-  
+
     // move posts container into article
     $('.posts-container').appendTo($('d-article'));
-  
+
     // create d-appendix
     $('.d-appendix').changeElementType('d-appendix');
-  
-    // create d-bibliography
-    var bibliography = $('<d-bibliography></d-bibliography>');
-    $('#distill-bibliography').wrap(bibliography);
-  
+
     // flag indicating that we have appendix items
     var appendix = $('.appendix-bottom').children('h3').length > 0;
-  
-    // replace citations with <d-cite>
-    $('.citation').each(function(i, val) {
-      appendix = true;
-      var cites = $(this).attr('data-cites').split(" ");
-      var dt_cite = $('<d-cite></d-cite>');
-      dt_cite.attr('key', cites.join());
-      $(this).replaceWith(dt_cite);
-    });
-    // remove refs
-    $('#refs').remove();
-  
+
     // replace footnotes with <d-footnote>
     $('.footnote-ref').each(function(i, val) {
       appendix = true;
@@ -636,49 +1122,31 @@
     });
     // remove footnotes
     $('.footnotes').remove();
-  
+
+    // move refs into #references-listing
+    $('#references-listing').replaceWith($('#refs'));
+
     $('h1.appendix, h2.appendix').each(function(i, val) {
       $(this).changeElementType('h3');
     });
     $('h3.appendix').each(function(i, val) {
       var id = $(this).attr('id');
-      $('.d-toc a[href="#' + id + '"]').parent().remove();
+      $('.d-contents a[href="#' + id + '"]').parent().remove();
       appendix = true;
       $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('d-appendix'));
     });
-  
+
     // show d-appendix if we have appendix content
     $("d-appendix").css('display', appendix ? 'grid' : 'none');
-  
-    // replace code blocks with d-code
-    $('pre>code').each(function(i, val) {
-      var code = $(this);
-      var pre = code.parent();
-      var clz = "";
-      var language = pre.attr('class');
-      if (language) {
-        // map unknown languages to "clike" (without this they just dissapear)
-        if ($.inArray(language, ["bash", "clike", "css", "go", "html",
-                                 "javascript", "js", "julia", "lua", "markdown",
-                                 "markup", "mathml", "python", "svg", "xml"]) == -1)
-          language = "clike";
-        language = ' language="' + language + '"';
-        var dt_code = $('<d-code block' + language + clz + '></d-code>');
-        dt_code.text(code.text());
-        pre.replaceWith(dt_code);
-      } else {
-        code.addClass('text-output').unwrap().changeElementType('pre');
-      }
-    });
-  
+
     // localize layout chunks to just output
     $('.layout-chunk').each(function(i, val) {
-  
+
       // capture layout
       var layout = $(this).attr('data-layout');
-  
+
       // apply layout to markdown level block elements
-      var elements = $(this).children().not('d-code, pre.text-output, script');
+      var elements = $(this).children().not('details, div.sourceCode, pre, script');
       elements.each(function(i, el) {
         var layout_div = $('<div class="' + layout + '"></div>');
         if (layout_div.hasClass('shaded')) {
@@ -689,39 +1157,60 @@
           $(this).wrap(layout_div);
         }
       });
-  
-  
+
+
       // unwrap the layout-chunk div
       $(this).children().unwrap();
     });
-  
+
+    // remove code block used to force  highlighting css
+    $('.distill-force-highlighting-css').parent().remove();
+
+    // remove empty line numbers inserted by pandoc when using a
+    // custom syntax highlighting theme
+    $('code.sourceCode a:empty').remove();
+
     // load distill framework
     load_distill_framework();
-  
+
     // wait for window.distillRunlevel == 4 to do post processing
     function distill_post_process() {
-  
+
       if (!window.distillRunlevel || window.distillRunlevel < 4)
         return;
-  
+
       // hide author/affiliations entirely if we have no authors
       var front_matter = JSON.parse($("#distill-front-matter").html());
       var have_authors = front_matter.authors && front_matter.authors.length > 0;
       if (!have_authors)
         $('d-byline').addClass('hidden');
-  
-      // table of contents
-      if (have_authors) // adjust border if we are in authors
-        $('.d-toc').parent().addClass('d-article-with-toc');
-  
+
+      // article with toc class
+      $('.d-contents').parent().addClass('d-article-with-toc');
+
       // strip links that point to #
       $('.authors-affiliations').find('a[href="#"]').removeAttr('href');
-  
+
+      // add orcid ids
+      $('.authors-affiliations').find('.author').each(function(i, el) {
+        var orcid_id = front_matter.authors[i].orcidID;
+        if (orcid_id) {
+          var a = $('<a></a>');
+          a.attr('href', 'https://orcid.org/' + orcid_id);
+          var img = $('<img></img>');
+          img.addClass('orcid-id');
+          img.attr('alt', 'ORCID ID');
+          img.attr('src','data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg==');
+          a.append(img);
+          $(this).append(a);
+        }
+      });
+
       // hide elements of author/affiliations grid that have no value
       function hide_byline_column(caption) {
         $('d-byline').find('h3:contains("' + caption + '")').parent().css('visibility', 'hidden');
       }
-  
+
       // affiliations
       var have_affiliations = false;
       for (var i = 0; i<front_matter.authors.length; ++i) {
@@ -733,11 +1222,11 @@
       }
       if (!have_affiliations)
         $('d-byline').find('h3:contains("Affiliations")').css('visibility', 'hidden');
-  
+
       // published date
       if (!front_matter.publishedDate)
         hide_byline_column("Published");
-  
+
       // document object identifier
       var doi = $('d-byline').find('h3:contains("DOI")');
       var doi_p = doi.next().empty();
@@ -757,61 +1246,68 @@
            .html(front_matter.doi)
            .appendTo(doi_p);
       }
-  
+
        // change plural form of authors/affiliations
       if (front_matter.authors.length === 1) {
         var grid = $('.authors-affiliations');
         grid.children('h3:contains("Authors")').text('Author');
         grid.children('h3:contains("Affiliations")').text('Affiliation');
       }
-  
-      // inject pre code styles (can't do this with a global stylesheet b/c a shadow root is used)
-      $('d-code').each(function(i, val) {
-        var style = document.createElement('style');
-        style.innerHTML = 'pre code { padding-left: 10px; font-size: 12px; border-left: 2px solid rgba(0,0,0,0.1); } ' +
-                          '@media(min-width: 768px) { pre code { padding-left: 18px; font-size: 14px; } }';
-        if (this.shadowRoot)
-          this.shadowRoot.appendChild(style);
-      });
-  
+
+      // remove d-appendix and d-footnote-list local styles
+      $('d-appendix > style:first-child').remove();
+      $('d-footnote-list > style:first-child').remove();
+
       // move appendix-bottom entries to the bottom
       $('.appendix-bottom').appendTo('d-appendix').children().unwrap();
       $('.appendix-bottom').remove();
-  
+
+      // hoverable references
+      $('span.citation[data-cites]').each(function() {
+        var refHtml = $('#ref-' + $(this).attr('data-cites')).html();
+        window.tippy(this, {
+          allowHTML: true,
+          content: refHtml,
+          maxWidth: 500,
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start'
+        });
+      });
+
       // clear polling timer
       clearInterval(tid);
-  
+
       // show body now that everything is ready
       on_load_complete();
     }
-  
+
     var tid = setInterval(distill_post_process, 50);
     distill_post_process();
-  
+
   }
-  
+
   function init_downlevel() {
-  
+
     init_common();
-  
+
      // insert hr after d-title
     $('.d-title').after($('<hr class="section-separator"/>'));
-  
+
     // check if we have authors
     var front_matter = JSON.parse($("#distill-front-matter").html());
     var have_authors = front_matter.authors && front_matter.authors.length > 0;
-  
+
     // manage byline/border
     if (!have_authors)
       $('.d-byline').remove();
     $('.d-byline').after($('<hr class="section-separator"/>'));
     $('.d-byline a').remove();
-  
+
     // remove toc
-    $('.d-toc-header').remove();
-    $('.d-toc').remove();
-    $('.d-toc-separator').remove();
-  
+    $('.d-contents').remove();
+
     // move appendix elements
     $('h1.appendix, h2.appendix').each(function(i, val) {
       $(this).changeElementType('h3');
@@ -819,62 +1315,62 @@
     $('h3.appendix').each(function(i, val) {
       $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('.d-appendix'));
     });
-  
-  
+
+
     // inject headers into references and footnotes
     var refs_header = $('<h3></h3>');
     refs_header.text('References');
     $('#refs').prepend(refs_header);
-  
+
     var footnotes_header = $('<h3></h3');
     footnotes_header.text('Footnotes');
     $('.footnotes').children('hr').first().replaceWith(footnotes_header);
-  
+
     // move appendix-bottom entries to the bottom
     $('.appendix-bottom').appendTo('.d-appendix').children().unwrap();
     $('.appendix-bottom').remove();
-  
+
     // remove appendix if it's empty
     if ($('.d-appendix').children().length === 0)
       $('.d-appendix').remove();
-  
+
     // prepend separator above appendix
     $('.d-appendix').before($('<hr class="section-separator" style="clear: both"/>'));
-  
+
     // trim code
     $('pre>code').each(function(i, val) {
       $(this).html($.trim($(this).html()));
     });
-  
+
     // move posts-container right before article
     $('.posts-container').insertBefore($('.d-article'));
-  
+
     $('body').addClass('downlevel');
-  
+
     on_load_complete();
   }
-  
-  
+
+
   function init_common() {
-  
+
     // jquery plugin to change element types
     (function($) {
       $.fn.changeElementType = function(newType) {
         var attrs = {};
-  
+
         $.each(this[0].attributes, function(idx, attr) {
           attrs[attr.nodeName] = attr.nodeValue;
         });
-  
+
         this.replaceWith(function() {
           return $("<" + newType + "/>", attrs).append($(this).contents());
         });
       };
     })(jQuery);
-  
+
     // prevent underline for linked images
     $('a > img').parent().css({'border-bottom' : 'none'});
-  
+
     // mark non-body figures created by knitr chunks as 100% width
     $('.layout-chunk').each(function(i, val) {
       var figures = $(this).find('img, .html-widget');
@@ -886,35 +1382,35 @@
           var fig = $(this);
           fig.css('width', fig.attr('width') + 'px');
         });
-  
+
       }
     });
-  
+
     // auto-append index.html to post-preview links in file: protocol
     // and in rstudio ide preview
     $('.post-preview').each(function(i, val) {
       if (window.location.protocol === "file:")
         $(this).attr('href', $(this).attr('href') + "index.html");
     });
-  
+
     // get rid of index.html references in header
     if (window.location.protocol !== "file:") {
       $('.distill-site-header a[href]').each(function(i,val) {
         $(this).attr('href', $(this).attr('href').replace("index.html", "./"));
       });
     }
-  
+
     // add class to pandoc style tables
     $('tr.header').parent('thead').parent('table').addClass('pandoc-table');
     $('.kable-table').children('table').addClass('pandoc-table');
-  
+
     // add figcaption style to table captions
     $('caption').parent('table').addClass("figcaption");
-  
+
     // initialize posts list
     if (window.init_posts_list)
       window.init_posts_list();
-  
+
     // implmement disqus comment link
     $('.disqus-comment-count').click(function() {
       window.headroom_prevent_pin = true;
@@ -928,18 +1424,24 @@
       }
     });
   }
-  
+
   document.addEventListener('DOMContentLoaded', function() {
     if (is_downlevel_browser())
       init_downlevel();
     else
       window.addEventListener('WebComponentsReady', init_distill);
   });
-  
+
   </script>
-  
+
   <!--/radix_placeholder_distill-->
+  <script src="introducing_echor_files/header-attrs-2.7/header-attrs.js"></script>
   <script src="introducing_echor_files/jquery-1.11.3/jquery.min.js"></script>
+  <script src="introducing_echor_files/popper-2.6.0/popper.min.js"></script>
+  <link href="introducing_echor_files/tippy-6.2.7/tippy.css" rel="stylesheet" />
+  <link href="introducing_echor_files/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
+  <script src="introducing_echor_files/tippy-6.2.7/tippy.umd.min.js"></script>
+  <script src="introducing_echor_files/anchor-4.2.2/anchor.min.js"></script>
   <script src="introducing_echor_files/bowser-1.9.3/bowser.min.js"></script>
   <script src="introducing_echor_files/webcomponents-2.0.0/webcomponents.js"></script>
   <script src="introducing_echor_files/distill-2.2.21/template.v2.js"></script>
@@ -954,7 +1456,7 @@
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Introducing echor","description":"Download EPA data with R","authors":[{"author":"Michael Schramm","authorURL":"https://michaelpaulschramm.com","affiliation":"Texas Water Resources Institute","affiliationURL":"https://twri.tamu.edu"}],"publishedDate":"2018-09-24T00:00:00.000-05:00","citationText":"Schramm, 2018"}
+{"title":"Introducing echor","description":"Download EPA data with R","authors":[{"author":"Michael Schramm","authorURL":"https://michaelpaulschramm.com","affiliation":"Texas Water Resources Institute","affiliationURL":"https://twri.tamu.edu","orcidID":""}],"publishedDate":"2018-09-24T00:00:00.000-05:00","citationText":"Schramm, 2018"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -965,6 +1467,8 @@
 
 <div class="d-title">
 <h1>Introducing echor</h1>
+<!--radix_placeholder_categories-->
+<!--/radix_placeholder_categories-->
 <p><p>Download EPA data with R</p></p>
 </div>
 
@@ -975,7 +1479,7 @@
 </div>
 
 <div class="d-article">
-<p>The U.S. Environmental Protection Agency (EPA) provides access to facility and compliance information for registered permit holders under the Clean Air Act, Clean Water Act. The primary way for non-governmental entities to obtain this data is through the <a href="https://echo.epa.gov/">EPA Environmental and Compliance History Online (ECHO)</a> website. Data is housed under “media-specific” programs. Relevant to this post, the National Pollutant Discharge Elimination Systems (NPDES) maintains data on pollutant discharges to waterways and the Air Facility Service (AFS) maintain data on emission to air. Gibbs <span class="citation" data-cites="Gibbs2009">(Gibbs and Simpson <a href="#ref-Gibbs2009" role="doc-biblioref">2009</a>)</span> assess the strengths and weakness of the data collated by ECHO and provide an example of assessing environmental crime rates. While a discussion about the merits of EPA’s environmental data collection efforts and methodology are warranted, this post will discuss a new package that provides API access to the ECHO database.</p>
+<p>The U.S. Environmental Protection Agency (EPA) provides access to facility and compliance information for registered permit holders under the Clean Air Act, Clean Water Act. The primary way for non-governmental entities to obtain this data is through the <a href="https://echo.epa.gov/">EPA Environmental and Compliance History Online (ECHO)</a> website. Data is housed under “media-specific” programs. Relevant to this post, the National Pollutant Discharge Elimination Systems (NPDES) maintains data on pollutant discharges to waterways and the Air Facility Service (AFS) maintain data on emission to air. Gibbs <span class="citation" data-cites="Gibbs2009">(<a href="#ref-Gibbs2009" role="doc-biblioref">Gibbs and Simpson 2009</a>)</span> assess the strengths and weakness of the data collated by ECHO and provide an example of assessing environmental crime rates. While a discussion about the merits of EPA’s environmental data collection efforts and methodology are warranted, this post will discuss a new package that provides API access to the ECHO database.</p>
 <h1 id="introduction-and-need">Introduction and need</h1>
 <p>I primarily use ECHO to obtain discharge monitoring records for wastewater and industrial discharges. Until recently, my workflow was to call or email the state environmental agency and ask for all the available permit numbers in the watershed. Some states maintain and provide a GIS file with spatial locations (this was preferred, but finding out when that file was last updated was can be difficult). Once I obtained the permit numbers, I log onto ECHO and type the permits numbers in, and individually retrieve discharge records for each facility. This requires quite a bit of clicking and typing, and is prone to error. Furthermore, there is no way to verify the records I received are correct. If I mistyped a number or received a wrong record from the agency, I have little way of catching the error.</p>
 <p>Thankfully, ECHO provides web access through “GET” and REST services to provide some level of automated and reproducible data access. I recently wrote the <a href="https://mps9506.github.io/echor/index.html"><code>echor</code></a> package to provide access to these service in R. This was my first attempt at developing an R package <strong>and</strong> my first attempt at utilizing data APIs in a programatic way.</p>
@@ -987,12 +1491,21 @@
 <h2 id="download-facility-specific-discharge-records">Download facility specific discharge records</h2>
 <p>If you have a facility permit number, downloading the discharge records is pretty simple. I made every attempt to return records in “tidy” long format to make plotting and further analysis easy. If you haven’t already, install <code>echor</code> from CRAN.</p>
 <div class="layout-chunk" data-layout="l-body">
-
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages</a></span><span class='op'>(</span><span class='st'>"echor"</span><span class='op'>)</span>
+</code></pre>
+</div>
 </div>
 <p><code>echoGetEffluent()</code> will return the facility reported discharges. Arguments are available to specify the permit number, date range, and parameter code (the pollutant of interest). A function is also provided to search for parameter codes: <code>echoWaterGetParams()</code>. In the following example I want to identify the parameter code for daily flow, then get the reported discharge for a facility that I already have a permit number for.</p>
 <div class="layout-chunk" data-layout="l-body">
-<pre><code>
-# A tibble: 2 x 2
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'>## Load package</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>echor</span><span class='op'>)</span>
+<span class='co'>## Find the parameter code</span>
+<span class='fu'><a href='https://rdrr.io/pkg/echor/man/echoWaterGetParams.html'>echoWaterGetParams</a></span><span class='op'>(</span>term <span class='op'>=</span> <span class='st'>"Flow, in conduit"</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 2 x 2
   ValueCode ValueDescription                        
   &lt;chr&gt;     &lt;chr&gt;                                   
 1 51725     Flow, in conduit or thru treatment plant
@@ -1001,160 +1514,232 @@
 <p>Here, I get two parameter codes. I happen to know I want to use parameter code <code>50050</code>. Searching for the right terminology and correct code can be difficult and might require some trial and error.</p>
 <p>The next step is to obtain the discharge records:</p>
 <div class="layout-chunk" data-layout="l-body">
-<pre><code>
-Rows: 38
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/echor/man/echoGetEffluent.html'>echoGetEffluent</a></span><span class='op'>(</span>p_id <span class='op'>=</span> <span class='st'>'tx0119407'</span>, parameter_code <span class='op'>=</span> <span class='st'>'50050'</span>,
+                      start_date <span class='op'>=</span> <span class='st'>"01/01/2017"</span>, end_date <span class='op'>=</span> <span class='st'>"08/30/2018"</span><span class='op'>)</span>
+<span class='fu'>tibble</span><span class='fu'>::</span><span class='fu'><a href='https://pillar.r-lib.org/reference/glimpse.html'>glimpse</a></span><span class='op'>(</span><span class='va'>df</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>Rows: 38
 Columns: 61
-$ activity_id                 &lt;chr&gt; &quot;3600178396&quot;, &quot;3600178396&quot;, &quot;...
-$ npdes_id                    &lt;chr&gt; &quot;TX0119407&quot;, &quot;TX0119407&quot;, &quot;TX...
-$ version_nmbr                &lt;chr&gt; &quot;4&quot;, &quot;4&quot;, &quot;4&quot;, &quot;4&quot;, &quot;4&quot;, &quot;4&quot;,...
-$ perm_feature_id             &lt;chr&gt; &quot;3600049681&quot;, &quot;3600049681&quot;, &quot;...
-$ perm_feature_nmbr           &lt;chr&gt; &quot;001&quot;, &quot;001&quot;, &quot;001&quot;, &quot;001&quot;, &quot;...
-$ perm_feature_type_code      &lt;chr&gt; &quot;EXO&quot;, &quot;EXO&quot;, &quot;EXO&quot;, &quot;EXO&quot;, &quot;...
-$ perm_feature_type_desc      &lt;chr&gt; &quot;External Outfall&quot;, &quot;External...
-$ limit_set_id                &lt;chr&gt; &quot;3600061722&quot;, &quot;3600061722&quot;, &quot;...
-$ limit_set_schedule_id       &lt;chr&gt; &quot;3600073706&quot;, &quot;3600073706&quot;, &quot;...
-$ limit_id                    &lt;chr&gt; &quot;3600437316&quot;, &quot;3600437316&quot;, &quot;...
-$ limit_type_code             &lt;chr&gt; &quot;ENF&quot;, &quot;ENF&quot;, &quot;ENF&quot;, &quot;ENF&quot;, &quot;...
-$ limit_begin_date            &lt;chr&gt; &quot;08/01/2015&quot;, &quot;08/01/2015&quot;, &quot;...
-$ limit_end_date              &lt;chr&gt; &quot;03/01/2020&quot;, &quot;03/01/2020&quot;, &quot;...
-$ nmbr_of_submission          &lt;chr&gt; &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, &quot;1&quot;,...
-$ parameter_code              &lt;chr&gt; &quot;50050&quot;, &quot;50050&quot;, &quot;50050&quot;, &quot;5...
-$ parameter_desc              &lt;chr&gt; &quot;Flow, in conduit or thru tre...
-$ monitoring_location_code    &lt;chr&gt; &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, &quot;1&quot;,...
-$ monitoring_location_desc    &lt;chr&gt; &quot;Effluent Gross&quot;, &quot;Effluent G...
-$ stay_type_code              &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;...
-$ stay_type_desc              &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;...
-$ limit_value_id              &lt;chr&gt; &quot;3600678122&quot;, &quot;3600678123&quot;, &quot;...
-$ limit_value_type_code       &lt;chr&gt; &quot;Q2&quot;, &quot;Q1&quot;, &quot;Q2&quot;, &quot;Q1&quot;, &quot;Q2&quot;,...
-$ limit_value_type_desc       &lt;chr&gt; &quot;Quantity2&quot;, &quot;Quantity1&quot;, &quot;Qu...
-$ limit_value_nmbr            &lt;chr&gt; &quot;&quot;, &quot;.131&quot;, &quot;&quot;, &quot;.131&quot;, &quot;&quot;, &quot;...
-$ limit_unit_code             &lt;chr&gt; &quot;03&quot;, &quot;03&quot;, &quot;03&quot;, &quot;03&quot;, &quot;03&quot;,...
-$ limit_unit_desc             &lt;chr&gt; &quot;MGD&quot;, &quot;MGD&quot;, &quot;MGD&quot;, &quot;MGD&quot;, &quot;...
-$ standard_unit_code          &lt;chr&gt; &quot;03&quot;, &quot;03&quot;, &quot;03&quot;, &quot;03&quot;, &quot;03&quot;,...
-$ standard_unit_desc          &lt;chr&gt; &quot;MGD&quot;, &quot;MGD&quot;, &quot;MGD&quot;, &quot;MGD&quot;, &quot;...
-$ limit_value_standard_units  &lt;chr&gt; &quot;&quot;, &quot;.131&quot;, &quot;&quot;, &quot;.131&quot;, &quot;&quot;, &quot;...
-$ statistical_base_code       &lt;chr&gt; &quot;DD&quot;, &quot;DB&quot;, &quot;DD&quot;, &quot;DB&quot;, &quot;DD&quot;,...
-$ statistical_base_short_desc &lt;chr&gt; &quot;DAILY MX&quot;, &quot;DAILY AV&quot;, &quot;DAIL...
-$ statistical_base_type_code  &lt;chr&gt; &quot;MAX&quot;, &quot;AVG&quot;, &quot;MAX&quot;, &quot;AVG&quot;, &quot;...
-$ statistical_base_type_desc  &lt;chr&gt; &quot;Maximum&quot;, &quot;Average&quot;, &quot;Maximu...
-$ limit_value_qualifier_code  &lt;chr&gt; &quot;&quot;, &quot;&lt;=&quot;, &quot;&quot;, &quot;&lt;=&quot;, &quot;&quot;, &quot;&lt;=&quot;,...
-$ stay_value_nmbr             &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;...
-$ dmr_event_id                &lt;chr&gt; &quot;3600838828&quot;, &quot;3600838828&quot;, &quot;...
-$ monitoring_period_end_date  &lt;chr&gt; &quot;01/31/2017&quot;, &quot;01/31/2017&quot;, &quot;...
-$ dmr_form_value_id           &lt;chr&gt; &quot;3610877673&quot;, &quot;3610877668&quot;, &quot;...
-$ value_type_code             &lt;chr&gt; &quot;Q2&quot;, &quot;Q1&quot;, &quot;Q2&quot;, &quot;Q1&quot;, &quot;Q2&quot;,...
-$ value_type_desc             &lt;chr&gt; &quot;Quantity2&quot;, &quot;Quantity1&quot;, &quot;Qu...
-$ dmr_value_id                &lt;chr&gt; &quot;3634771542&quot;, &quot;3634771541&quot;, &quot;...
-$ dmr_value_nmbr              &lt;chr&gt; &quot;.0878&quot;, &quot;.0603&quot;, &quot;.0709&quot;, &quot;....
-$ dmr_unit_code               &lt;chr&gt; &quot;03&quot;, &quot;03&quot;, &quot;03&quot;, &quot;03&quot;, &quot;03&quot;,...
-$ dmr_unit_desc               &lt;chr&gt; &quot;MGD&quot;, &quot;MGD&quot;, &quot;MGD&quot;, &quot;MGD&quot;, &quot;...
-$ dmr_value_standard_units    &lt;chr&gt; &quot;.0878&quot;, &quot;.0603&quot;, &quot;.0709&quot;, &quot;....
-$ dmr_value_qualifier_code    &lt;chr&gt; &quot;=&quot;, &quot;=&quot;, &quot;=&quot;, &quot;=&quot;, &quot;=&quot;, &quot;=&quot;,...
-$ value_received_date         &lt;chr&gt; &quot;02/16/2017&quot;, &quot;02/16/2017&quot;, &quot;...
-$ days_late                   &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;...
-$ nodi_code                   &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;...
-$ nodi_desc                   &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;...
-$ exceedence_pct              &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;...
-$ npdes_violation_id          &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;...
-$ violation_code              &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;...
-$ violation_desc              &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;...
-$ rnc_detection_code          &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;...
-$ rnc_detection_desc          &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;...
-$ rnc_detection_date          &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;...
-$ rnc_resolution_code         &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;...
-$ rnc_resolution_desc         &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;...
-$ rnc_resolution_date         &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;...
-$ violation_severity          &lt;chr&gt; &quot;No Violation Identified&quot;, &quot;N...</code></pre>
+$ activity_id                 &lt;chr&gt; &quot;3600178396&quot;, &quot;3600178396&quot;, &quot;360~
+$ npdes_id                    &lt;chr&gt; &quot;TX0119407&quot;, &quot;TX0119407&quot;, &quot;TX011~
+$ version_nmbr                &lt;chr&gt; &quot;4&quot;, &quot;4&quot;, &quot;4&quot;, &quot;4&quot;, &quot;4&quot;, &quot;4&quot;, &quot;4~
+$ perm_feature_id             &lt;chr&gt; &quot;3600049681&quot;, &quot;3600049681&quot;, &quot;360~
+$ perm_feature_nmbr           &lt;chr&gt; &quot;001&quot;, &quot;001&quot;, &quot;001&quot;, &quot;001&quot;, &quot;001~
+$ perm_feature_type_code      &lt;chr&gt; &quot;EXO&quot;, &quot;EXO&quot;, &quot;EXO&quot;, &quot;EXO&quot;, &quot;EXO~
+$ perm_feature_type_desc      &lt;chr&gt; &quot;External Outfall&quot;, &quot;External Ou~
+$ limit_set_id                &lt;chr&gt; &quot;3600061722&quot;, &quot;3600061722&quot;, &quot;360~
+$ limit_set_schedule_id       &lt;chr&gt; &quot;3600073706&quot;, &quot;3600073706&quot;, &quot;360~
+$ limit_id                    &lt;chr&gt; &quot;3600437316&quot;, &quot;3600437316&quot;, &quot;360~
+$ limit_type_code             &lt;chr&gt; &quot;ENF&quot;, &quot;ENF&quot;, &quot;ENF&quot;, &quot;ENF&quot;, &quot;ENF~
+$ limit_begin_date            &lt;chr&gt; &quot;08/01/2015&quot;, &quot;08/01/2015&quot;, &quot;08/~
+$ limit_end_date              &lt;chr&gt; &quot;03/01/2020&quot;, &quot;03/01/2020&quot;, &quot;03/~
+$ nmbr_of_submission          &lt;chr&gt; &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, &quot;1~
+$ parameter_code              &lt;chr&gt; &quot;50050&quot;, &quot;50050&quot;, &quot;50050&quot;, &quot;5005~
+$ parameter_desc              &lt;chr&gt; &quot;Flow, in conduit or thru treatm~
+$ monitoring_location_code    &lt;chr&gt; &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, &quot;1~
+$ monitoring_location_desc    &lt;chr&gt; &quot;Effluent Gross&quot;, &quot;Effluent Gros~
+$ stay_type_code              &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, ~
+$ stay_type_desc              &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, ~
+$ limit_value_id              &lt;chr&gt; &quot;3600678122&quot;, &quot;3600678123&quot;, &quot;360~
+$ limit_value_type_code       &lt;chr&gt; &quot;Q2&quot;, &quot;Q1&quot;, &quot;Q2&quot;, &quot;Q1&quot;, &quot;Q2&quot;, &quot;Q~
+$ limit_value_type_desc       &lt;chr&gt; &quot;Quantity2&quot;, &quot;Quantity1&quot;, &quot;Quant~
+$ limit_value_nmbr            &lt;chr&gt; &quot;&quot;, &quot;.131&quot;, &quot;&quot;, &quot;.131&quot;, &quot;&quot;, &quot;.13~
+$ limit_unit_code             &lt;chr&gt; &quot;03&quot;, &quot;03&quot;, &quot;03&quot;, &quot;03&quot;, &quot;03&quot;, &quot;0~
+$ limit_unit_desc             &lt;chr&gt; &quot;MGD&quot;, &quot;MGD&quot;, &quot;MGD&quot;, &quot;MGD&quot;, &quot;MGD~
+$ standard_unit_code          &lt;chr&gt; &quot;03&quot;, &quot;03&quot;, &quot;03&quot;, &quot;03&quot;, &quot;03&quot;, &quot;0~
+$ standard_unit_desc          &lt;chr&gt; &quot;MGD&quot;, &quot;MGD&quot;, &quot;MGD&quot;, &quot;MGD&quot;, &quot;MGD~
+$ limit_value_standard_units  &lt;chr&gt; &quot;&quot;, &quot;.131&quot;, &quot;&quot;, &quot;.131&quot;, &quot;&quot;, &quot;.13~
+$ statistical_base_code       &lt;chr&gt; &quot;DD&quot;, &quot;DB&quot;, &quot;DD&quot;, &quot;DB&quot;, &quot;DD&quot;, &quot;D~
+$ statistical_base_short_desc &lt;chr&gt; &quot;DAILY MX&quot;, &quot;DAILY AV&quot;, &quot;DAILY M~
+$ statistical_base_type_code  &lt;chr&gt; &quot;MAX&quot;, &quot;AVG&quot;, &quot;MAX&quot;, &quot;AVG&quot;, &quot;MAX~
+$ statistical_base_type_desc  &lt;chr&gt; &quot;Maximum&quot;, &quot;Average&quot;, &quot;Maximum&quot;,~
+$ limit_value_qualifier_code  &lt;chr&gt; &quot;&quot;, &quot;&lt;=&quot;, &quot;&quot;, &quot;&lt;=&quot;, &quot;&quot;, &quot;&lt;=&quot;, &quot;&lt;~
+$ stay_value_nmbr             &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, ~
+$ dmr_event_id                &lt;chr&gt; &quot;3600838828&quot;, &quot;3600838828&quot;, &quot;360~
+$ monitoring_period_end_date  &lt;chr&gt; &quot;01/31/2017&quot;, &quot;01/31/2017&quot;, &quot;02/~
+$ dmr_form_value_id           &lt;chr&gt; &quot;3610877673&quot;, &quot;3610877668&quot;, &quot;361~
+$ value_type_code             &lt;chr&gt; &quot;Q2&quot;, &quot;Q1&quot;, &quot;Q2&quot;, &quot;Q1&quot;, &quot;Q2&quot;, &quot;Q~
+$ value_type_desc             &lt;chr&gt; &quot;Quantity2&quot;, &quot;Quantity1&quot;, &quot;Quant~
+$ dmr_value_id                &lt;chr&gt; &quot;3634771542&quot;, &quot;3634771541&quot;, &quot;363~
+$ dmr_value_nmbr              &lt;chr&gt; &quot;.0878&quot;, &quot;.0603&quot;, &quot;.0709&quot;, &quot;.053~
+$ dmr_unit_code               &lt;chr&gt; &quot;03&quot;, &quot;03&quot;, &quot;03&quot;, &quot;03&quot;, &quot;03&quot;, &quot;0~
+$ dmr_unit_desc               &lt;chr&gt; &quot;MGD&quot;, &quot;MGD&quot;, &quot;MGD&quot;, &quot;MGD&quot;, &quot;MGD~
+$ dmr_value_standard_units    &lt;chr&gt; &quot;.0878&quot;, &quot;.0603&quot;, &quot;.0709&quot;, &quot;.053~
+$ dmr_value_qualifier_code    &lt;chr&gt; &quot;=&quot;, &quot;=&quot;, &quot;=&quot;, &quot;=&quot;, &quot;=&quot;, &quot;=&quot;, &quot;=~
+$ value_received_date         &lt;chr&gt; &quot;02/16/2017&quot;, &quot;02/16/2017&quot;, &quot;03/~
+$ days_late                   &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, ~
+$ nodi_code                   &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, ~
+$ nodi_desc                   &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, ~
+$ exceedence_pct              &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, ~
+$ npdes_violation_id          &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, ~
+$ violation_code              &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, ~
+$ violation_desc              &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, ~
+$ rnc_detection_code          &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, ~
+$ rnc_detection_desc          &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, ~
+$ rnc_detection_date          &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, ~
+$ rnc_resolution_code         &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, ~
+$ rnc_resolution_desc         &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, ~
+$ rnc_resolution_date         &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, ~
+$ violation_severity          &lt;chr&gt; &quot;No Violation Identified&quot;, &quot;No V~</code></pre>
 </div>
 <p>The returned data_frame includes a row for each reporting period from the facility and a row for each statistical type (daily average and daily max in this case). Please note, that if you include the available <code>start_date</code> and <code>end_date</code> arguments in the function, they must be entered as <code>"mm/dd/yyyy"</code>.</p>
 <p>Use <code>dplyr</code> to do some data tidying and <code>ggplot2</code> to make a quick plot of this data:</p>
 <div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ggplot2.tidyverse.org'>ggplot2</a></span><span class='op'>)</span>
+
+<span class='va'>df</span> <span class='op'>&lt;-</span> <span class='va'>df</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>monitoring_period_end_date <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='va'>monitoring_period_end_date</span>, <span class='st'>"%m/%d/%Y"</span><span class='op'>)</span>,
+         dmr_value_nmbr <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='va'>dmr_value_nmbr</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>monitoring_period_end_date</span>, <span class='va'>dmr_value_nmbr</span>, color <span class='op'>=</span> <span class='va'>statistical_base_type_desc</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>monitoring_period_end_date</span>, <span class='va'>dmr_value_nmbr</span>, color <span class='op'>=</span> <span class='va'>statistical_base_type_desc</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_y_log10</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='st'>"Date"</span>, y <span class='op'>=</span> <span class='st'>"Flow (MGD)"</span>, 
+       title <span class='op'>=</span> <span class='st'>"Facility Reported Discharge"</span>, 
+       subtitle <span class='op'>=</span> <span class='st'>"Jan-2017 through Aug-2018"</span>,
+       caption <span class='op'>=</span> <span class='st'>"source: EPA ECHO"</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_bw</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
 <p><img src="introducing_echor_files/figure-html5/plotone-1.png" width="624" /></p>
 </div>
 <h2 id="find-facilities-and-data">Find facilities and data</h2>
 <p>Searching ECHO for for permit holders by location or facility characterisitics is really valuable, albeit potentially verbose. The functions available for facility search have a <a href="https://echo.epa.gov/tools/web-services/facility-search-water#!/Facility_Information/get_cwa_rest_services_get_facilities"><strong>long</strong> list of available search arguments</a>. Here I will demonstrate a search by hydrologic unit code, a useful search area for those in hydrology.</p>
 <div class="layout-chunk" data-layout="l-body">
-<pre><code>
-Rows: 96
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/echor/man/echoWaterGetFacilityInfo.html'>echoWaterGetFacilityInfo</a></span><span class='op'>(</span>p_huc <span class='op'>=</span> <span class='st'>"12100401"</span><span class='op'>)</span>
+<span class='fu'>tibble</span><span class='fu'>::</span><span class='fu'><a href='https://pillar.r-lib.org/reference/glimpse.html'>glimpse</a></span><span class='op'>(</span><span class='va'>df</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>Rows: 109
 Columns: 26
-$ CWPName                  &lt;chr&gt; &quot;3280 FARM&quot;, &quot;AES DRILLING FLUID...
-$ SourceID                 &lt;chr&gt; &quot;TXG130056&quot;, &quot;TXR05CX83&quot;, &quot;TXG11...
-$ CWPStreet                &lt;chr&gt; &quot;1297 FM 3280&quot;, &quot;27088 US 59 RD&quot;...
-$ CWPCity                  &lt;chr&gt; &quot;PALACIOS&quot;, &quot;EL CAMPO&quot;, &quot;PALACIO...
-$ CWPState                 &lt;chr&gt; &quot;TX&quot;, &quot;TX&quot;, &quot;TX&quot;, &quot;TX&quot;, &quot;TX&quot;, &quot;T...
-$ CWPStateDistrict         &lt;chr&gt; &quot;14&quot;, &quot;&quot;, &quot;12&quot;, &quot;14&quot;, &quot;14&quot;, &quot;12&quot;...
-$ CWPZip                   &lt;chr&gt; &quot;774651779&quot;, &quot;77437-9753&quot;, &quot;7746...
-$ MasterExternalPermitNmbr &lt;chr&gt; &quot;TXG130000&quot;, &quot;TXR050000&quot;, &quot;TXG11...
-$ RegistryID               &lt;chr&gt; &quot;110045502639&quot;, &quot;110070367509&quot;, ...
-$ CWPCounty                &lt;chr&gt; &quot;Jackson&quot;, &quot;&quot;, &quot;Matagorda&quot;, &quot;Cal...
-$ CWPEPARegion             &lt;chr&gt; &quot;06&quot;, &quot;06&quot;, &quot;06&quot;, &quot;06&quot;, &quot;06&quot;, &quot;0...
-$ FacDerivedHuc            &lt;chr&gt; &quot;12100401&quot;, &quot;12100401&quot;, &quot;1210040...
-$ FacLat                   &lt;dbl&gt; 28.69808, 29.17455, 28.72175, 28...
-$ FacLong                  &lt;dbl&gt; -96.32411, -96.29908, -96.21038,...
-$ CWPTotalDesignFlowNmbr   &lt;dbl&gt; NA, NA, NA, 92.320, NA, NA, NA, ...
-$ CWPActualAverageFlowNmbr &lt;dbl&gt; NA, NA, NA, 92.320, NA, NA, NA, ...
-$ ReceivingMs4Name         &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, ...
-$ AssociatedPollutant      &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, ...
-$ MsgpPermitType           &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, ...
-$ CWPPermitStatusDesc      &lt;chr&gt; &quot;Terminated&quot;, &quot;Effective&quot;, &quot;Effe...
-$ CWPPermitTypeDesc        &lt;chr&gt; &quot;General Permit Covered Facility...
-$ CWPIssueDate             &lt;date&gt; 2012-03-13, 2016-10-25, 2017-03...
-$ CWPEffectiveDate         &lt;date&gt; 2012-04-01, 2016-11-01, 2017-04...
-$ CWPExpirationDate        &lt;date&gt; 2016-04-17, 2021-08-13, 2021-11...
-$ CWPSNCStatusDate         &lt;date&gt; 2020-03-31, 2020-03-31, 2020-03...
-$ StateAuthGen             &lt;chr&gt; &quot;Y&quot;, &quot;Y&quot;, &quot;Y&quot;, &quot;Y&quot;, &quot;Y&quot;, &quot;Y&quot;, &quot;Y...</code></pre>
+$ CWPName                  &lt;chr&gt; &quot;3280 FARM&quot;, &quot;AES DRILLING FLUIDS E~
+$ SourceID                 &lt;chr&gt; &quot;TXG130056&quot;, &quot;TXR05CX83&quot;, &quot;TXR1597D~
+$ CWPStreet                &lt;chr&gt; &quot;1297 FM 3280&quot;, &quot;27088 US 59 RD&quot;, &quot;~
+$ CWPCity                  &lt;chr&gt; &quot;PALACIOS&quot;, &quot;EL CAMPO&quot;, &quot;EL CAMPO&quot;,~
+$ CWPState                 &lt;chr&gt; &quot;TX&quot;, &quot;TX&quot;, &quot;TX&quot;, &quot;TX&quot;, &quot;TX&quot;, &quot;TX&quot;,~
+$ CWPStateDistrict         &lt;chr&gt; &quot;14&quot;, &quot;&quot;, &quot;&quot;, &quot;12&quot;, &quot;14&quot;, &quot;14&quot;, &quot;12~
+$ CWPZip                   &lt;chr&gt; &quot;774651779&quot;, &quot;77437-9753&quot;, &quot;77437&quot;,~
+$ MasterExternalPermitNmbr &lt;chr&gt; &quot;TXG130000&quot;, &quot;TXR050000&quot;, &quot;TXR15000~
+$ RegistryID               &lt;chr&gt; &quot;110045502639&quot;, &quot;110070367509&quot;, &quot;11~
+$ CWPCounty                &lt;chr&gt; &quot;Jackson&quot;, &quot;&quot;, &quot;&quot;, &quot;Matagorda&quot;, &quot;Ca~
+$ CWPEPARegion             &lt;chr&gt; &quot;06&quot;, &quot;06&quot;, &quot;06&quot;, &quot;06&quot;, &quot;06&quot;, &quot;06&quot;,~
+$ FacDerivedHuc            &lt;chr&gt; &quot;12100401&quot;, &quot;12100401&quot;, &quot;12100401&quot;,~
+$ FacLat                   &lt;dbl&gt; 28.69808, 29.17455, 29.07067, 28.72~
+$ FacLong                  &lt;dbl&gt; -96.32411, -96.29908, -96.27350, -9~
+$ CWPTotalDesignFlowNmbr   &lt;dbl&gt; NA, NA, NA, NA, 92.320, NA, NA, NA,~
+$ CWPActualAverageFlowNmbr &lt;dbl&gt; NA, NA, NA, NA, 92.320, NA, NA, NA,~
+$ ReceivingMs4Name         &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;,~
+$ AssociatedPollutant      &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;,~
+$ MsgpPermitType           &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;,~
+$ CWPPermitStatusDesc      &lt;chr&gt; &quot;Terminated&quot;, &quot;Admin Continued&quot;, &quot;E~
+$ CWPPermitTypeDesc        &lt;chr&gt; &quot;General Permit Covered Facility&quot;, ~
+$ CWPIssueDate             &lt;date&gt; 2012-03-13, 2016-10-25, 2020-10-05~
+$ CWPEffectiveDate         &lt;date&gt; 2012-04-01, 2016-11-01, 2020-11-01~
+$ CWPExpirationDate        &lt;date&gt; 2016-04-17, 2021-08-13, 2023-03-04~
+$ CWPSNCStatusDate         &lt;date&gt; 2021-03-31, 2021-03-31, 2021-03-31~
+$ LastDMRValueRcvdDate     &lt;date&gt; 2014-12-10, NA, NA, 2021-07-01, 20~</code></pre>
 </div>
 <p>I found 47 permits, some are terminated some active. By default, the facility search function return a data_frame with variables I deemed useful. However, ECHO provides a a whole host of possible variables (in my state, these are often unfortunately left blank). <code>echoWaterGetParams()</code> will return a dataframe with these variable names, description and ColumnID number. Use the qcolumn argument in the search function to specify what variables you would like returned. According to <code>echoWaterGetParams()</code> there are 299 possible return variables. Certain variables are always returned regardless of the qcolumns argument specified. If I want to find all the POTW (public wastewater treatment plants), I need to specify qcolumn 27, which I cfound using the <code>echoWaterGetMeta()</code> function.</p>
 <div class="layout-chunk" data-layout="l-body">
-<pre><code>
-Rows: 232
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>meta</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/echor/man/echoWaterGetMeta.html'>echoWaterGetMeta</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='fu'>tibble</span><span class='fu'>::</span><span class='fu'><a href='https://pillar.r-lib.org/reference/glimpse.html'>glimpse</a></span><span class='op'>(</span><span class='va'>meta</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>Rows: 252
 Columns: 6
-$ ColumnName  &lt;chr&gt; &quot;CWP_NAME&quot;, &quot;SOURCE_ID&quot;, &quot;CWP_STREET&quot;, &quot;CWP_C...
-$ DataType    &lt;chr&gt; &quot;VARCHAR2&quot;, &quot;VARCHAR2&quot;, &quot;VARCHAR2&quot;, &quot;VARCHAR2...
-$ DataLength  &lt;chr&gt; &quot;200&quot;, &quot;30&quot;, &quot;200&quot;, &quot;100&quot;, &quot;2&quot;, &quot;5&quot;, &quot;10&quot;, &quot;9...
-$ ColumnID    &lt;chr&gt; &quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, &quot;5&quot;, &quot;6&quot;, &quot;7&quot;, &quot;8&quot;, &quot;9&quot;, ...
-$ ObjectName  &lt;chr&gt; &quot;CWPName&quot;, &quot;SourceID&quot;, &quot;CWPStreet&quot;, &quot;CWPCity&quot;...
-$ Description &lt;chr&gt; &quot;Facility or permit holder name, as maintaine...</code></pre>
+$ ColumnName  &lt;chr&gt; &quot;CWP_NAME&quot;, &quot;SOURCE_ID&quot;, &quot;CWP_STREET&quot;, &quot;CWP_CITY~
+$ DataType    &lt;chr&gt; &quot;VARCHAR2&quot;, &quot;VARCHAR2&quot;, &quot;VARCHAR2&quot;, &quot;VARCHAR2&quot;, ~
+$ DataLength  &lt;chr&gt; &quot;200&quot;, &quot;30&quot;, &quot;200&quot;, &quot;100&quot;, &quot;2&quot;, &quot;5&quot;, &quot;10&quot;, &quot;9&quot;, ~
+$ ColumnID    &lt;chr&gt; &quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, &quot;5&quot;, &quot;6&quot;, &quot;7&quot;, &quot;8&quot;, &quot;9&quot;, &quot;10~
+$ ObjectName  &lt;chr&gt; &quot;CWPName&quot;, &quot;SourceID&quot;, &quot;CWPStreet&quot;, &quot;CWPCity&quot;, &quot;~
+$ Description &lt;chr&gt; &quot;Facility or permit holder name, as maintained i~</code></pre>
 </div>
 <div class="layout-chunk" data-layout="l-body">
-<pre><code>
-# A tibble: 96 x 6
-   CWPName     SourceID  FacDerivedHuc FacLat FacLong CWPFacilityType~
-   &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;          &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;           
- 1 3280 FARM   TXG130056 12100401        28.7   -96.3 NON-POTW        
- 2 AES DRILLI~ TXR05CX83 12100401        29.2   -96.3 NON-POTW        
- 3 ALAMO CONC~ TXG110081 12100401        28.7   -96.2 NON-POTW        
- 4 ALCOA POIN~ TX0004715 12100401        28.7   -96.6 NON-POTW        
- 5 APEKS AQUA~ TXG130042 12100401        28.7   -96.4 NON-POTW        
- 6 BLESSING    TXG130053 12100401        28.9   -96.3 NON-POTW        
- 7 BLESSING T~ TXR15693Q 12100401        28.7   -96.5 NON-POTW        
- 8 BOCA CHICA~ TX0098248 12100401        28.7   -96.4 NON-POTW        
- 9 BON L. CAM~ TX0030597 12100401        29.1   -96.2 NON-POTW        
-10 BOWERS SHR~ TX0112691 12100401        28.7   -96.2 NON-POTW        
-# ... with 86 more rows</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/echor/man/echoWaterGetFacilityInfo.html'>echoWaterGetFacilityInfo</a></span><span class='op'>(</span>p_huc <span class='op'>=</span> <span class='st'>"12100401"</span>, qcolumns <span class='op'>=</span> <span class='st'>"1,2,14,23,24,27"</span><span class='op'>)</span>
+<span class='va'>df</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 109 x 6
+   CWPName      SourceID FacDerivedHuc FacLat FacLong CWPFacilityType~
+   &lt;chr&gt;        &lt;chr&gt;    &lt;chr&gt;          &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;           
+ 1 3280 FARM    TXG1300~ 12100401        28.7   -96.3 NON-POTW        
+ 2 AES DRILLIN~ TXR05CX~ 12100401        29.2   -96.3 NON-POTW        
+ 3 AKTINA SOLAR TXR1597~ 12100401        29.1   -96.3 NON-POTW        
+ 4 ALAMO CONCR~ TXG1100~ 12100401        28.7   -96.2 NON-POTW        
+ 5 ALCOA POINT~ TX00047~ 12100401        28.7   -96.6 NON-POTW        
+ 6 APEKS AQUAC~ TXG1300~ 12100401        28.7   -96.4 NON-POTW        
+ 7 BLESSING     TXG1300~ 12100401        28.9   -96.3 NON-POTW        
+ 8 BLESSING TH~ TXR1529~ 12100401        28.9   -96.2 NON-POTW        
+ 9 BLESSING TO~ TXR1569~ 12100401        28.7   -96.5 NON-POTW        
+10 BOCA CHICA ~ TX00982~ 12100401        28.7   -96.4 NON-POTW        
+# ... with 99 more rows</code></pre>
 </div>
 <p>I can use this data_frame and <code>purrr::pmap</code> to retrieve discharge information. I will look up bacteria concentrations this time.</p>
 <div class="layout-chunk" data-layout="l-body">
-<pre><code>
-Rows: 7
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>df</span> <span class='op'>&lt;-</span> <span class='va'>df</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>CWPFacilityTypeIndicator</span> <span class='op'>==</span> <span class='st'>"POTW"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span>p_id <span class='op'>=</span> <span class='va'>SourceID</span><span class='op'>)</span>
+
+<span class='va'>reports</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/echor/man/downloadDMRs.html'>downloadDMRs</a></span><span class='op'>(</span><span class='va'>df</span>, idColumn <span class='op'>=</span> <span class='va'>p_id</span>,
+                        parameter_code <span class='op'>=</span> <span class='st'>"51040"</span>,
+                        start_date <span class='op'>=</span> <span class='st'>"01/01/2010"</span>,
+                        end_date <span class='op'>=</span> <span class='st'>"12/30/2017"</span><span class='op'>)</span>
+<span class='fu'><a href='https://pillar.r-lib.org/reference/glimpse.html'>glimpse</a></span><span class='op'>(</span><span class='va'>reports</span><span class='op'>)</span>                         
+</code></pre>
+</div>
+<pre><code>Rows: 8
 Columns: 2
-$ p_id &lt;chr&gt; &quot;TX0021474&quot;, &quot;TX0023051&quot;, &quot;TX0105104&quot;, &quot;TX0064998&quot;, ...
-$ dmr  &lt;list&gt; [&lt;spec_tbl_df[146 x 61]&gt;, &lt;spec_tbl_df[0 x 61]&gt;, &lt;s...</code></pre>
+$ p_id &lt;chr&gt; &quot;TX0021474&quot;, &quot;TX0023051&quot;, &quot;TX0023167&quot;, &quot;TX0105104&quot;, &quot;TX~
+$ dmr  &lt;list&gt; [&lt;spec_tbl_df[146 x 61]&gt;], [&lt;spec_tbl_df[0 x 61]&gt;], [&lt;~</code></pre>
 </div>
 <p>Very quickly, we just found all the POTWs that discharge treated wastewater in the watershed of interest and pulled in their reported discharges. Now we can plot the data and call it a day.</p>
 <div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>reports</span> <span class='op'>&lt;-</span> <span class='va'>reports</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>tidyr</span><span class='fu'>::</span><span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>unnest</a></span><span class='op'>(</span><span class='va'>dmr</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>monitoring_period_end_date <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='va'>monitoring_period_end_date</span>, <span class='st'>"%m/%d/%Y"</span><span class='op'>)</span>,
+         dmr_value_nmbr <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='va'>dmr_value_nmbr</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>reports</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>monitoring_period_end_date</span>, <span class='va'>dmr_value_nmbr</span>, color <span class='op'>=</span> <span class='va'>p_id</span><span class='op'>)</span>, alpha <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>monitoring_period_end_date</span>, <span class='va'>dmr_value_nmbr</span>, color <span class='op'>=</span> <span class='va'>p_id</span><span class='op'>)</span>, alpha <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>statistical_base_short_desc</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_y_log10</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='st'>"Date"</span>, y <span class='op'>=</span> <span class='st'>"Bacteria (MPN/100mL)"</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_bw</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
 <p><img src="introducing_echor_files/figure-html5/finalplot2-1.png" width="624" /></p>
 </div>
 <div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>reports</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_density.html'>geom_density</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>dmr_value_nmbr</span>, fill <span class='op'>=</span> <span class='va'>p_id</span>, color <span class='op'>=</span> <span class='va'>p_id</span><span class='op'>)</span>, alpha <span class='op'>=</span> <span class='fl'>0.5</span>, trim <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>statistical_base_short_desc</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_x_log10</a></span><span class='op'>(</span>labels <span class='op'>=</span> <span class='fu'>scales</span><span class='fu'>::</span><span class='va'><a href='https://scales.r-lib.org/reference/label_number.html'>comma</a></span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='st'>"Bacteria (MPN/100mL)"</span>, y <span class='op'>=</span> <span class='st'>"Density"</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_bw</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
 <p><img src="introducing_echor_files/figure-html5/finalplot1-1.png" width="624" data-distill-preview=1 /></p>
 </div>
 <p>I was able to quickly generate some time series and density plots without ever touching the ECHO online user interface. There is plenty more documentation at:</p>
 <p><a href="https://mps9506.github.io/echor/index.html" class="uri">https://mps9506.github.io/echor/index.html</a></p>
 <p>If you have suggestions or problems, please report it at:</p>
 <p><a href="https://github.com/mps9506/echor/issues" class="uri">https://github.com/mps9506/echor/issues</a></p>
-<div id="refs" class="references" role="doc-bibliography">
-<div id="ref-Gibbs2009">
-<p>Gibbs, Carole, and Sally S. Simpson. 2009. “Measuring Corporate Environmental Crime Rates: Progress and Problems.” <em>Crime, Law and Social Change</em> 51 (1): 87–107. <a href="https://doi.org/10.1007/s10611-008-9145-1">https://doi.org/10.1007/s10611-008-9145-1</a>.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-Gibbs2009" class="csl-entry" role="doc-biblioentry">
+Gibbs, Carole, and Sally S. Simpson. 2009. <span>“Measuring Corporate Environmental Crime Rates: Progress and Problems.”</span> <em>Crime, Law and Social Change</em> 51 (1): 87–107. <a href="https://doi.org/10.1007/s10611-008-9145-1">https://doi.org/10.1007/s10611-008-9145-1</a>.
 </div>
 </div>
 <!--radix_placeholder_article_footer-->
@@ -1168,25 +1753,10 @@ $ dmr  &lt;list&gt; [&lt;spec_tbl_df[146 x 61]&gt;, &lt;spec_tbl_df[0 x 61]&gt;,
 <!--radix_placeholder_site_after_body-->
 <!--/radix_placeholder_site_after_body-->
 <!--radix_placeholder_appendices-->
-<div class="appendix-bottom"></div>
-<script id="distill-bibliography" type="text/bibtex">
-@Article{Gibbs2009,
-author="Gibbs, Carole
-and Simpson, Sally S.",
-title="Measuring corporate environmental crime rates: progress and problems",
-journal="Crime, Law and Social Change",
-year="2009",
-month="Feb",
-day="01",
-volume="51",
-number="1",
-pages="87--107",
-abstract="The problem of corporate crime rates has been the subject of debate, speculation and operationalization for decades, largely stemming from the complexity of measuring this type of crime. Examining corporate environmental crime poses challenges and creates opportunities for advancing the discussion of corporate crime rates, but criminologists are less familiar with environmental data. In the current paper, we review the strengths and weaknesses of existing environmental data that can be used to construct the components of an environmental crime rate. We also present a corporate environmental crime rate derived from data on violations of the Clean Water Act and describe problems with using it in real world data. Implications for theory, practice and future research are discussed.",
-issn="1573-0751",
-doi="10.1007/s10611-008-9145-1",
-url="https://doi.org/10.1007/s10611-008-9145-1"
-}
-</script>
+<div class="appendix-bottom">
+<h3 id="references">References</h3>
+<div id="references-listing"></div>
+</div>
 <!--/radix_placeholder_appendices-->
 <!--radix_placeholder_navigation_after_body-->
 <!--/radix_placeholder_navigation_after_body-->
