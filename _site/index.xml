@@ -7,7 +7,16 @@
     <description>Exploring open source water research.
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Thu, 15 Apr 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 15 Jul 2022 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Combine a hydrograph and hyetograph in ggplot2</title>
+      <dc:creator>Michael Schramm</dc:creator>
+      <link>https://michaelpaulschramm.com/posts/2022-07-15-hydrograph</link>
+      <description>Streamflow hydrographs and precipitation hyetographs are commonly combined into one plot by hydrologists. Here is one way to make these plots in R.</description>
+      <guid>https://michaelpaulschramm.com/posts/2022-07-15-hydrograph</guid>
+      <pubDate>Fri, 15 Jul 2022 00:00:00 +0000</pubDate>
+      <media:content url="https://michaelpaulschramm.com/posts/2022-07-15-hydrograph/2022-07-15-hydrograph_files/figure-html5/hydrograph-1.png" medium="image" type="image/png" width="3200" height="1600"/>
+    </item>
     <item>
       <title>Rayshading Precipitation Maps</title>
       <dc:creator>Michael Schramm</dc:creator>

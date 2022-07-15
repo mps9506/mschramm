@@ -5,15 +5,15 @@
       "title": "Hi.",
       "description": "A little about \\@mpschramm",
       "author": [],
-      "contents": "\r\nI’m a researcher at the Texas Water Resources Institute and Texas A&M AgriLife where I work on watershed planning and various water quality issues with stakeholders throughout the state of Texas.\r\nI like using R and working with spatial GIS data to better understand the environmental outcomes of policy and management decisions.\r\nResume\r\nCV\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-08-26T07:48:23-05:00"
+      "contents": "\r\nI’m a researcher at the Texas Water\r\nResources Institute and Texas A&M AgriLife where I work on\r\nwatershed planning and various water quality issues with stakeholders\r\nthroughout the state of Texas.\r\nI like using R and working with spatial GIS data to better understand\r\nthe environmental outcomes of policy and management decisions.\r\nResume\r\nCV\r\n\r\n\r\n\r\n",
+      "last_modified": "2022-07-15T16:57:53-05:00"
     },
     {
       "path": "index.html",
       "title": "Exploring open source water science and management",
       "author": [],
       "contents": "\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-08-26T07:48:24-05:00"
+      "last_modified": "2022-07-15T16:57:53-05:00"
     }
   ],
   "collections": ["posts/posts.json"]
