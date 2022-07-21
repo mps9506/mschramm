@@ -1861,8 +1861,13 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
       // hoverable references
       $('span.citation[data-cites]').each(function() {
-        if ($(this).children()[0].nodeName == "D-FOOTNOTE") {
-          var fn = $(this).children()[0]
+        const citeChild = $(this).children()[0]
+        // Do not process if @xyz has been used without escaping and without bibliography activated
+        // https://github.com/rstudio/distill/issues/466
+        if (citeChild === undefined) return true
+
+        if (citeChild.nodeName == "D-FOOTNOTE") {
+          var fn = citeChild
           $(this).html(fn.shadowRoot.querySelector("sup"))
           $(this).id = fn.id
           fn.remove()
@@ -2122,18 +2127,11 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
 <div class="d-article">
-<p>I’m a researcher at the <a href="http://twri.tamu.edu/">Texas Water
-Resources Institute</a> and Texas A&amp;M AgriLife where I work on
-watershed planning and various water quality issues with stakeholders
-throughout the state of Texas.</p>
-<p>I like using R and working with spatial GIS data to better understand
-the environmental outcomes of policy and management decisions.</p>
-<p><a
-href="https://raw.githubusercontent.com/mps9506/CV-RMD/master/Resume/Schramm_Resume.pdf">Resume</a></p>
-<p><a
-href="https://raw.githubusercontent.com/mps9506/CV-RMD/master/CVR/schramm-cv-long.pdf">CV</a></p>
-<div class="sourceCode" id="cb1"><pre
-class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<p>I’m a researcher at the <a href="http://twri.tamu.edu/">Texas Water Resources Institute</a> and Texas A&amp;M AgriLife where I work on watershed planning and various water quality issues with stakeholders throughout the state of Texas.</p>
+<p>I like using R and working with spatial GIS data to better understand the environmental outcomes of policy and management decisions.</p>
+<p><a href="https://raw.githubusercontent.com/mps9506/CV-RMD/master/Resume/Schramm_Resume.pdf">Resume</a></p>
+<p><a href="https://raw.githubusercontent.com/mps9506/CV-RMD/master/CVR/schramm-cv-long.pdf">CV</a></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
