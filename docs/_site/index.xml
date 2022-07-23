@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0">
   <channel>
-    <title>@mpschramm</title>
     <link>https://michaelpaulschramm.com</link>
     <atom:link href="https://michaelpaulschramm.com/index.xml" rel="self" type="application/rss+xml"/>
     <description>Exploring open source water research.
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Fri, 15 Jul 2022 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 22 Jul 2022 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Plotting drought conditions</title>
+      <dc:creator>Michael Schramm</dc:creator>
+      <link>https://michaelpaulschramm.com/posts/2022-07-22-drought</link>
+      <description>Historic drought conditions have set in across much of the US.</description>
+      <guid>https://michaelpaulschramm.com/posts/2022-07-22-drought</guid>
+      <pubDate>Fri, 22 Jul 2022 00:00:00 +0000</pubDate>
+      <media:content url="https://michaelpaulschramm.com/posts/2022-07-22-drought/2022-07-22-drought_files/figure-html5/normals-1.png" medium="image" type="image/png" width="3200" height="3200"/>
+    </item>
     <item>
       <title>Combine a hydrograph and hyetograph in ggplot2</title>
       <dc:creator>Michael Schramm</dc:creator>
