@@ -6,14 +6,14 @@
       "description": "A little about \\@mpschramm",
       "author": [],
       "contents": "\r\nI’m a researcher at the Texas Water Resources Institute and Texas A&M AgriLife where I work on watershed planning and various water quality issues with stakeholders throughout the state of Texas.\r\nI like using R and working with spatial GIS data to better understand the environmental outcomes of policy and management decisions.\r\nResume\r\nCV\r\n\r\n\r\n\r\n",
-      "last_modified": "2022-07-22T23:07:44-05:00"
+      "last_modified": "2022-09-20T15:25:33-05:00"
     },
     {
       "path": "index.html",
       "title": "Exploring open source water science and management",
       "author": [],
       "contents": "\r\n\r\n\r\n\r\n",
-      "last_modified": "2022-07-22T23:07:50-05:00"
+      "last_modified": "2022-09-20T15:25:35-05:00"
     }
   ],
   "collections": ["posts/posts.json"]

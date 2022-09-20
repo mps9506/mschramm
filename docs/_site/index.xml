@@ -7,7 +7,15 @@
     <description>Exploring open source water research.
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Fri, 22 Jul 2022 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 18 Aug 2022 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Drought condition gifs</title>
+      <dc:creator>Michael Schramm</dc:creator>
+      <link>https://michaelpaulschramm.com/posts/2022-08-18-drought</link>
+      <description>Playing with drought maps.</description>
+      <guid>https://michaelpaulschramm.com/posts/2022-08-18-drought</guid>
+      <pubDate>Thu, 18 Aug 2022 00:00:00 +0000</pubDate>
+    </item>
     <item>
       <title>Plotting drought conditions</title>
       <dc:creator>Michael Schramm</dc:creator>
