@@ -15,6 +15,7 @@
       <description>Pretending I can make beautiful maps!</description>
       <guid>https://michaelpaulschramm.com/posts/2022-09-20-lidar-rem</guid>
       <pubDate>Tue, 20 Sep 2022 00:00:00 +0000</pubDate>
+      <media:content url="https://michaelpaulschramm.com/posts/2022-09-20-lidar-rem/distill-preview.png" medium="image" type="image/png" width="1920" height="1440"/>
     </item>
     <item>
       <title>Drought condition gifs</title>
@@ -31,6 +32,7 @@
       <description>Historic drought conditions have set in across much of the US.</description>
       <guid>https://michaelpaulschramm.com/posts/2022-07-22-drought</guid>
       <pubDate>Fri, 22 Jul 2022 00:00:00 +0000</pubDate>
+      <media:content url="https://michaelpaulschramm.com/posts/2022-07-22-drought/2022-07-22-drought_files/figure-html5/normals-1.png" medium="image" type="image/png" width="3200" height="3200"/>
     </item>
     <item>
       <title>Combine a hydrograph and hyetograph in ggplot2</title>
@@ -39,6 +41,7 @@
       <description>Streamflow hydrographs and precipitation hyetographs are commonly combined into one plot by hydrologists. Here is one way to make these plots in R.</description>
       <guid>https://michaelpaulschramm.com/posts/2022-07-15-hydrograph</guid>
       <pubDate>Fri, 15 Jul 2022 00:00:00 +0000</pubDate>
+      <media:content url="https://michaelpaulschramm.com/posts/2022-07-15-hydrograph/2022-07-15-hydrograph_files/figure-html5/hydrograph-1.png" medium="image" type="image/png" width="3200" height="1600"/>
     </item>
     <item>
       <title>Rayshading Precipitation Maps</title>
@@ -47,6 +50,7 @@
       <description>I rendered some preciptiation maps of the contiguous US with rayshader.</description>
       <guid>https://michaelpaulschramm.com/posts/2021-04-15-rayshade-precipitation</guid>
       <pubDate>Thu, 15 Apr 2021 00:00:00 +0000</pubDate>
+      <media:content url="https://michaelpaulschramm.com/posts/2021-04-15-rayshade-precipitation/rayshade-precipitation_files/figure-html5/extract-1.png" medium="image" type="image/png" width="3200" height="1600"/>
     </item>
     <item>
       <title>Rayshading maps</title>
@@ -55,6 +59,7 @@
       <description>An adventure in using rayshader.</description>
       <guid>https://michaelpaulschramm.com/posts/2020-10-08-rayshading_maps</guid>
       <pubDate>Thu, 08 Oct 2020 00:00:00 +0000</pubDate>
+      <media:content url="https://michaelpaulschramm.com/posts/2020-10-08-rayshading_maps/2020-10-08-rayshading_maps_files/figure-html5/finalmap-1.png" medium="image" type="image/png" width="3200" height="1600"/>
     </item>
     <item>
       <title>Predicting estuarine salinity using simple statistical models part 2</title>
@@ -90,6 +95,7 @@
       <description>Download EPA data with R</description>
       <guid>https://michaelpaulschramm.com/posts/introducing_echor</guid>
       <pubDate>Mon, 24 Sep 2018 00:00:00 +0000</pubDate>
+      <media:content url="https://michaelpaulschramm.com/posts/introducing_echor/introducing_echor_files/figure-html5/finalplot1-1.png" medium="image" type="image/png" width="1248" height="768"/>
     </item>
     <item>
       <title>Binomial Test for Water Quality Compliance</title>
@@ -98,7 +104,7 @@
       <description>Use the binomial test to evaluate water quality compliance.</description>
       <guid>https://michaelpaulschramm.com/posts/binomial_water_quality</guid>
       <pubDate>Thu, 26 Apr 2018 00:00:00 +0000</pubDate>
-      <media:content url="https://michaelpaulschramm.com/posts/binomial_water_quality/binomial_water_quality_files/figure-html5/unnamed-chunk-1-1.png" medium="image" type="image/png" width="1248" height="768"/>
+      <media:content url="https://michaelpaulschramm.com/posts/binomial_water_quality/binomial_water_quality_files/figure-html5/output-1.png" medium="image" type="image/png" width="1536" height="768"/>
     </item>
     <item>
       <title>Date-based rolling functions</title>
@@ -107,6 +113,7 @@
       <description>Apply rolling statistics to non-routine time series data.</description>
       <guid>https://michaelpaulschramm.com/posts/date_based_rolling</guid>
       <pubDate>Wed, 04 Apr 2018 00:00:00 +0000</pubDate>
+      <media:content url="https://michaelpaulschramm.com/posts/date_based_rolling/date_based_rolling_files/figure-html5/unnamed-chunk-5-1.png" medium="image" type="image/png" width="1248" height="768"/>
     </item>
     <item>
       <title>txwater retweets</title>
@@ -115,6 +122,7 @@
       <description>Let's find out the retweet relationships for txwater twitter users.</description>
       <guid>https://michaelpaulschramm.com/posts/txwater_retweets</guid>
       <pubDate>Wed, 21 Feb 2018 00:00:00 +0000</pubDate>
+      <media:content url="https://michaelpaulschramm.com/posts/txwater_retweets/txwater_retweets_files/figure-html5/unnamed-chunk-4-1.png" medium="image" type="image/png" width="3200" height="3200"/>
     </item>
     <item>
       <title>Time-series decomposition and trend analysis in Python</title>
