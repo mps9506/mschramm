@@ -215,7 +215,7 @@ img_
 image_write(img_, "sp_confluence_annotate.png")
 ```
 
-```{r echo=FALSE, layout="l-screen-inset shaded"}
+```{r echo=FALSE, layout="l-screen-inset shaded", preview=TRUE}
 knitr::include_graphics("sp_confluence_annotate.png")
 ```
 
