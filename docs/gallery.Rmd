@@ -8,16 +8,16 @@ description: |
 
 <div class="l-page"<p><a href="https://mps-bucket-0101.s3.us-east-2.amazonaws.com/txdrought-1.png"><img src="https://mps-bucket-0101.s3.us-east-2.amazonaws.com/txdrought-1.png" style="width: 100%;" alt="Proportion of Texas in drought conditions"></a></p></div>
 
+<div class="l-page"<p><a href="https://mps-bucket-0101.s3.us-east-2.amazonaws.com/tanomaly-1.png"><img src="https://mps-bucket-0101.s3.us-east-2.amazonaws.com/tanomaly-1.png" style="width: 100%;" alt="Monthly temperature anomalies"></a></p></div>
 
-[![Monthly temperature anomalies](https://mps-bucket-0101.s3.us-east-2.amazonaws.com/tanomaly-1.png)](https://mps-bucket-0101.s3.us-east-2.amazonaws.com/tanomaly-1.png){ width="75%"}
-
-
-[![Mean annual precipition](https://mps-bucket-0101.s3.us-east-2.amazonaws.com/sp-rayshade.png)](https://mps-bucket-0101.s3.us-east-2.amazonaws.com/sp-rayshade.png){ width="75%"}
+<div class="l-page"<p><a href="https://mps-bucket-0101.s3.us-east-2.amazonaws.com/sp-rayshade.png"><img src="https://mps-bucket-0101.s3.us-east-2.amazonaws.com/sp-rayshade.png" style="width: 100%;" alt="Mean annual precipitation"></a></p></div>
 
 
 ## Social Media Networks
 
-[![txwater twitter network](https://mps-bucket-0101.s3.us-east-2.amazonaws.com/unnamed-chunk-4-1.png)](https://mps-bucket-0101.s3.us-east-2.amazonaws.com/unnamed-chunk-4-1.png){ width="75%"}
+
+<div class="l-page"<p><a href="https://mps-bucket-0101.s3.us-east-2.amazonaws.com/unnamed-chunk-4-1.png"><img src="https://mps-bucket-0101.s3.us-east-2.amazonaws.com/unnamed-chunk-4-1.png" style="width: 100%;" alt="txwater twitter network"></a></p></div>
+
 
 
 
