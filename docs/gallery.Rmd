@@ -1,0 +1,7 @@
+---
+title: "Gallery"
+description: |
+  Selected examples of data visualizations and maps I have produced.
+---
+
+[![Drought in Texas](https://mps-bucket-0101.s3.us-east-2.amazonaws.com/txdrought-1.png)](https://mps-bucket-0101.s3.us-east-2.amazonaws.com/txdrought-1.png)
