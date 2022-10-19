@@ -4,4 +4,17 @@ description: |
   Selected examples of data visualizations and maps I have produced.
 ---
 
-[![Drought in Texas](https://mps-bucket-0101.s3.us-east-2.amazonaws.com/txdrought-1.png)](https://mps-bucket-0101.s3.us-east-2.amazonaws.com/txdrought-1.png)
+## Weather and Drought
+
+[![Proportion of Texas in drought conditions](https://mps-bucket-0101.s3.us-east-2.amazonaws.com/txdrought-1.png)](https://mps-bucket-0101.s3.us-east-2.amazonaws.com/txdrought-1.png){ width=75% }
+
+
+[![Monthly temperature anomalies](https://mps-bucket-0101.s3.us-east-2.amazonaws.com/tanomaly-1.png)](https://mps-bucket-0101.s3.us-east-2.amazonaws.com/tanomaly-1.png){ width="75%"}
+
+
+[![Mean annual precipition](https://mps-bucket-0101.s3.us-east-2.amazonaws.com/sp-rayshade.png)](https://mps-bucket-0101.s3.us-east-2.amazonaws.com/sp-rayshade.png){ width="75%"}
+
+
+## Social Media Networks
+
+[![txwater twitter network](https://mps-bucket-0101.s3.us-east-2.amazonaws.com/unnamed-chunk-4-1.png)](https://mps-bucket-0101.s3.us-east-2.amazonaws.com/unnamed-chunk-4-1.png){ width="75%"}
