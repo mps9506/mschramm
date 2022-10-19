@@ -11,7 +11,7 @@ navbar:
       href: index.html
     - text: "About"
       href: about.html
-    - icon: fa fa-photo-video
+    - icon: fa fa-images
       href: gallery.html
     - icon: fa fa-rss
       href: index.xml
