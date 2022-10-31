@@ -6,13 +6,19 @@ description: |
 output_dir: "_site"
 navbar:
   title: "@mpschramm"
-  right:
-    - text: "Home"
+  left: 
+    - icon: fa fa-home
       href: index.html
-    - text: "About"
+    - icon: fa-info
       href: about.html
     - icon: fa fa-images
       href: gallery.html
+  right:
+    - icon: fa fa-mastodon
+      rel:  me
+      href: https://mastodon.social/@mpschramm
+    - icon: fa fa-github
+      href: https://github.com/mps9506
     - icon: fa fa-rss
       href: index.xml
 output: distill::distill_article
