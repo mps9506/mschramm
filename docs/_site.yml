@@ -9,17 +9,23 @@ navbar:
   search: false
   left: 
     - icon: fa fa-home
+      text: home
       href: index.html
-    - icon: fa-info
+    - icon: fa fa-info
+      text: info
       href: about.html
     - icon: fa fa-images
+      text: gllery
       href: gallery.html
   right:
-    - icon: fa fa-mastodon
+    - icon: fab fa-mastodon
+      text: mastodon
       href: https://mastodon.social/@mpschramm
     - icon: fa fa-github
+      text: github
       href: https://github.com/mps9506
     - icon: fa fa-rss
+      text: RSS
       href: index.xml
 output: distill::distill_article
 creative_commons: CC BY
