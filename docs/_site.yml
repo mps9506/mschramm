@@ -6,6 +6,7 @@ description: |
 output_dir: "_site"
 navbar:
   title: "@mpschramm"
+  search: false
   left: 
     - icon: fa fa-home
       href: index.html
@@ -15,7 +16,6 @@ navbar:
       href: gallery.html
   right:
     - icon: fa fa-mastodon
-      rel:  me
       href: https://mastodon.social/@mpschramm
     - icon: fa fa-github
       href: https://github.com/mps9506
