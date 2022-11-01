@@ -1971,7 +1971,17 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   /*-- Additional custom styles --*/
   /* Add any additional CSS rules below                      */
-  </style>
+
+
+  /* applies to gallery side by side images  */
+
+  .gallery{
+
+  display:flex;
+
+  gap: 15px;
+
+  }</style>
   <style type="text/css">
   /* base style */
 
@@ -2194,11 +2204,35 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 <div class="d-article">
 <h2 id="weather-and-drought">Weather and Drought</h2>
-<div class="l-page"<p><a href="https://mps-bucket-0101.s3.us-east-2.amazonaws.com/txdrought-1.png"><img src="https://mps-bucket-0101.s3.us-east-2.amazonaws.com/txdrought-1.png" style="width: 100%;" alt="Proportion of Texas in drought conditions"></a></p></div>
-<div class="l-page"<p><a href="https://mps-bucket-0101.s3.us-east-2.amazonaws.com/tanomaly-1.png"><img src="https://mps-bucket-0101.s3.us-east-2.amazonaws.com/tanomaly-1.png" style="width: 100%;" alt="Monthly temperature anomalies"></a></p></div>
-<div class="l-page"<p><a href="https://mps-bucket-0101.s3.us-east-2.amazonaws.com/sp-rayshade.png"><img src="https://mps-bucket-0101.s3.us-east-2.amazonaws.com/sp-rayshade.png" style="width: 100%;" alt="Mean annual precipitation"></a></p></div>
-<h2 id="social-media-networks">Social Media Networks</h2>
-<div class="l-page"<p><a href="https://mps-bucket-0101.s3.us-east-2.amazonaws.com/unnamed-chunk-4-1.png"><img src="https://mps-bucket-0101.s3.us-east-2.amazonaws.com/unnamed-chunk-4-1.png" style="width: 100%;" alt="txwater twitter network"></a></p></div>
+<div class="gallery">
+<div>
+<p>
+<a href="https://mps-bucket-0101.s3.us-east-2.amazonaws.com/txdrought-1.png"><img src="https://mps-bucket-0101.s3.us-east-2.amazonaws.com/txdrought-1.png" style="width: 100%;" alt="Proportion of Texas in drought conditions"></a>
+</p>
+</div>
+<div>
+<p>
+<a href="https://mps-bucket-0101.s3.us-east-2.amazonaws.com/tanomaly-1.png"><img src="https://mps-bucket-0101.s3.us-east-2.amazonaws.com/tanomaly-1.png" style="width: 100%;" alt="Monthly temperature anomalies"></a>
+</p>
+</div>
+</div>
+<div class="gallery">
+<div>
+<p>
+<a href="https://mps-bucket-0101.s3.us-east-2.amazonaws.com/sp-rayshade.png">
+<img src="https://mps-bucket-0101.s3.us-east-2.amazonaws.com/sp-rayshade.png" style="width: 100%;" alt="Mean annual precipitation"></a>
+</p>
+</div>
+</div>
+<h2 id="twitter">Twitter</h2>
+<div class="gallery">
+<div>
+<p>
+<a href="https://mps-bucket-0101.s3.us-east-2.amazonaws.com/unnamed-chunk-4-1.png">
+<img src="https://mps-bucket-0101.s3.us-east-2.amazonaws.com/unnamed-chunk-4-1.png" style="width: 100%;" alt="txwater twitter network"></a>
+</p>
+</div>
+</div>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->

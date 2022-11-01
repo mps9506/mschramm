@@ -79,3 +79,13 @@ d-appendix {
 /*-- Additional custom styles --*/
 /* Add any additional CSS rules below                      */
 
+
+/* applies to gallery side by side images  */
+
+.gallery{
+
+display:flex;
+
+gap: 15px;
+
+}
