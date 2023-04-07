@@ -9,12 +9,28 @@ description: |
 
 <div class="gallery">
 
+
 <div>
-<p><a href="https://mps-bucket-0101.s3.us-east-2.amazonaws.com/txdrought-1.png"><img src="https://mps-bucket-0101.s3.us-east-2.amazonaws.com/txdrought-1.png" style="width: 100%;" alt="Proportion of Texas in drought conditions"></a></p>
+<a href="#img-drought">
+<img src="https://mps-bucket-0101.s3.us-east-2.amazonaws.com/txdrought-1.png" style="width: 100%;" alt="Proportion of Texas in drought conditions">
+</a>
+
+<a href="#_" class="lightbox" id="img-drought">
+<img src="https://mps-bucket-0101.s3.us-east-2.amazonaws.com/txdrought-1.png">
+</a>
 </div>
+
+
 <div>
-<p><a href="https://mps-bucket-0101.s3.us-east-2.amazonaws.com/tanomaly-1.png"><img src="https://mps-bucket-0101.s3.us-east-2.amazonaws.com/tanomaly-1.png" style="width: 100%;" alt="Monthly temperature anomalies"></a></p>
+<a href="#img-tanomaly">
+<img src="https://mps-bucket-0101.s3.us-east-2.amazonaws.com/tanomaly-1.png" style="width: 100%;" alt="Monthly temperature anomalies.">
+</a>
+
+<a href="#_" class="lightbox" id="img-tanomaly">
+<img src="https://mps-bucket-0101.s3.us-east-2.amazonaws.com/tanomaly-1.png">
+</a>
 </div>
+
 
 </div>
 
@@ -23,9 +39,13 @@ description: |
 <div class="gallery">
 
 <div>
-<p><a href="https://mps-bucket-0101.s3.us-east-2.amazonaws.com/sp-rayshade.png">
-<img src="https://mps-bucket-0101.s3.us-east-2.amazonaws.com/sp-rayshade.png" style="width: 100%;" alt="Mean annual precipitation"></a>
-</p>
+<a href="#img-sprayshade">
+<img src="https://mps-bucket-0101.s3.us-east-2.amazonaws.com/sp-rayshade.png" style="width: 100%;" alt="Mean annual precipitation across the US with three dimensional render.">
+</a>
+
+<a href="#_" class="lightbox" id="img-sprayshade">
+<img src="https://mps-bucket-0101.s3.us-east-2.amazonaws.com/sp-rayshade.png">
+</a>
 </div>
 
 </div>
