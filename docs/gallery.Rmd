@@ -37,11 +37,11 @@ description: |
 
 <div>
 <a href="#img-twit">
-  <img src="https://mps-bucket-0101.s3.us-east-2.amazonaws.com/unnamed-chunk-4-1.png" style="width: 100%;" alt="txwater twitter network">
+<img src="https://mps-bucket-0101.s3.us-east-2.amazonaws.com/unnamed-chunk-4-1.png" style="width: 100%;" alt="txwater twitter network">
 </a>
 
-<a href="#" class="lightbox" id="img-twit">
-  <div style="background-image:url('https://mps-bucket-0101.s3.us-east-2.amazonaws.com/unnamed-chunk-4-1.png')"></div>
+<a href="#_" class="lightbox" id="img-twit">
+<img src="https://mps-bucket-0101.s3.us-east-2.amazonaws.com/unnamed-chunk-4-1.png">
 </a>
 </div>
 

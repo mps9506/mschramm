@@ -1993,34 +1993,28 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
     /* Overlay entire screen */
     position: fixed;
-    z-index: 999;
+    z-index: 9999;
+    width: 100%;
+    height: 100%;
+    text-align: center;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-
-    /* A bit of padding around image */
-    padding: 1em;
-
-    /* Translucent background */
-    background: rgba(0, 0, 0, 0.8);
+    background: black;
+    background: rgba(0,0,0,0.8);
   }
 
   /* Unhide the lightbox when it's the target */
   .lightbox:target {
     display: block;
+    /** Remove default browser outline style */
+    outline: none;
   }
 
-  .lightbox span {
-    /* Full width and height */
-    display: block;
-    width: 100%;
-    height: 100%;
-
-    /* Size and position background image */
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: contain;
+  .lightbox img {
+    /** Pad the lightbox image */
+    max-width: 90%;
+    max-height: 80%;
+    margin-top: 2%;
   }</style>
   <style type="text/css">
   /* base style */
@@ -2270,11 +2264,9 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <p><a href="#img-twit">
 <img src="https://mps-bucket-0101.s3.us-east-2.amazonaws.com/unnamed-chunk-4-1.png" style="width: 100%;" alt="txwater twitter network">
 </a></p>
-<a href="#" class="lightbox" id="img-twit">
-<div style="background-image:url(&#39;https://mps-bucket-0101.s3.us-east-2.amazonaws.com/unnamed-chunk-4-1.png&#39;)">
-
-</div>
-<p></a></p>
+<p><a href="#_" class="lightbox" id="img-twit">
+<img src="https://mps-bucket-0101.s3.us-east-2.amazonaws.com/unnamed-chunk-4-1.png">
+</a></p>
 </div>
 </div>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
