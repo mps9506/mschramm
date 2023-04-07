@@ -554,6 +554,7 @@ d-title .dt-tags {
 d-article table.gt_table td,
 d-article table.gt_table th {
   border-bottom: none;
+  font-size: 100%;
 }
 
 .html-widget {
@@ -1639,7 +1640,8 @@ function init_distill() {
       }
       var refs = $(this).attr('data-cites').split(" ");
       var refHtml = refs.map(function(ref) {
-        return "<p>" + $('#ref-' + ref).html() + "</p>";
+        // Could use CSS.escape too here, we insure backward compatibility in navigator
+        return "<p>" + $('div[id="ref-' + ref + '"]').html() + "</p>";
       }).join("\n");
       window.tippy(this, {
         allowHTML: true,
@@ -2182,7 +2184,7 @@ d-appendix d-footnote-list a.footnote-backlink {
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Binomial Test for Water Quality Compliance","description":"Use the binomial test to evaluate water quality compliance.","authors":[{"author":"Michael Schramm","authorURL":"https://michaelpaulschramm.com","affiliation":"Texas Water Resources Institute","affiliationURL":"https://twri.tamu.edu","orcidID":""}],"publishedDate":"2018-04-26T00:00:00.000-05:00","citationText":"Schramm, 2018"}
+{"title":"Binomial Test for Water Quality Compliance","description":"Use the binomial test to evaluate water quality compliance.","authors":[{"author":"Michael Schramm","authorURL":"https://michaelpaulschramm.com","affiliation":"Texas Water Resources Institute","affiliationURL":"https://twri.tamu.edu","orcidID":""}],"publishedDate":"2018-04-26T00:00:00.000-04:00","citationText":"Schramm, 2018"}
 </script>
 
 <!--/radix_placeholder_front_matter-->

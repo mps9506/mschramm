@@ -36,8 +36,8 @@ description: |
 <div class="gallery">
 
 <div>
-<p><a href="https://mps-bucket-0101.s3.us-east-2.amazonaws.com/unnamed-chunk-4-1.png">
-<img src="https://mps-bucket-0101.s3.us-east-2.amazonaws.com/unnamed-chunk-4-1.png" style="width: 100%;" alt="txwater twitter network"></a></p>
+<a href="https://mps-bucket-0101.s3.us-east-2.amazonaws.com/unnamed-chunk-4-1.png" target="_blank">
+<img src="https://mps-bucket-0101.s3.us-east-2.amazonaws.com/unnamed-chunk-4-1.png" style="width: 100%;" alt="txwater twitter network"></a>
 </div>
 
 </div>

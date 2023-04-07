@@ -552,6 +552,7 @@ d-title .dt-tags {
 d-article table.gt_table td,
 d-article table.gt_table th {
   border-bottom: none;
+  font-size: 100%;
 }
 
 .html-widget {
@@ -1637,7 +1638,8 @@ function init_distill() {
       }
       var refs = $(this).attr('data-cites').split(" ");
       var refHtml = refs.map(function(ref) {
-        return "<p>" + $('#ref-' + ref).html() + "</p>";
+        // Could use CSS.escape too here, we insure backward compatibility in navigator
+        return "<p>" + $('div[id="ref-' + ref + '"]').html() + "</p>";
       }).join("\n");
       window.tippy(this, {
         allowHTML: true,
@@ -2180,7 +2182,7 @@ d-appendix d-footnote-list a.footnote-backlink {
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Rayshading Precipitation Maps","description":"I rendered some preciptiation maps of the contiguous US with rayshader.","authors":[{"author":"Michael Schramm","authorURL":"https://michaelpaulschramm.com","affiliation":"Texas Water Resources Institute","affiliationURL":"https://twri.tamu.edu","orcidID":""}],"publishedDate":"2021-04-15T00:00:00.000-05:00","citationText":"Schramm, 2021"}
+{"title":"Rayshading Precipitation Maps","description":"I rendered some preciptiation maps of the contiguous US with rayshader.","authors":[{"author":"Michael Schramm","authorURL":"https://michaelpaulschramm.com","affiliation":"Texas Water Resources Institute","affiliationURL":"https://twri.tamu.edu","orcidID":""}],"publishedDate":"2021-04-15T00:00:00.000-04:00","citationText":"Schramm, 2021"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
