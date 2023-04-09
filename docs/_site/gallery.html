@@ -2011,10 +2011,13 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   }
 
   .lightbox img {
+    position: absolute;
+    top: 50vh;
+    left: 50vw;
     /** Pad the lightbox image */
     max-width: 90%;
     max-height: 80%;
-    margin-top: 2%;
+    transform: translate3d(-50%, -50%, 0);
   }</style>
   <style type="text/css">
   /* base style */
@@ -2237,6 +2240,17 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
 <div class="d-article">
+<h2 id="water-quality">Water Quality</h2>
+<div class="gallery">
+<div>
+<p><a href="#img-impairments">
+<img src="https://mps-bucket-0101.s3.us-east-2.amazonaws.com/impairments.png"  style="width: 100%;" alt="Change in the number of impaired assessment units in Texas for different water quality parameter groups over time.">
+</a>
+<a href="#_" class="lightbox" id="img-impairments">
+<img src=https://mps-bucket-0101.s3.us-east-2.amazonaws.com/impairments.png">
+</a></p>
+</div>
+</div>
 <h2 id="weather-and-drought">Weather and Drought</h2>
 <div class="gallery">
 <div>
