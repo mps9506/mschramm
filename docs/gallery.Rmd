@@ -13,7 +13,7 @@ description: |
 <img src="https://mps-bucket-0101.s3.us-east-2.amazonaws.com/impairments.png"  style="width: 100%;" alt="Change in the number of impaired assessment units in Texas for different water quality parameter groups over time.">
 </a>
 <a href="#_" class="lightbox" id="img-impairments">
-<img src=https://mps-bucket-0101.s3.us-east-2.amazonaws.com/impairments.png">
+<img src="https://mps-bucket-0101.s3.us-east-2.amazonaws.com/impairments.png">
 </a>
 </div>
 
